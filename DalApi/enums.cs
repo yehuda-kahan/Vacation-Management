@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    public enum IdTypes { ID, PASSPORT }
+    public enum IdTypes { ID, PASSPORT, DRIVING_LICENSE }
 
     public enum Status { ACTIVE, INACTIVE }
 

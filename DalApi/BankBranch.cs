@@ -8,11 +8,11 @@ namespace DO
 {
     public class BankBranch
     {
-        public uint BankNumber { get; private set; }
-        public string BankName { get; private set; }
-        public uint BranchNumber { get; private set; }
-        public string BranchAddress { get; private set; }
-        public string BranchCity { get; private set; }
+        public uint BankNumber { get; set; }
+        public string BankName { get; set; }
+        public uint BranchNumber { get; set; }
+        public string BranchAddress { get; set; }
+        public string BranchCity { get; set; }
         public Status Status { get; set; }
 
         public override string ToString()
