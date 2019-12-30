@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Do
+namespace DO
 {
-    public enum UnitTypeResort { Zimmer, Hotel, Camping, Apartment }
+    public enum IdTypes { ID, PASSPORT }
 
-    public enum StatusRequest { Active, ClosedOnInternen, Expiered }
+    public enum Status { ACTIVE, INACTIVE }
 
-    public enum StatusInvatation { NotYetArranged, SendMail, ClosedUnRespond, ConfirmInvatation }
+    public enum UnitType { ZIMMER, HOTEL, CAMPING, APARTMENT }
 
-    public enum Area { All, North, South, Center, Jerusalem }
+    public enum RequestStatus { OPEN, EXPIRED, CANCELLED, ORDERED }
 
-    public enum ThreeOptions { Necessary, NotIntrest, Optional }
+    public enum OrderStatus { PROCESSING, MAIL_SENT, APPROVED, NO_CLIENT_RESPONSE }
 
-    public enum IdTypes { ID, PASSPORT, VIAS }
+    public enum Area { ALL, NORTH, SOUTH, CENTER, JERUSALEM }
+
+    public enum ThreeOptions { YES, MAYBE, NO }
 }

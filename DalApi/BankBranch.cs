@@ -13,13 +13,14 @@ namespace DO
         public uint BranchNumber { get; private set; }
         public string BranchAddress { get; private set; }
         public string BranchCity { get; private set; }
+        public Status Status { get; set; }
 
         public override string ToString()
         {
             return @"Bank number : " + BankNumber
-                   + "Bank name : " + BankName
-                   + "Branch number : " + BranchNumber
-                   + "Branch city : " + BranchCity;
+                   + "\nBank name : " + BankName
+                   + "\nBranch number : " + BranchNumber
+                   + "\nBranch city : " + BranchCity;
         }
     }
 }
