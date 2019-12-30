@@ -16,7 +16,7 @@ namespace DO
 
     public enum OrderStatus { PROCESSING, MAIL_SENT, APPROVED, NO_CLIENT_RESPONSE }
 
-    public enum Area { ALL, NORTH, SOUTH, CENTER, JERUSALEM }
+    public enum AreaLocation { ALL, NORTH, SOUTH, CENTER, JERUSALEM }
 
     public enum ThreeOptions { YES, MAYBE, NO }
 }

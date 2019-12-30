@@ -17,6 +17,7 @@ namespace DO
         public override string ToString()
         {
             return "Hosting unit Key : " + Key
+                + "\nHosting unit name : " + HostingUnitName
                 + "\nOwner ID: " + Owner
                 + "\n";
         }
