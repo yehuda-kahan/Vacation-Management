@@ -60,8 +60,6 @@ namespace Dal
             throw new NotImplementedException();
         }
 
-        
-
         public Order GetOrder(uint Key)
         {
             throw new NotImplementedException();
