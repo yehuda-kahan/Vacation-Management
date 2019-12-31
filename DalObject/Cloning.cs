@@ -12,17 +12,15 @@ namespace Dal
         internal static T Clone<T>(this T original)
         {
             T target = (T)Activator.CreateInstance(original.GetType());
-            PropertyInfo[] infos;
-
-            infos = original.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+            var infos = original.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (var item in infos)
             {
-                if (item.PropertyType.IsValueType || item.PropertyType.Equals(typeof(string)))
+                if (item.FieldType.IsValueType || item.FieldType.Equals(typeof(string)))
                     item.SetValue(target, item.GetValue(original));
-                //else
-                //{
-                
-                //}
+                else
+                {
+                    item.SetValue(target, item.GetValue(original).Clone());
+                }
             }
             return target;
         }
