@@ -50,16 +50,6 @@ namespace Dal
             throw new NotImplementedException();
         }
 
-        IEnumerable<BankBranch> GetBranches()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<GuestRequest> GetGuestRequests()
-        {
-            throw new NotImplementedException();
-        }
-
         public Host GetHost(uint Key)
         {
             throw new NotImplementedException();
@@ -70,21 +60,14 @@ namespace Dal
             throw new NotImplementedException();
         }
 
-        public IEnumerable<HostingUnit> GetHostingUnits(Func<HostingUnit, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public Order GetOrder(uint Key)
         {
             throw new NotImplementedException();
         }
 
-        IEnumerable<Order> GetOrders(Func<HostingUnit, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public Order GetOrdersGuestRequestKey(uint GuestRequestKey)
         {
             throw new NotImplementedException();
@@ -156,6 +139,26 @@ namespace Dal
         }
 
         public void UpdateStatusRequest(uint Key, RequestStatus status)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<Order> IDal.GetOrders(Func<HostingUnit, bool> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<GuestRequest> IDal.GetGuestRequests()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<BankBranch> IDal.GetBranches()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<HostingUnit> GetHostingUnits(Func<HostingUnit, bool> predicate)
         {
             throw new NotImplementedException();
         }
