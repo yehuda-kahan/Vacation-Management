@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Dal
 {
     [Serializable]
-    class DuplicateIdException:Exception
+    internal class DuplicateIdException:Exception
     {
        
        
