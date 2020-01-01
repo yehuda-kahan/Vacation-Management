@@ -17,6 +17,70 @@ namespace Dal
         DalObject() { }
         public static DalObject Instance { get { return instance; } }
 
+        public Person GetPerson(string Id)
+        {
+            Person person = DataSource.persons.FirstOrDefault(x => Id == x.Id);
+            return person == null ? throw new MissingException("Person ID", Id) : person.Clone();
+        }
+
+        public IEnumerable<Person> GetPersonByName(string fullName)
+        {
+            var persons = from item in DataSource.persons
+                          let FullName = item.FirstName + " " + item.LastName
+                          where FullName == fullName
+                          select item.Clone();
+            return persons.Count() > 0 ? persons : throw new MissingException("person", fullName);
+        }
+
+        public void AddPerson(Person person)
+        {
+            if (DataSource.persons.Any(x => person.Id == x.Id))
+                throw new DuplicateException("Person ID", person.Id);
+            DataSource.persons.Add(person.Clone());
+        }
+
+        public void UpdatePerson(Person person)
+        {
+            int count = DataSource.persons.RemoveAll(x => x.Id == person.Id);
+
+            if (count == 0)
+                throw new MissingException("Person ID", person.Id);
+            DataSource.persons.Add(person.Clone());
+        }
+
+        public void UpdateStatusPerson(string id, Status status)
+        {
+            bool found = false;
+            foreach (Person item in DataSource.persons)
+            {
+                if (item.Id == id)
+                {
+                    found = true;
+                    item.Status = status;
+                }
+            }
+            if (!found)
+                throw new MissingException("Person ID", id);
+        }
+
+
+        public GuestRequest GetRequest(uint Key)
+        {
+            GuestRequest request = DataSource.guestRequests.FirstOrDefault(x => Key == x.Key);
+            return request == null ?
+                throw new MissingException("Guest Request Key", Convert.ToString(Key)) : request.Clone();
+        }
+
+        public IEnumerable<GuestRequest> GetAllRequestsOfClient(string ClientId)
+        {
+            var requsts = from item in DataSource.guestRequests
+                          where item.ClientId == ClientId
+                          select item.Clone();
+            if (requsts.Count() == 0)
+                throw new MissingException("Booking requsts of Client ID", ClientId);
+            return requsts;
+        }
+
         public uint AddGuestRequest(GuestRequest request)
         {
             request.Key = Configuration.GuestRequestserialKey++;
@@ -26,36 +90,41 @@ namespace Dal
             return request.Key;
         }
 
+        public void UpdateGuestRequest(GuestRequest request)
+        {
+            int count = DataSource.guestRequests.RemoveAll(x => x.Key == request.Key);
+            if (count == 0)
+                throw new MissingException("Request Key", Convert.ToString(request.Key));
+            DataSource.guestRequests.Add(request.Clone());
+        }
+
+        public void UpdateStatusRequest(uint Key, RequestStatus status)
+        {
+            bool found = false;
+            foreach (GuestRequest item in DataSource.guestRequests)
+            {
+                if (item.Key == Key)
+                {
+                    found = true;
+                    item.Status = status;
+                }
+            }
+            if (!found)
+                throw new MissingException("Guest Request Key", Convert.ToString(Key));
+        }
+
+
+        public Host GetHost(string Id)
+        {
+            Host host = DataSource.hosts.FirstOrDefault(x => x.Id == Id);
+            return host == null ? throw new MissingException("Host ID", Id) : host.Clone();
+        }
+
         public void AddHost(Host host)
         {
             if (DataSource.hosts.Any(x => host.Id == x.Id))
                 throw new DuplicateException("Host ID number", host.Id);
             DataSource.hosts.Add(host.Clone());
-        }
-
-        public uint AddHostingUnit(HostingUnit unit)
-        {
-            unit.Key = Configuration.HostingUnitSerialKey++;
-            if (DataSource.hostingUnits.Any(x => unit.Key == x.Key))
-                throw new DuplicateException("Unit Key", Convert.ToString(unit.Key));
-            DataSource.hostingUnits.Add(unit.Clone());
-            return unit.Key;
-        }
-
-        public uint AddOrder(Order odr)
-        {
-            odr.Key = Configuration.OrderSerialKey++;
-            if (DataSource.orders.Any(x => odr.Key == x.Key))
-                throw new DuplicateException("Order Key", Convert.ToString(odr.Key));
-            DataSource.orders.Add(odr.Clone());
-            return odr.Key;
-        }
-
-        public void AddPerson(Person person)
-        {
-            if (DataSource.persons.Any(x => person.Id == x.Id))
-                throw new DuplicateException("Person ID", person.Id);
-            DataSource.persons.Add(person.Clone());
         }
 
         public void DelHost(string Id)
@@ -74,6 +143,53 @@ namespace Dal
                 throw new MissingException("Host ID", Id);
         }
 
+        public void UpdateHost(Host host)
+        {
+            int count = DataSource.hosts.RemoveAll(x => x.Id == host.Id);
+            if (count == 0)
+                throw new MissingException("Host ID", host.Id);
+            DataSource.hosts.Add(host.Clone());
+        }
+
+        public void UpdateStatusHost(string id, Status status)
+        {
+            bool found = false;
+            foreach (Host item in DataSource.hosts)
+            {
+                if (item.Id == id)
+                {
+                    found = true;
+                    item.Status = status;
+                }
+            }
+            if (!found)
+                throw new MissingException("Host ID", id);
+        }
+
+
+        public HostingUnit GetUnit(uint Key)
+        {
+            HostingUnit host = DataSource.hostingUnits.FirstOrDefault(x => x.Key == Key);
+            return host == null ? throw new MissingException("unit Key", Convert.ToString(Key)) : host.Clone();
+        }
+
+        public uint AddHostingUnit(HostingUnit unit)
+        {
+            unit.Key = Configuration.HostingUnitSerialKey++;
+            if (DataSource.hostingUnits.Any(x => unit.Key == x.Key))
+                throw new DuplicateException("Unit Key", Convert.ToString(unit.Key));
+            DataSource.hostingUnits.Add(unit.Clone());
+            return unit.Key;
+        }
+
+        public void UpdateHostingUnit(HostingUnit unit)
+        {
+            int count = DataSource.hostingUnits.RemoveAll(x => x.Key == unit.Key);
+            if (count == 0)
+                throw new MissingException("Unit Key",Convert.ToString( unit.Key));
+            DataSource.hostingUnits.Add(unit.Clone());
+        }
+
         public void DelHostingUnit(uint Key)
         {
             bool found = false;
@@ -90,103 +206,66 @@ namespace Dal
                 throw new MissingException("hosting Unit Key", Convert.ToString(Key));
         }
 
-        public Host GetHost(string Id)
-        {
-            Host host = DataSource.hosts.FirstOrDefault(x => x.Id == Id);
-            return host == null ? null : host.Clone();
-        }
 
-     
         public Order GetOrder(uint Key)
         {
             Order order = DataSource.orders.FirstOrDefault(x => x.Key == Key);
-            return order == null ? null : order.Clone();
+            return order == null ? throw new MissingException("Order Key", Convert.ToString(Key)) : order.Clone();
         }
 
-
-        public Order GetOrdersGuestRequestKey(uint GuestRequestKey)
+        public Order GetOrderGuestRequestKey(uint GuestRequestKey)
         {
-            throw new NotImplementedException();
+            Order order = DataSource.orders.FirstOrDefault(x => x.GuestRequestKey == GuestRequestKey);
+            return order == null ? throw new MissingException("No order with guest request Key",
+                Convert.ToString(GuestRequestKey)) : order.Clone();
         }
 
-        public Order GetOrdersHostingUnitKey(uint HostingUnitKey)
+        public IEnumerable<Order> GetOrdersHostingUnitKey(uint HostingUnitKey)
         {
-            throw new NotImplementedException();
+            var orders = from item in DataSource.orders
+                         where item.HostingUnitKey == HostingUnitKey
+                         select item.Clone();
+            return orders.Count() > 0 ? orders : throw new MissingException("orders for this unit Key",
+                Convert.ToString(HostingUnitKey));
         }
 
-        public Person GetPerson(uint Key)
+        public uint AddOrder(Order odr)
         {
-            throw new NotImplementedException();
-        }
-
-        public Person GetPerson(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public GuestRequest GetRequest(uint Key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public GuestRequest GetRequest(string ClientId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public HostingUnit GetUnit(uint Key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public HostingUnit GetUnit(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateGuestRequest(GuestRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateHost(Host host)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateHostingUnit(HostingUnit unit)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdatePerson(Person person)
-        {
-            throw new NotImplementedException();
+            odr.Key = Configuration.OrderSerialKey++;
+            if (DataSource.orders.Any(x => odr.Key == x.Key))
+                throw new DuplicateException("Order Key", Convert.ToString(odr.Key));
+            DataSource.orders.Add(odr.Clone());
+            return odr.Key;
         }
 
         public void UpdateStatusOrder(uint Key, OrderStatus status)
         {
-            throw new NotImplementedException();
+            bool found = false;
+            foreach (Order item in DataSource.orders)
+            {
+                if (item.Key == Key)
+                {
+                    found = true;
+                    item.Status = status;
+                }
+            }
+            if (!found)
+                throw new MissingException("Order Key", Convert.ToString(Key));
         }
 
-        public void UpdateStatusPerson(uint Key, Status status)
+        IEnumerable<Order> IDal.GetOrders(Func<Order, bool> predicate)
         {
-            throw new NotImplementedException();
+            var orders = from item in DataSource.orders
+                         where predicate(item)
+                         select item.Clone();
+            return orders;        
         }
 
-        public void UpdateStatusRequest(uint Key, RequestStatus status)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<Order> IDal.GetOrders(Func<HostingUnit, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         IEnumerable<GuestRequest> IDal.GetGuestRequests()
         {
-            throw new NotImplementedException();
+            GetOrders(x=>x.Id == )
         }
 
         IEnumerable<BankBranch> IDal.GetBranches()
