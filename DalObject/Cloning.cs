@@ -12,7 +12,7 @@ namespace Dal
         internal static T Clone<T>(this T original)
         {
             T target = (T)Activator.CreateInstance(original.GetType());
-            var infos = original.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+            var infos = original.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static);
             foreach (var item in infos)
             {
                 if (item.FieldType.IsValueType || item.FieldType.Equals(typeof(string)))
