@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dal
 {
-    public static class Cloning
+    internal static class Cloning
     {
         internal static T Clone<T>(this T original)
         {

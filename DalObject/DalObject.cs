@@ -17,60 +17,93 @@ namespace Dal
         DalObject() { }
         public static DalObject Instance { get { return instance; } }
 
-        public void AddGuestRequest(GuestRequest request)
+        public uint AddGuestRequest(GuestRequest request)
         {
-            if(DataSource.guestRequests.Any(x=> request.Key == x.Key))
-                throw DuplicateIdException
-
-
+            request.Key = Configuration.GuestRequestserialKey++;
+            if (DataSource.guestRequests.Any(x => request.Key == x.Key)) // if there is a problem white the serialNumber
+                throw new DuplicateException("Guest Request Key", Convert.ToString(request.Key));
+            DataSource.guestRequests.Add(request.Clone());
+            return request.Key;
         }
 
         public void AddHost(Host host)
         {
-            throw new NotImplementedException();
+            if (DataSource.hosts.Any(x => host.Id == x.Id))
+                throw new DuplicateException("Host ID number", host.Id);
+            DataSource.hosts.Add(host.Clone());
         }
 
-        public void AddHostingUnit(HostingUnit unit)
+        public uint AddHostingUnit(HostingUnit unit)
         {
-            throw new NotImplementedException();
+            unit.Key = Configuration.HostingUnitSerialKey++;
+            if (DataSource.hostingUnits.Any(x => unit.Key == x.Key))
+                throw new DuplicateException("Unit Key", Convert.ToString(unit.Key));
+            DataSource.hostingUnits.Add(unit.Clone());
+            return unit.Key;
         }
 
-        public void AddOrder(Order odr)
+        public uint AddOrder(Order odr)
         {
-            throw new NotImplementedException();
+            odr.Key = Configuration.OrderSerialKey++;
+            if (DataSource.orders.Any(x => odr.Key == x.Key))
+                throw new DuplicateException("Order Key", Convert.ToString(odr.Key));
+            DataSource.orders.Add(odr.Clone());
+            return odr.Key;
         }
 
         public void AddPerson(Person person)
         {
-            throw new NotImplementedException();
+            if (DataSource.persons.Any(x => person.Id == x.Id))
+                throw new DuplicateException("Person ID", person.Id);
+            DataSource.persons.Add(person.Clone());
         }
 
-        public void DelHost(uint Key)
+        public void DelHost(string Id)
         {
-            throw new NotImplementedException();
+            bool found = false;
+            foreach (Host item in DataSource.hosts)
+            {
+                if (item.Id == Id)
+                {
+                    found = true;
+                    item.Status = Status.INACTIVE;
+                    break;
+                }
+            }
+            if (!found)
+                throw new MissingException("Host ID", Id);
         }
 
         public void DelHostingUnit(uint Key)
         {
-            throw new NotImplementedException();
+            bool found = false;
+            foreach (HostingUnit item in DataSource.hostingUnits)
+            {
+                if (item.Key == Key)
+                {
+                    found = true;
+                    item.Status = Status.INACTIVE;
+                    break;
+                }
+            }
+            if (!found)
+                throw new MissingException("hosting Unit Key", Convert.ToString(Key));
         }
 
-        public Host GetHost(uint Key)
+        public Host GetHost(string Id)
         {
-            throw new NotImplementedException();
+            Host host = DataSource.hosts.FirstOrDefault(x => x.Id == Id);
+            return host == null ? null : host.Clone();
         }
 
-        public Host GetHost(string name)
-        {
-            throw new NotImplementedException();
-        }
-
+     
         public Order GetOrder(uint Key)
         {
-            throw new NotImplementedException();
+            Order order = DataSource.orders.FirstOrDefault(x => x.Key == Key);
+            return order == null ? null : order.Clone();
         }
 
-        
+
         public Order GetOrdersGuestRequestKey(uint GuestRequestKey)
         {
             throw new NotImplementedException();
