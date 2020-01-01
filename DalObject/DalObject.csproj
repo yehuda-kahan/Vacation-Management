@@ -43,12 +43,17 @@
   <ItemGroup>
     <Compile Include="Cloning.cs" />
     <Compile Include="DalObject.cs" />
+    <Compile Include="DuplicateIdException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DalApi\DalApi.csproj">
       <Project>{dcd44f03-f97d-45a1-95b7-c449c58f89ee}</Project>
       <Name>DalApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DS\DS.csproj">
+      <Project>{3da15f6f-876d-4f8b-a0c8-24ae066c8f32}</Project>
+      <Name>DS</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

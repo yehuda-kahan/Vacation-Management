@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DalApi;
 using DO;
+using DS;
+
 
 namespace Dal
 {
@@ -17,6 +19,9 @@ namespace Dal
 
         public void AddGuestRequest(GuestRequest request)
         {
+            if(DataSource.guestRequests.Any(x=> request.Key == x.Key))
+                throw DuplicateIdException
+
 
         }
 
