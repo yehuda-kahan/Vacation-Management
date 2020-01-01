@@ -17,26 +17,25 @@ namespace DalApi
 
         GuestRequest GetRequest(uint Key);
         GuestRequest GetRequest(string ClientId);
-        void AddGuestRequest(GuestRequest request);
+        uint AddGuestRequest(GuestRequest request);
         void UpdateGuestRequest(GuestRequest request);
         void UpdateStatusRequest(uint Key, RequestStatus status);
 
-        Host GetHost(uint Key);
-        Host GetHost(string name);
+        Host GetHost(string Id);
         void AddHost(Host host);
         void UpdateHost(Host host);
-        void DelHost(uint Key);
+        void DelHost(string Key);
 
         HostingUnit GetUnit(uint Key);
         HostingUnit GetUnit(string name);
-        void AddHostingUnit(HostingUnit unit);
+        uint AddHostingUnit(HostingUnit unit);
         void UpdateHostingUnit(HostingUnit unit);
         void DelHostingUnit(uint Key);
 
         Order GetOrder(uint Key);
         Order GetOrdersHostingUnitKey(uint HostingUnitKey);
         Order GetOrdersGuestRequestKey(uint GuestRequestKey);
-        void AddOrder(Order odr);
+        uint AddOrder(Order odr);
         void UpdateStatusOrder(uint Key, OrderStatus status);
 
         IEnumerable<HostingUnit> GetHostingUnits(Func<HostingUnit,bool> predicate);
