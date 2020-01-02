@@ -175,7 +175,8 @@ namespace Dal
 
         public uint AddHostingUnit(HostingUnit unit)
         {
-            unit.Key = Configuration.HostingUnitSerialKey++;
+            if (unit.Key == 0)
+                unit.Key = Configuration.HostingUnitSerialKey++;
             if (DataSource.hostingUnits.Any(x => unit.Key == x.Key))
                 throw new DuplicateException("Unit Key", Convert.ToString(unit.Key));
             DataSource.hostingUnits.Add(unit.Clone());
@@ -247,13 +248,18 @@ namespace Dal
                 {
                     found = true;
                     item.Status = status;
+                    if (item.Status == OrderStatus.APPROVED ||
+                        item.Status == OrderStatus.NO_CLIENT_RESPONSE ||
+                        item.Status == OrderStatus.UNIT_NOT_AVALABELE)
+                        item.CloseDate = DateTime.Now;
                 }
             }
             if (!found)
                 throw new MissingException("Order Key", Convert.ToString(Key));
         }
 
-        IEnumerable<Order> IDal.GetOrders(Func<Order, bool> predicate)
+
+        public IEnumerable<Order> GetOrders(Func<Order, bool> predicate)
         {
             var orders = from item in DataSource.orders
                          where predicate(item)
@@ -261,16 +267,18 @@ namespace Dal
             return orders == null ? throw new MissingException("Orders") : orders;
         }
 
-
-        IEnumerable<GuestRequest> IDal.GetGuestRequests()
+        public IEnumerable<GuestRequest> GetGuestRequests()
         {
-            return DataSource.guestRequests == null ? throw new MissingException("Guest Requests") : DataSource.guestRequests.Clone();
-
+            var requests = from item in DataSource.guestRequests
+                           select item.Clone();
+            return requests == null ? throw new MissingException("Guest Requests") : requests;
         }
 
-        IEnumerable<BankBranch> IDal.GetBranches()
+        public IEnumerable<BankBranch> GetBranches()
         {
-            return DataSource.bankBranches == null ? throw new MissingException("Bank Branches") : DataSource.bankBranches.Clone();
+            var branches = from item in DataSource.bankBranches
+                           select item.Clone();
+            return branches == null ? throw new MissingException("Bank Branches") : branches;
         }
 
         public IEnumerable<HostingUnit> GetHostingUnits(Func<HostingUnit, bool> predicate)

@@ -44,11 +44,13 @@
     <Compile Include="BankBranch.cs" />
     <Compile Include="DalConfig.cs" />
     <Compile Include="DalFactory.cs" />
+    <Compile Include="DuplicateException.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="GuestRequest.cs" />
     <Compile Include="Host.cs" />
     <Compile Include="HostingUnit.cs" />
     <Compile Include="IDal.cs" />
+    <Compile Include="MissingException.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

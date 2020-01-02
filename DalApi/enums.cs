@@ -14,7 +14,7 @@ namespace DO
 
     public enum RequestStatus { OPEN, EXPIRED, CANCELLED, ORDERED }
 
-    public enum OrderStatus { PROCESSING, MAIL_SENT, APPROVED, NO_CLIENT_RESPONSE }
+    public enum OrderStatus { PROCESSING, MAIL_SENT, APPROVED, NO_CLIENT_RESPONSE,UNIT_NOT_AVALABELE }
 
     public enum AreaLocation { ALL, NORTH, SOUTH, CENTER, JERUSALEM }
 
