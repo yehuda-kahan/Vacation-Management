@@ -186,7 +186,7 @@ namespace Dal
         {
             int count = DataSource.hostingUnits.RemoveAll(x => x.Key == unit.Key);
             if (count == 0)
-                throw new MissingException("Unit Key",Convert.ToString( unit.Key));
+                throw new MissingException("Unit Key", Convert.ToString(unit.Key));
             DataSource.hostingUnits.Add(unit.Clone());
         }
 
@@ -258,24 +258,27 @@ namespace Dal
             var orders = from item in DataSource.orders
                          where predicate(item)
                          select item.Clone();
-            return orders == null ? throw new MissingException("Orders ", ""):orders;        
+            return orders == null ? throw new MissingException("Orders") : orders;
         }
 
-        
 
         IEnumerable<GuestRequest> IDal.GetGuestRequests()
         {
-            GetOrders(x=>x.Id == )
+            return DataSource.guestRequests == null ? throw new MissingException("Guest Requests") : DataSource.guestRequests.Clone();
+
         }
 
         IEnumerable<BankBranch> IDal.GetBranches()
         {
-            throw new NotImplementedException();
+            return DataSource.bankBranches == null ? throw new MissingException("Bank Branches") : DataSource.bankBranches.Clone();
         }
 
         public IEnumerable<HostingUnit> GetHostingUnits(Func<HostingUnit, bool> predicate)
         {
-            throw new NotImplementedException();
+            var units = from item in DataSource.hostingUnits
+                        where predicate(item)
+                        select item.Clone();
+            return units == null ? throw new MissingException("Units") : units;
         }
     }
 }
