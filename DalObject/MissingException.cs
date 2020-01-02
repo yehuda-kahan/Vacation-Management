@@ -18,7 +18,7 @@ namespace Dal
         public MissingException(string message, Exception inner) : base(message, inner) { }
         protected MissingException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
-        public MissingException(string type, string disExg)
+        public MissingException(string type, string disExg="")
         {
             disExsisting = disExg;
             typeObj = type;

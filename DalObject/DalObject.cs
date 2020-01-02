@@ -253,29 +253,32 @@ namespace Dal
                 throw new MissingException("Order Key", Convert.ToString(Key));
         }
 
-        IEnumerable<Order> IDal.GetOrders(Func<Order, bool> predicate , Order order)
+        IEnumerable<Order> IDal.GetOrders(Func<Order, bool> predicate)
         {
             var orders = from item in DataSource.orders
                          where predicate(item)
                          select item.Clone();
-            return orders;
+            return orders == null ? throw new MissingException("Orders") : orders;
         }
-
 
 
         IEnumerable<GuestRequest> IDal.GetGuestRequests()
         {
-           
+            return DataSource.guestRequests == null ? throw new MissingException("Guest Requests") : DataSource.guestRequests.Clone();
+
         }
 
         IEnumerable<BankBranch> IDal.GetBranches()
         {
-            throw new NotImplementedException();
+            return DataSource.bankBranches == null ? throw new MissingException("Bank Branches") : DataSource.bankBranches.Clone();
         }
 
         public IEnumerable<HostingUnit> GetHostingUnits(Func<HostingUnit, bool> predicate)
         {
-            throw new NotImplementedException();
+            var units = from item in DataSource.hostingUnits
+                        where predicate(item)
+                        select item.Clone();
+            return units == null ? throw new MissingException("Units") : units;
         }
     }
 }
