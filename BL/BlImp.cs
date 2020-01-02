@@ -24,11 +24,8 @@ namespace BL
             return host.CollectingClearance;
         }
 
-        public bool CheckUnitAvilabilty(/*uint unitKey*/ HostingUnit unit, GuestRequest request)
+        public bool CheckUnitAvilabilty(HostingUnit unit, GuestRequest request)
         {
-            //HostingUnit unit;
-            //try { unit = dal.GetUnit(UnitKey); }
-            //catch (MissingException ex) { throw ex; }
             DateTime entryDate = request.EntryDate;
             for (; entryDate < request.LeaveDate; entryDate = entryDate.AddDays(1))
             {

@@ -12,7 +12,7 @@ namespace BlApi
         // loghic func
         bool CheckLegalDates(GuestRequest request);
         bool CheckHostClearance(Host host);
-        bool CheckUnitAvilabilty(/*uint UnitKey*/ HostingUnit unit, GuestRequest request);
+        bool CheckUnitAvilabilty(HostingUnit unit, GuestRequest request);
         bool CheckIfOrderClosed(Order order);
 
 
