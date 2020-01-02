@@ -258,7 +258,7 @@ namespace Dal
             var orders = from item in DataSource.orders
                          where predicate(item)
                          select item.Clone();
-            return orders;        
+            return orders == null ? throw new MissingException("Orders ", ""):orders;        
         }
 
         
