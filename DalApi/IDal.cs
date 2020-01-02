@@ -36,7 +36,7 @@ namespace DalApi
         IEnumerable<Order> GetOrdersHostingUnitKey(uint HostingUnitKey);
         Order GetOrderGuestRequestKey(uint GuestRequestKey);
         uint AddOrder(Order odr);
-        void UpdateStatusOrder(uint Key, OrderStatus status);
+        void UpdateStatusOrder(uint Key, OrderStatus status,int numDays=0);
 
         IEnumerable<HostingUnit> GetHostingUnits(Func<HostingUnit, bool> predicate);
         IEnumerable<Order> GetOrders(Func<Order, bool> predicate);

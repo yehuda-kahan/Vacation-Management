@@ -35,7 +35,7 @@ namespace BL
             return true;
         }
 
-        public bool MarkDaysOfUnit(Order order)
+        public int MarkDaysOfUnit(Order order)
         {
             HostingUnit unit;
             try { unit = dal.GetUnit(order.HostingUnitKey); }
@@ -45,7 +45,7 @@ namespace BL
             catch (MissingException ex) { throw ex; }
 
             if (!CheckUnitAvilabilty(unit, request))
-                throw new Exception("The unit are not avaleble at this dates");
+                return -1;
 
             DateTime entryDate = request.EntryDate;
             for (; entryDate < request.LeaveDate; entryDate = entryDate.AddDays(1))
@@ -53,7 +53,7 @@ namespace BL
                 unit[entryDate] = true;
             }
             dal.UpdateHostingUnit(unit); // update the "real" unit in the DataBase
-            return true;
+            return (request.LeaveDate - request.EntryDate).Days - 1;
         }
 
         public bool CheckIfOrderClosed(Order order)
@@ -67,21 +67,57 @@ namespace BL
                 dal.AddGuestRequest(request);
         }
 
-        public void UpdStatusOrder(uint OrderKey, OrderStatus status)
+        public void UpdStatusOrder(uint OrderKey, OrderStatus status) 
         {
             Order order;
+            int numDays = 0;
             try { order = dal.GetOrder(OrderKey); }
             catch (MissingException ex) { throw ex; }
             if (CheckIfOrderClosed(order))
                 throw new Exception("Order status canot be changed after approved");
-
-            if (status == OrderStatus.APPROVED) // we want to make a deal
-                if (!MarkDaysOfUnit(order))
+            if (status == OrderStatus.APPROVED)
+            {
+                // we want to make a deal
+                if ((numDays = MarkDaysOfUnit(order)) == -1)
                 {
                     dal.UpdateStatusOrder(OrderKey, OrderStatus.UNIT_NOT_AVALABELE);
                     throw new Exception("The unit is not abalable");
                 }
-            dal.UpdateStatusOrder(OrderKey, status);
+                CancelOrdersOfRequest(order.GuestRequestKey, OrderKey);
+                CancelUnitOrders(order);
+                dal.UpdateStatusRequest(order.GuestRequestKey, RequestStatus.ORDERED);
+            }
+            dal.UpdateStatusOrder(OrderKey, status, numDays);
+        }
+
+        /// <summary>
+        /// for canceled all the order with the given guestRequest Key
+        /// but arent with the given Order Key
+        /// </summary>
+        /// <param name="guestRequestKey">for </param>
+        /// <param name="OrderKey"></param>
+        public void CancelOrdersOfRequest(uint guestRequestKey, uint OrderKey)
+        {
+            var orders = dal.GetOrders(x => x.GuestRequestKey == guestRequestKey && x.Key != OrderKey);
+            foreach (Order item in orders)
+            {
+                dal.UpdateStatusOrder(item.Key, OrderStatus.CANCELED);
+            }
+        }
+
+        public void CancelUnitOrders(Order odr)
+        {
+            GuestRequest request = dal.GetRequest(odr.GuestRequestKey);
+            var orders = dal.GetOrders(x => x.HostingUnitKey == odr.HostingUnitKey);
+            foreach (Order item in orders)
+            {
+                GuestRequest temp = dal.GetRequest(item.GuestRequestKey);
+                if ((temp.EntryDate >= request.EntryDate && temp.EntryDate <= request.LeaveDate && item.Key != odr.Key) ||
+                    (temp.LeaveDate >= request.EntryDate && temp.LeaveDate <= request.LeaveDate && item.Key != odr.Key))
+                    dal.UpdateStatusOrder(item.Key, OrderStatus.CANCELED);
+            }
         }
     }
 }
+
+    

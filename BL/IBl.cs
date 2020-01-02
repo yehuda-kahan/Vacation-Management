@@ -16,9 +16,11 @@ namespace BlApi
         bool CheckIfOrderClosed(Order order);
 
 
-        bool MarkDaysOfUnit(Order order);
+        int MarkDaysOfUnit(Order order);
 
         // our additions 
         void UpdStatusOrder(uint OrderKey, OrderStatus status);
+        void CancelOrdersOfRequest(uint guestRequestKey, uint orderKey);
+        void CancelUnitOrders(Order odr);
     }
 }

@@ -239,7 +239,7 @@ namespace Dal
             return odr.Key;
         }
 
-        public void UpdateStatusOrder(uint Key, OrderStatus status)
+        public void UpdateStatusOrder(uint Key, OrderStatus status, int numDays)
         {
             bool found = false;
             foreach (Order item in DataSource.orders)
@@ -252,6 +252,8 @@ namespace Dal
                         item.Status == OrderStatus.NO_CLIENT_RESPONSE ||
                         item.Status == OrderStatus.UNIT_NOT_AVALABELE)
                         item.CloseDate = DateTime.Now;
+                    if (item.Status == OrderStatus.APPROVED)
+                        item.Fee = 10 * numDays;
                 }
             }
             if (!found)
