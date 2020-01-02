@@ -186,7 +186,7 @@ namespace Dal
         {
             int count = DataSource.hostingUnits.RemoveAll(x => x.Key == unit.Key);
             if (count == 0)
-                throw new MissingException("Unit Key",Convert.ToString( unit.Key));
+                throw new MissingException("Unit Key", Convert.ToString(unit.Key));
             DataSource.hostingUnits.Add(unit.Clone());
         }
 
@@ -253,19 +253,19 @@ namespace Dal
                 throw new MissingException("Order Key", Convert.ToString(Key));
         }
 
-        IEnumerable<Order> IDal.GetOrders(Func<Order, bool> predicate)
+        IEnumerable<Order> IDal.GetOrders(Func<Order, bool> predicate , Order order)
         {
             var orders = from item in DataSource.orders
                          where predicate(item)
                          select item.Clone();
-            return orders;        
+            return orders;
         }
 
-        
+
 
         IEnumerable<GuestRequest> IDal.GetGuestRequests()
         {
-            GetOrders(x=>x.Id == )
+           
         }
 
         IEnumerable<BankBranch> IDal.GetBranches()
