@@ -83,6 +83,7 @@ namespace Dal
 
         public uint AddGuestRequest(GuestRequest request)
         {
+            if (request.Key == 0)
             request.Key = Configuration.GuestRequestserialKey++;
             if (DataSource.guestRequests.Any(x => request.Key == x.Key)) // if there is a problem white the serialNumber
                 throw new DuplicateException("Guest Request Key", Convert.ToString(request.Key));
@@ -232,6 +233,7 @@ namespace Dal
 
         public uint AddOrder(Order odr)
         {
+            if (odr.Key == 0)
             odr.Key = Configuration.OrderSerialKey++;
             if (DataSource.orders.Any(x => odr.Key == x.Key))
                 throw new DuplicateException("Order Key", Convert.ToString(odr.Key));
