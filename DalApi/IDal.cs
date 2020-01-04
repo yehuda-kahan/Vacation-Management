@@ -9,39 +9,52 @@ namespace DalApi
 {
     public interface IDal
     {
+        #region Person
         Person GetPerson(string Id);
         IEnumerable<Person> GetPersonByName(string name);
         void AddPerson(Person person);
         void UpdatePerson(Person person);
         void UpdateStatusPerson(string id, Status status);
+        #endregion
 
+        #region Guest Request
         GuestRequest GetRequest(uint Key);
         IEnumerable<GuestRequest> GetAllRequestsOfClient(string ClientId);
         uint AddGuestRequest(GuestRequest request);
         void UpdateGuestRequest(GuestRequest request);
         void UpdateStatusRequest(uint Key, RequestStatus status);
+        #endregion
 
+        #region Host
         Host GetHost(string Id);
         void AddHost(Host host);
         void UpdateHost(Host host);
         void DelHost(string Key);
         void UpdateStatusHost(string id, Status status);
+        #endregion
 
+        #region Units
         HostingUnit GetUnit(uint Key);
         uint AddHostingUnit(HostingUnit unit);
         void UpdateHostingUnit(HostingUnit unit);
         void DelHostingUnit(uint Key);
 
+        #endregion
+
+        #region Order
         Order GetOrder(uint Key);
         IEnumerable<Order> GetOrdersHostingUnitKey(uint HostingUnitKey);
         Order GetOrderGuestRequestKey(uint GuestRequestKey);
         uint AddOrder(Order odr);
-        void UpdateStatusOrder(uint Key, OrderStatus status,int numDays=0);
+        void UpdateStatusOrder(uint Key, OrderStatus status, int numDays = 0);
+        #endregion
 
+        #region Get Lists
         IEnumerable<HostingUnit> GetHostingUnits(Func<HostingUnit, bool> predicate);
         IEnumerable<Order> GetOrders(Func<Order, bool> predicate);
         IEnumerable<GuestRequest> GetGuestRequests();
-
+        IEnumerable<GuestRequest> GetGuestRequests(Func<GuestRequest, bool> predicate);
         IEnumerable<BankBranch> GetBranches();
+        #endregion
     }
 }

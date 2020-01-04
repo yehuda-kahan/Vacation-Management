@@ -12,11 +12,14 @@ namespace Dal
 {
     sealed class DalObject : IDal
     {
+        #region singelton
         static readonly DalObject instance = new DalObject();
         static DalObject() { }
         DalObject() { }
         public static DalObject Instance { get { return instance; } }
+        #endregion
 
+        #region Person Function functions
         public Person GetPerson(string Id)
         {
             Person person = DataSource.persons.FirstOrDefault(x => Id == x.Id);
@@ -62,8 +65,9 @@ namespace Dal
             if (!found)
                 throw new MissingException("Person ID", id);
         }
+        #endregion
 
-
+        #region Guest Request functions
         public GuestRequest GetRequest(uint Key)
         {
             GuestRequest request = DataSource.guestRequests.FirstOrDefault(x => Key == x.Key);
@@ -84,7 +88,7 @@ namespace Dal
         public uint AddGuestRequest(GuestRequest request)
         {
             if (request.Key == 0)
-            request.Key = Configuration.GuestRequestserialKey++;
+                request.Key = Configuration.GuestRequestserialKey++;
             if (DataSource.guestRequests.Any(x => request.Key == x.Key)) // if there is a problem white the serialNumber
                 throw new DuplicateException("Guest Request Key", Convert.ToString(request.Key));
             DataSource.guestRequests.Add(request.Clone());
@@ -113,8 +117,9 @@ namespace Dal
             if (!found)
                 throw new MissingException("Guest Request Key", Convert.ToString(Key));
         }
+        #endregion
 
-
+        #region Host functions
         public Host GetHost(string Id)
         {
             Host host = DataSource.hosts.FirstOrDefault(x => x.Id == Id);
@@ -166,8 +171,9 @@ namespace Dal
             if (!found)
                 throw new MissingException("Host ID", id);
         }
+        #endregion
 
-
+        #region Units functions
         public HostingUnit GetUnit(uint Key)
         {
             HostingUnit host = DataSource.hostingUnits.FirstOrDefault(x => x.Key == Key);
@@ -207,8 +213,9 @@ namespace Dal
             if (!found)
                 throw new MissingException("hosting Unit Key", Convert.ToString(Key));
         }
+        #endregion
 
-
+        #region Order functions
         public Order GetOrder(uint Key)
         {
             Order order = DataSource.orders.FirstOrDefault(x => x.Key == Key);
@@ -234,7 +241,7 @@ namespace Dal
         public uint AddOrder(Order odr)
         {
             if (odr.Key == 0)
-            odr.Key = Configuration.OrderSerialKey++;
+                odr.Key = Configuration.OrderSerialKey++;
             if (DataSource.orders.Any(x => odr.Key == x.Key))
                 throw new DuplicateException("Order Key", Convert.ToString(odr.Key));
             DataSource.orders.Add(odr.Clone());
@@ -261,36 +268,41 @@ namespace Dal
             if (!found)
                 throw new MissingException("Order Key", Convert.ToString(Key));
         }
+        #endregion
 
-
+        #region ListFunctions
         public IEnumerable<Order> GetOrders(Func<Order, bool> predicate)
         {
-            var orders = from item in DataSource.orders
-                         where predicate(item)
-                         select item.Clone();
-            return orders == null ? throw new MissingException("Orders") : orders;
+            return from item in DataSource.orders
+                   where predicate(item)
+                   select item.Clone();
         }
 
+        public IEnumerable<GuestRequest> GetGuestRequests(Func<GuestRequest, bool> predicate)
+        {
+            return from item in DataSource.guestRequests
+                   where predicate(item)
+                   select item.Clone();
+        }
+        
         public IEnumerable<GuestRequest> GetGuestRequests()
         {
-            var requests = from item in DataSource.guestRequests
-                           select item.Clone();
-            return requests == null ? throw new MissingException("Guest Requests") : requests;
+            return from item in DataSource.guestRequests
+                   select item.Clone();
         }
 
         public IEnumerable<BankBranch> GetBranches()
         {
-            var branches = from item in DataSource.bankBranches
-                           select item.Clone();
-            return branches == null ? throw new MissingException("Bank Branches") : branches;
+            return from item in DataSource.bankBranches
+                   select item.Clone();
         }
 
         public IEnumerable<HostingUnit> GetHostingUnits(Func<HostingUnit, bool> predicate)
         {
-            var units = from item in DataSource.hostingUnits
-                        where predicate(item)
-                        select item.Clone();
-            return units == null ? throw new MissingException("Units") : units;
+            return from item in DataSource.hostingUnits
+                   where predicate(item)
+                   select item.Clone();
         }
+        #endregion
     }
 }
