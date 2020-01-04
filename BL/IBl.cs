@@ -37,18 +37,25 @@ namespace BlApi
         void CancelUnitOrders(Order odr);
 
         /// <summary>
-        /// Return the number of orders that the creation date is bigger from the given 
+        /// Return the orders that the creation date is bigger from the given 
         /// number according to today
         /// </summary>
         /// <param name="numDays"></param>
         /// <returns></returns>
         IEnumerable<Order> GetOdrsCreatedBigerFromNumDays(int numDays);
+
         /// <summary>
-        /// 
+        /// Return the number of orders that conect to the given request
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         int NumOfOrdersForRequst(GuestRequest request);
+
+        /// <summary>
+        ///  Return the number of approved orders that conect to the given unit
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
         int NumOfApprovedOrdersForUnit(HostingUnit unit);
 
         #endregion
@@ -73,7 +80,14 @@ namespace BlApi
         #endregion
 
         #region system functions
-        void sendMail();
+        void SendMail();
+
+        /// <summary>
+        /// Return the number of the days between a two given dates 
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="last"></param>
+        /// <returns></returns>
         int DaysBetweenDates(DateTime first, DateTime last = default);
         #endregion
     }

@@ -212,7 +212,7 @@ namespace BL
                 last = DateTime.Now;
             return (first - last).Days;
         }
-        public void sendMail()
+        public void SendMail()
         {
             Console.WriteLine("Mail send\n");
         }
