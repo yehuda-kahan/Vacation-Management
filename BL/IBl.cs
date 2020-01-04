@@ -9,7 +9,9 @@ namespace BlApi
 {
     internal interface IBl
     {
-      
+        #region Person
+        Person GetPerson(string Id);
+        #endregion
 
         #region Guest Requst function
         IEnumerable<GuestRequest> GetGuestRequests(Func<GuestRequest, bool> predicate);
@@ -18,7 +20,20 @@ namespace BlApi
         #region Order 
 
         void UpdStatusOrder(uint OrderKey, OrderStatus status);
+
+        /// <summary>
+        /// for canceled all the order with the given guestRequest Key
+        /// but arent with the given Order Key
+        /// </summary>
+        /// <param name="guestRequestKey">for </param>
+        /// <param name="OrderKey"></param>
         void CancelOrdersOfRequest(uint guestRequestKey, uint orderKey);
+
+        /// <summary>
+        /// Cancels all orders which offerd for this unit, 
+        /// which overlap with customer request dates for now captured dates
+        /// </summary>
+        /// <param name="odr">The Order which contained the captured unit and the details of the approved request</param>
         void CancelUnitOrders(Order odr);
         IEnumerable<Order> GetOdrsCreatedBigerFromNumDays(int numDays);
         int NumOfOrdersForRequst(GuestRequest request);
@@ -30,9 +45,6 @@ namespace BlApi
         int MarkDaysOfUnit(Order order);
         IEnumerable<HostingUnit> GetAvalableUnits(DateTime entryDate, uint days);
         #endregion
-       
-
-        
 
         #region Manage
         double GetHostFee(string id);
@@ -50,8 +62,7 @@ namespace BlApi
 
         #region system functions
         void sendMail();
-        int DaysBetweenDates(DateTime first, DateTime last = new DateTime());
+        int DaysBetweenDates(DateTime first, DateTime last = default);
         #endregion
-
     }
 }

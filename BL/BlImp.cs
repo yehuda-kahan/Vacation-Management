@@ -61,6 +61,13 @@ namespace BL
         #endregion
 
         #region Person functions
+        public Person GetPerson(string Id)
+        {
+            Person temp = null;
+            try { temp = dal.GetPerson(Id); }
+            catch (MissingException ex) { throw ex; }
+            return temp;
+        }
 
         #endregion
 
@@ -79,12 +86,6 @@ namespace BL
 
         #region Order functions
 
-        /// <summary>
-        /// for canceled all the order with the given guestRequest Key
-        /// but arent with the given Order Key
-        /// </summary>
-        /// <param name="guestRequestKey">for </param>
-        /// <param name="OrderKey"></param>
         public void CancelOrdersOfRequest(uint guestRequestKey, uint OrderKey)
         {
             var orders = dal.GetOrders(x => x.GuestRequestKey == guestRequestKey && x.Key != OrderKey);
@@ -94,11 +95,6 @@ namespace BL
             }
         }
 
-        /// <summary>
-        /// Cancels all orders which offerd for this unit, 
-        /// which overlap with customer request dates for now captured dates
-        /// </summary>
-        /// <param name="odr">The Order which contained the captured unit and the details of the approved request</param>
         public void CancelUnitOrders(Order odr)
         {
             GuestRequest request = dal.GetRequest(odr.GuestRequestKey);
@@ -182,7 +178,7 @@ namespace BL
                 unit[entryDate] = true;
             }
             dal.UpdateHostingUnit(unit); // update the "real" unit in the DataBase
-            return (request.LeaveDate - request.EntryDate).Days - 1;
+            return (request.LeaveDate - request.EntryDate).Days;
         }
         #endregion
 

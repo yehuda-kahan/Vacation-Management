@@ -46,14 +46,42 @@ namespace DalApi
         IEnumerable<Order> GetOrdersHostingUnitKey(uint HostingUnitKey);
         Order GetOrderGuestRequestKey(uint GuestRequestKey);
         uint AddOrder(Order odr);
+
+        /// <summary>
+        /// update the status for a order.
+        /// </summary>
+        /// <param name="Key"></param>
+        /// <param name="status"></param>
+        /// <param name="numDays">this is the request vication number days ,
+        /// Used in case the order is approved to calculate the comision</param>
         void UpdateStatusOrder(uint Key, OrderStatus status, int numDays = 0);
         #endregion
 
         #region Get Lists
+
+        /// <summary>
+        /// Get colection of units according a specific predicat example : GetHostingUnits(x => x.Key == 123)
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         IEnumerable<HostingUnit> GetHostingUnits(Func<HostingUnit, bool> predicate);
+
+        /// <summary>
+        /// Get colection of Orders according a specific predicat 
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         IEnumerable<Order> GetOrders(Func<Order, bool> predicate);
+
         IEnumerable<GuestRequest> GetGuestRequests();
+
+        /// <summary>
+        /// Get colection of Requests according a specific predicat
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         IEnumerable<GuestRequest> GetGuestRequests(Func<GuestRequest, bool> predicate);
+
         IEnumerable<BankBranch> GetBranches();
         #endregion
     }
