@@ -35,7 +35,19 @@ namespace BlApi
         /// </summary>
         /// <param name="odr">The Order which contained the captured unit and the details of the approved request</param>
         void CancelUnitOrders(Order odr);
+
+        /// <summary>
+        /// Return the number of orders that the creation date is bigger from the given 
+        /// number according to today
+        /// </summary>
+        /// <param name="numDays"></param>
+        /// <returns></returns>
         IEnumerable<Order> GetOdrsCreatedBigerFromNumDays(int numDays);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         int NumOfOrdersForRequst(GuestRequest request);
         int NumOfApprovedOrdersForUnit(HostingUnit unit);
 
