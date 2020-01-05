@@ -13,11 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalObject", "DalObject\DalO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DS", "DS\DS.csproj", "{3DA15F6F-876D-4F8B-A0C8-24AE066C8F32}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{30315557-F2AB-43EF-BC6D-784E412C55B7}"
-	ProjectSection(SolutionItems) = preProject
-		config.xml = config.xml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
