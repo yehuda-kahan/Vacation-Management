@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BlApi;
 using DalApi;
 using DO;
-
+using BO;
 
 namespace BL
 {
@@ -67,6 +67,11 @@ namespace BL
             try { temp = dal.GetPerson(Id); }
             catch (MissingException ex) { throw ex; }
             return temp;
+        }
+
+        public void AddPerson(Person person)
+        {
+            Person 
         }
 
         #endregion

@@ -4,13 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
+using BO;
 
 namespace BlApi
 {
     internal interface IBl
     {
+        #region Cilent
+        void AddClient();
+        #endregion
+
         #region Person
         Person GetPerson(string Id);
+
+        void AddPerson(PersonBO person);
+
         #endregion
 
         #region Guest Requst function
