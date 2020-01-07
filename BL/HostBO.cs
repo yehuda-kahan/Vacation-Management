@@ -9,7 +9,7 @@ namespace BO
 {
     public class HostBO
     {
-        Person PersonalInfo { get; set; }
-        List<HostingUnit> HostUnits { get; set; }
+        PersonBO PersonalInfo { get; set; }
+        List<HostingUnitBO> UnitsHost { get; set; }
      }
 }

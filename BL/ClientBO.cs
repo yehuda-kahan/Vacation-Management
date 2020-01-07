@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace BO
 {
     public class ClientBO
     {
-        public Person PersonalInfo { get; set; }
-        public List<GuestRequest> ClientRequests { get; set; }
+        public PersonBO PersonalInfo { get; set; }
+        public List<GuestRequesBO> ClientRequests { get; set; }
     }
 }

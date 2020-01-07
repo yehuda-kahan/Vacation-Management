@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DO;
 using BO;
 
 namespace BlApi
@@ -11,11 +10,13 @@ namespace BlApi
     internal interface IBl
     {
         #region Cilent
-        void AddClient();
+        void AddClient(ClientBO client);
+
+
         #endregion
 
         #region Person
-        Person GetPerson(string Id);
+        PersonBO GetPerson(string Id);
 
         void AddPerson(PersonBO person);
 

@@ -60,6 +60,13 @@ namespace BL
 
         #endregion
 
+        #region Client functions
+        void AddClient(ClientBO client)
+        {
+
+        }
+        #endregion
+
         #region Person functions
         public Person GetPerson(string Id)
         {
@@ -69,7 +76,7 @@ namespace BL
             return temp;
         }
 
-        public void AddPerson(Person person)
+        public void AddPerson(PersonBO person)
         {
             Person 
         }
