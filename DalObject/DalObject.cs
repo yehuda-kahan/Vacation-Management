@@ -20,10 +20,17 @@ namespace Dal
         #endregion
 
         #region Person Function functions
+
         public Person GetPerson(string Id)
         {
             Person person = DataSource.persons.FirstOrDefault(x => Id == x.Id);
             return person == null ? throw new MissingException("Person ID", Id) : person.Clone();
+        }
+        public void AddPerson(Person person)
+        {
+            if (DataSource.persons.Any(x => person.Id == x.Id))
+                throw new DuplicateException("Person ID", person.Id);
+            DataSource.persons.Add(person.Clone());
         }
 
         public IEnumerable<Person> GetPersonByName(string fullName)
@@ -35,17 +42,9 @@ namespace Dal
             return persons.Count() > 0 ? persons : throw new MissingException("person", fullName);
         }
 
-        public void AddPerson(Person person)
-        {
-            if (DataSource.persons.Any(x => person.Id == x.Id))
-                throw new DuplicateException("Person ID", person.Id);
-            DataSource.persons.Add(person.Clone());
-        }
-
         public void UpdatePerson(Person person)
         {
             int count = DataSource.persons.RemoveAll(x => x.Id == person.Id);
-
             if (count == 0)
                 throw new MissingException("Person ID", person.Id);
             DataSource.persons.Add(person.Clone());
@@ -80,7 +79,7 @@ namespace Dal
             var requsts = from item in DataSource.guestRequests
                           where item.ClientId == ClientId
                           select item.Clone();
-            if (requsts.Count() == 0)
+            if (requsts.Any())
                 throw new MissingException("Booking requsts of Client ID", ClientId);
             return requsts;
         }
@@ -284,7 +283,7 @@ namespace Dal
                    where predicate(item)
                    select item.Clone();
         }
-        
+
         public IEnumerable<GuestRequest> GetGuestRequests()
         {
             return from item in DataSource.guestRequests

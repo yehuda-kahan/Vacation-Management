@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="BlImp.cs" />
     <Compile Include="ClientBO.cs" />
-    <Compile Include="Enums.cs" />
+    <Compile Include="EnumsBO.cs" />
     <Compile Include="GuestRequestBO.cs" />
     <Compile Include="HostBO.cs" />
     <Compile Include="HostingUnitBO.cs" />

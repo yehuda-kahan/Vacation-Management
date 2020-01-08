@@ -10,18 +10,64 @@ namespace DalApi
     public interface IDal
     {
         #region Person
+        /// <summary>
+        /// Exceptions: MissingException
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>A person or throwing a MissingException </returns>
         Person GetPerson(string Id);
         IEnumerable<Person> GetPersonByName(string name);
+
+        /// <summary>
+        /// Exceptions: DuplicateException
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         void AddPerson(Person person);
+
+        /// <summary>
+        /// Exceptions: MissingException
+        /// </summary>
+        /// <param name="person"></param>
         void UpdatePerson(Person person);
+
+        /// <summary>
+        /// Exceptions: MissingException
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="status"></param>
         void UpdateStatusPerson(string id, Status status);
         #endregion
 
         #region Guest Request
-        GuestRequest GetRequest(uint Key);
-        IEnumerable<GuestRequest> GetAllRequestsOfClient(string ClientId);
+
+        /// <summary>
+        /// Exceptions :  DuplicateException
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         uint AddGuestRequest(GuestRequest request);
+
+        /// <summary>
+        /// Exceptions : MissingException
+        /// </summary>
+        /// <param name="Key"></param>
+        /// <returns></returns>
+        GuestRequest GetRequest(uint Key);
+
+        /// <summary>
+        /// Exceptions : MissingException
+        /// </summary>
+        /// <param name="ClientId"></param>
+        /// <returns></returns>
+        IEnumerable<GuestRequest> GetAllRequestsOfClient(string ClientId);
+
+        /// <summary>
+        /// Exceptions : MissingException
+        /// </summary>
+        /// <param name="request"></param>
         void UpdateGuestRequest(GuestRequest request);
+
         void UpdateStatusRequest(uint Key, RequestStatus status);
         #endregion
 

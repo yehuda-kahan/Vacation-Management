@@ -10,6 +10,6 @@ namespace BO
     public class ClientBO
     {
         public PersonBO PersonalInfo { get; set; }
-        public List<GuestRequesBO> ClientRequests { get; set; }
+        public List<GuestRequestBO> ClientRequests { get; set; }
     }
 }

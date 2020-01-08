@@ -9,21 +9,75 @@ namespace BlApi
 {
     internal interface IBl
     {
-        #region Cilent
-        void AddClient(ClientBO client);
-
-
-        #endregion
 
         #region Person
-        PersonBO GetPerson(string Id);
 
+        /// <summary>
+        /// Exceptions : MissingException, FormatException
+        /// </summary>
+        /// <param name="person"></param>
+        void UpdPerson(PersonBO person);
+
+        /// <summary>
+        /// Exceptions : DuplicateException
+        /// </summary>
+        /// <param name="person"></param>
         void AddPerson(PersonBO person);
 
+        /// <summary>
+        /// Exceptions : MissingException
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        PersonBO GetPerson(string Id);
+
+        /// <summary>
+        /// Exceptions : MissingException.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="status"></param>
+        void UpdStatusPerson(string id, StatusBO status);
         #endregion
 
         #region Guest Requst function
-        IEnumerable<GuestRequest> GetGuestRequests(Func<GuestRequest, bool> predicate);
+
+        /// <summary>
+        /// Exceptions : DuplicateException , FormatException
+        /// </summary>
+        /// <param name="request"></param>
+        void AddRequest(GuestRequestBO request);
+
+        /// <summary>
+        /// Exceptions : MissingException
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        GuestRequestBO GetRequest(uint key);
+
+        /// <summary>
+        ///  Exceptions : MissingException , FormatException
+        /// </summary>
+        /// <param name="request"></param>
+        void UpdRequest(GuestRequestBO request);
+
+        /// <summary>
+        ///  Exceptions : MissingException
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="status"></param>
+        void UpdStatusRequest(uint key, RequestStatusBO status);
+
+        IEnumerable<GuestRequestBO> GetGuestRequests(Func<GuestRequestBO, bool> predicate);
+        #endregion
+
+        #region Client
+
+        /// <summary>
+        /// Exceptions : DuplicateException
+        /// </summary>
+        /// <param name="client"></param>
+        void AddClient(ClientBO client);
+
         #endregion
 
         #region Order 
@@ -80,7 +134,8 @@ namespace BlApi
         #endregion
 
         #region Check functions
-        bool CheckLegalDates(GuestRequest request);
+        bool CheckValidEmail(string email);
+        bool CheckLegalDates(GuestRequestBO request);
         bool CheckHostClearance(Host host);
         bool CheckUnitAvilabilty(HostingUnit unit, DateTime entryDate, DateTime leaveDate);
         bool CheckOrderClosed(Order order);

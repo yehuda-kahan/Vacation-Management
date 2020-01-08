@@ -11,17 +11,12 @@ namespace BO
         public uint Key { get; set; }
         public uint HostingUnitKey { get; set; }
         public uint GuestRequestKey { get; set; }
-        public DateTime EntryDate { get; set; }
-        public DateTime LeaveDate { get; set; }
-        public string LastNameClient  { get; set; }
-        public string FirstNameClient  { get; set; }
         public string HostId { get; set; }
         public double Fee { get; set; }
-        public OrderStatus Status { get; set; }
+        public OrderStatusBO Status { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime SentDate { get; set; }
         public DateTime CloseDate { get; set; }
-
 
         public override string ToString()
         {

@@ -7,6 +7,8 @@ using BlApi;
 using DalApi;
 using DO;
 using BO;
+using System.Text.RegularExpressions;
+using System.Net.Mail;
 
 namespace BL
 {
@@ -15,7 +17,13 @@ namespace BL
         readonly IDal dal = DalFactory.GetDal();
 
         #region Check functions
-        public bool CheckLegalDates(GuestRequest request)
+        public bool CheckValidEmail(string email)
+        {
+            string pattern = @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|" + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)" + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$";
+            var regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            return regex.IsMatch(email);
+        }
+        public bool CheckLegalDates(GuestRequestBO request)
         {
             return request.LeaveDate > request.EntryDate;
         }
@@ -53,7 +61,7 @@ namespace BL
         {
             var orders = dal.GetOrders(x => x.HostId == id &&
             (x.Status == OrderStatus.PROCESSING || x.Status == OrderStatus.MAIL_SENT));
-            if (orders.Count() > 0)
+            if (orders.Any())
                 return true;
             return false;
         }
@@ -61,37 +69,162 @@ namespace BL
         #endregion
 
         #region Client functions
-        void AddClient(ClientBO client)
+        public void AddClient(ClientBO client)
         {
+            try { AddPerson(client.PersonalInfo); }
+            catch(DuplicateException ex) { throw ex; }
 
+            foreach (GuestRequestBO item in client.ClientRequests)
+            {
+                try { AddRequest(item); }
+                catch(DuplicateException duplicateEx) { throw duplicateEx; }
+                catch(FormatException formatEx) { throw formatEx; }
+            }
         }
         #endregion
 
         #region Person functions
-        public Person GetPerson(string Id)
+
+        PersonBO PersonConvertDOToBO(Person person)
+        {
+            PersonBO temp = new PersonBO();
+            temp.Id = person.Id;
+            temp.IdType = (IdTypesBO)person.IdType;
+            temp.FirstName = person.FirstName;
+            temp.LastName = person.LastName;
+            temp.Email = person.Email;
+            temp.Password = person.Password;
+            temp.PhoneNomber = person.PhoneNomber;
+            temp.Status = (StatusBO)person.Status;
+            return temp;
+        }
+
+        Person PersonConvertBOToDO(PersonBO person)
+        {
+            Person temp = new Person();
+            temp.Id = person.Id;
+            temp.IdType = (IdTypes)person.IdType;
+            temp.FirstName = person.FirstName;
+            temp.LastName = person.LastName;
+            temp.Email = person.Email;
+            temp.Password = person.Password;
+            temp.PhoneNomber = person.PhoneNomber;
+            temp.Status = (Status)person.Status;
+            return temp;
+        }
+
+        public PersonBO GetPerson(string Id)
         {
             Person temp = null;
             try { temp = dal.GetPerson(Id); }
             catch (MissingException ex) { throw ex; }
-            return temp;
+            return PersonConvertDOToBO(temp);
         }
 
         public void AddPerson(PersonBO person)
         {
-            Person 
+            // TODO check id , 
+            try { dal.AddPerson(PersonConvertBOToDO(person)); }
+            catch (DuplicateException ex) { throw ex; }
+        }
+
+        public void UpdPerson(PersonBO person)
+        {
+            if (!CheckValidEmail(person.Email))
+                throw new FormatException("The given mail " + person.Email + " is invalid");
+            try { dal.UpdatePerson(PersonConvertBOToDO(person)); }
+            catch (MissingException ex) { throw ex; }
+        }
+
+        public void UpdStatusPerson(string id, StatusBO status)
+        {
+            try { dal.UpdateStatusPerson(id, (Status)status); }
+            catch (MissingException ex) { throw ex; }
         }
 
         #endregion
 
         #region Guest Request functions
-        public void AddRequest(GuestRequest request) // test
+
+        public GuestRequestBO GuestRequesConvertDOToBO(GuestRequest request)
+        {
+            GuestRequestBO temp = new GuestRequestBO();
+            temp.Key = request.Key;
+            temp.ClientId = request.ClientId;
+            temp.Type = (UnitTypeBO)request.Type;
+            temp.Status = (RequestStatusBO)request.Status;
+            temp.CreateDate = request.CreateDate;
+            temp.EntryDate = request.EntryDate;
+            temp.LeaveDate = request.LeaveDate;
+            temp.Adults = request.Adults;
+            temp.Children = request.Children;
+            temp.Area = (AreaLocationBO)request.Area;
+            temp.ChildrensAttractions = (ThreeOptionsBO)request.ChildrensAttractions;
+            temp.Garden = (ThreeOptionsBO)request.Garden;
+            temp.Jacuzzi = (ThreeOptionsBO)request.Jacuzzi;
+            temp.Pool = (ThreeOptionsBO)request.Pool;
+            return temp;
+        }
+
+        public GuestRequest GuestRequesConvertBOToDO(GuestRequestBO request)
+        {
+            GuestRequest temp = new GuestRequest();
+            temp.Key = request.Key;
+            temp.ClientId = request.ClientId;
+            temp.Type = (UnitType)request.Type;
+            temp.Status = (RequestStatus)request.Status;
+            temp.CreateDate = request.CreateDate;
+            temp.EntryDate = request.EntryDate;
+            temp.LeaveDate = request.LeaveDate;
+            temp.Adults = request.Adults;
+            temp.Children = request.Children;
+            temp.Area = (AreaLocation)request.Area;
+            temp.ChildrensAttractions = (ThreeOptions)request.ChildrensAttractions;
+            temp.Garden = (ThreeOptions)request.Garden;
+            temp.Jacuzzi = (ThreeOptions)request.Jacuzzi;
+            temp.Pool = (ThreeOptions)request.Pool;
+            return temp;
+        }
+
+        public void AddRequest(GuestRequestBO request)
         {
             if (CheckLegalDates(request))
-                dal.AddGuestRequest(request);
+            {
+                try { dal.AddGuestRequest(GuestRequesConvertBOToDO(request)); }
+                catch (DuplicateException ex) { throw ex; }
+            }
+            else
+                throw new FormatException("Leave date must be bigger from entry date");
         }
-        public IEnumerable<GuestRequest> GetGuestRequests(Func<GuestRequest, bool> predicate)
+
+        public GuestRequestBO GetRequest(uint key)
         {
-            return dal.GetGuestRequests(predicate);
+            GuestRequest temp = null;
+            try { temp = dal.GetRequest(key); }
+            catch (MissingException ex) { throw ex; }
+            return GuestRequesConvertDOToBO(temp);
+        }
+
+        public void UpdRequest(GuestRequestBO request)
+        {
+            if (CheckLegalDates(request))
+            {
+                try { dal.UpdateGuestRequest(GuestRequesConvertBOToDO(request)); }
+                catch (MissingException ex) { throw ex; }
+            }
+            else
+                throw new FormatException("Leave date must be bigger from entry date");
+        }
+
+        public void UpdStatusRequest(uint key, RequestStatusBO status)
+        {
+            try { dal.UpdateStatusRequest(key, (RequestStatus)status); }
+            catch (MissingException ex) { throw ex; }
+        }
+
+        public IEnumerable<GuestRequestBO> GetGuestRequests(Func<GuestRequestBO, bool> predicate) // TODO check it
+        {
+            return (IEnumerable<GuestRequestBO>)dal.GetGuestRequests((Func<GuestRequest, bool>)predicate);
         }
 
         #endregion

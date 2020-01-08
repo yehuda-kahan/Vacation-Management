@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class GuestRequesBO
+    public class GuestRequestBO
     {
         public uint Key { get; set; }
         public string ClientId { get; set; }
-        public RequestStatus Status { get; set; }
+        public RequestStatusBO Status { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EntryDate { get; set; }
         public DateTime LeaveDate { get; set; }
-        public AreaLocation Area { get; set; }
+        public AreaLocationBO Area { get; set; }
         // public SubArea Area { get; set; } // Optiaonal
-        public UnitType Type { get; set; }
+        public UnitTypeBO Type { get; set; }
         public uint Adults { get; set; }
         public uint Children { get; set; }
-        public ThreeOptions Pool { get; set; }
-        public ThreeOptions Jacuzzi { get; set; }
-        public ThreeOptions Garden { get; set; }
-        public ThreeOptions ChildrensAttractions { get; set; }
+        public ThreeOptionsBO Pool { get; set; }
+        public ThreeOptionsBO Jacuzzi { get; set; }
+        public ThreeOptionsBO Garden { get; set; }
+        public ThreeOptionsBO ChildrensAttractions { get; set; }
 
         public override string ToString()
         {

@@ -8,10 +8,9 @@ namespace BO
 {
     public class PersonBO
     {
-
         public string Id { get; set; }
-        public IdTypes IdType { get; set; }
-        public Status Status { get; set; }
+        public IdTypesBO IdType { get; set; }
+        public StatusBO Status { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
