@@ -11,5 +11,6 @@ namespace BO
     {
         PersonBO PersonalInfo { get; set; }
         List<HostingUnitBO> UnitsHost { get; set; }
-     }
+        BankBranchBO BankDetales { get; set; }
+    }
 }

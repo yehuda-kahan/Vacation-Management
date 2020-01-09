@@ -93,6 +93,8 @@ namespace DalApi
         Order GetOrderGuestRequestKey(uint GuestRequestKey);
         uint AddOrder(Order odr);
 
+        void UpdOrder(Order odr);
+
         /// <summary>
         /// update the status for a order.
         /// </summary>
@@ -100,7 +102,7 @@ namespace DalApi
         /// <param name="status"></param>
         /// <param name="numDays">this is the request vication number days ,
         /// Used in case the order is approved to calculate the comision</param>
-        void UpdateStatusOrder(uint Key, OrderStatus status, int numDays = 0);
+        void UpdateStatusOrder(uint Key, OrderStatus status);
         #endregion
 
         #region Get Lists

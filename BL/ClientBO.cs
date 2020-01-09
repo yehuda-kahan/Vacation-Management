@@ -10,6 +10,6 @@ namespace BO
     public class ClientBO
     {
         public PersonBO PersonalInfo { get; set; }
-        public List<GuestRequestBO> ClientRequests { get; set; }
+        public IEnumerable<GuestRequestBO> ClientRequests { get; set; }
     }
 }

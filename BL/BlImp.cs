@@ -37,7 +37,7 @@ namespace BL
         {
             for (; entryDate < leaveDate; entryDate = entryDate.AddDays(1))
             {
-                if (unit[entryDate])
+                if (unit.GetDates(entryDate))
                     return false;
             }
             return true;
@@ -72,15 +72,54 @@ namespace BL
         public void AddClient(ClientBO client)
         {
             try { AddPerson(client.PersonalInfo); }
-            catch(DuplicateException ex) { throw ex; }
+            catch (DuplicateException ex) { throw ex; }
 
             foreach (GuestRequestBO item in client.ClientRequests)
             {
                 try { AddRequest(item); }
-                catch(DuplicateException duplicateEx) { throw duplicateEx; }
-                catch(FormatException formatEx) { throw formatEx; }
+                catch (DuplicateException duplicateEx) { throw duplicateEx; }
+                catch (FormatException formatEx) { throw formatEx; }
             }
         }
+
+        public ClientBO GetClient(string id)
+        {
+            ClientBO client = new ClientBO();
+            try { client.PersonalInfo = GetPerson(id); }
+            catch (MissingException ex) { throw ex; }
+            client.ClientRequests = GetGuestRequests(x => x.ClientId == id);
+            return client;
+        }
+        #endregion
+
+        #region Bank Branch
+
+        public BankBranch ConverntBankBranchBOToDO(BankBranchBO branch)
+        {
+            BankBranch target = new BankBranch();
+            target.BankNumber = branch.BankNumber;
+            target.BankName = branch.BankName;
+            target.BranchAddress = branch.BranchAddress;
+            target.BranchCity = branch.BranchCity;
+            target.BranchNumber = branch.BranchNumber;
+            target.Status = (Status)branch.Status;
+            return target;
+        }
+
+        public BankBranchBO ConverntBankBranchDOToBO(BankBranch branch)
+        {
+            BankBranchBO target = new BankBranchBO();
+            target.BankNumber = branch.BankNumber;
+            target.BankName = branch.BankName;
+            target.BranchAddress = branch.BranchAddress;
+            target.BranchCity = branch.BranchCity;
+            target.BranchNumber = branch.BranchNumber;
+            target.Status = (StatusBO)branch.Status;
+            return target;
+        }
+
+        //public BankBranchBO GetBranch()
+
         #endregion
 
         #region Person functions
@@ -222,14 +261,67 @@ namespace BL
             catch (MissingException ex) { throw ex; }
         }
 
-        public IEnumerable<GuestRequestBO> GetGuestRequests(Func<GuestRequestBO, bool> predicate) // TODO check it
+        /// <summary>
+        /// Help function
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public IEnumerable<GuestRequestBO> GetGuestRequests(Func<GuestRequest, bool> predicate)
         {
-            return (IEnumerable<GuestRequestBO>)dal.GetGuestRequests((Func<GuestRequest, bool>)predicate);
+            IEnumerable<GuestRequest> sourceRequest = dal.GetGuestRequests(predicate);
+            return from item in sourceRequest
+                   select GuestRequesConvertDOToBO(item);
         }
 
         #endregion
 
         #region Order functions
+
+        public OrderBO ConvertOrderDOToBO(Order order)
+        {
+            OrderBO target = new OrderBO();
+            target.Key = order.Key;
+            target.Fee = order.Fee;
+            target.HostingUnit = ConvertHostingUnitDOToBO(dal.GetUnit(order.HostingUnitKey));
+            target.GuestRequest = GuestRequesConvertDOToBO(dal.GetRequest(order.GuestRequestKey));
+            target.ClientFirstName = dal.GetPerson(target.GuestRequest.ClientId).FirstName;
+            target.ClientLastName = dal.GetPerson(target.GuestRequest.ClientId).LastName;
+            target.CloseDate = order.CloseDate;
+            target.HostId = order.HostId;
+            target.OrderDate = order.OrderDate;
+            target.SentDate = order.SentDate;
+            target.Status = (OrderStatusBO)order.Status;
+            return target;
+        }
+
+        public Order ConvertOrderBOToDO(OrderBO order)
+        {
+            Order target = new Order();
+            target.Key = order.Key;
+            target.Fee = order.Fee;
+            target.GuestRequestKey = order.GuestRequest.Key;
+            target.HostingUnitKey = order.HostingUnit.Key;
+            target.CloseDate = order.CloseDate;
+            target.HostId = order.HostId;
+            target.OrderDate = order.OrderDate;
+            target.SentDate = order.SentDate;
+            target.Status = (OrderStatus)order.Status;
+            return target;
+        }
+
+        public OrderBO GetOrder(uint key)
+        {
+            OrderBO order = null;
+            try { order = ConvertOrderDOToBO(dal.GetOrder(key)); }
+            catch (MissingException ex) { throw ex; }
+            return order;
+        }
+
+        public void AddOrder(OrderBO order)
+        {
+            try { dal.AddOrder(ConvertOrderBOToDO(order)); }
+            catch (DuplicateException ex) { throw ex; }
+        }
 
         public void CancelOrdersOfRequest(uint guestRequestKey, uint OrderKey)
         {
@@ -240,6 +332,12 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// Help function 
+        /// Cancels all orders which offerd for this unit, 
+        /// which overlap with customer request dates for now captured dates
+        /// </summary>
+        /// <param name="odr">The Order which contained the captured unit and the details of the approved request</param>
         public void CancelUnitOrders(Order odr)
         {
             GuestRequest request = dal.GetRequest(odr.GuestRequestKey);
@@ -253,18 +351,18 @@ namespace BL
             }
         }
 
-        public void UpdStatusOrder(uint OrderKey, OrderStatus status)
+        public void UpdStatusOrder(uint OrderKey, OrderStatusBO status)
         {
-            Order order;
+            Order order = null;
             int numDays = 0;
             try { order = dal.GetOrder(OrderKey); }
             catch (MissingException ex) { throw ex; }
             if (CheckOrderClosed(order))
-                throw new Exception("Order status canot be changed after approved");
-            if (status == OrderStatus.APPROVED)
+                throw new Exception("Order status canot be changed after approved"); //TODO change exception type
+            if (status == OrderStatusBO.APPROVED)
             {
                 // we want to make a deal
-                if ((numDays = MarkDaysOfUnit(order)) == -1)
+                if ((numDays = MarkDaysOfUnit(ConvertOrderDOToBO(order))) == -1)
                 {
                     dal.UpdateStatusOrder(OrderKey, OrderStatus.UNIT_NOT_AVALABELE);
                     throw new Exception("The unit is not abalable");
@@ -272,21 +370,28 @@ namespace BL
                 CancelOrdersOfRequest(order.GuestRequestKey, OrderKey);
                 CancelUnitOrders(order);
                 dal.UpdateStatusRequest(order.GuestRequestKey, RequestStatus.ORDERED);
+                order.Fee = 10 * numDays;
+                order.CloseDate = DateTime.Now;
+                order.Status = (OrderStatus)status;
+                dal.UpdOrder(order);
             }
-            dal.UpdateStatusOrder(OrderKey, status, numDays);
+            else
+                dal.UpdateStatusOrder(OrderKey, (OrderStatus)status);
         }
 
-        public IEnumerable<Order> GetOdrsCreatedBigerFromNumDays(int numDays)
+        public IEnumerable<OrderBO> GetOdrsCreatedBigerFromNumDays(int numDays)
         {
-            return dal.GetOrders(x => (DateTime.Now - x.OrderDate).Days >= numDays);
+            IEnumerable<Order> temp = dal.GetOrders(x => (DateTime.Now - x.OrderDate).Days >= numDays);
+            return from item in temp
+                   select ConvertOrderDOToBO(item);
         }
 
-        public int NumOfApprovedOrdersForUnit(HostingUnit unit)
+        public int NumOfApprovedOrdersForUnit(HostingUnitBO unit)
         {
             return dal.GetOrders(x => x.HostingUnitKey == unit.Key && x.Status == OrderStatus.APPROVED).Count();
         }
 
-        public int NumOfOrdersForRequst(GuestRequest request)
+        public int NumOfOrdersForRequst(GuestRequestBO request)
         {
             return dal.GetOrders(x => x.GuestRequestKey == request.Key).Count();
         }
@@ -298,33 +403,72 @@ namespace BL
 
         #region Units functions
 
-        public IEnumerable<HostingUnit> GetAvalableUnits(DateTime entryDate, uint days)
+        HostingUnitBO ConvertHostingUnitDOToBO(HostingUnit unit)
+        {
+            HostingUnitBO target = new HostingUnitBO();
+            target.Diary = unit.Diary;
+            target.HostingUnitName = unit.HostingUnitName;
+            target.Key = unit.Key;
+            target.Owner = unit.Owner;
+            target.Status = (StatusBO)unit.Status;
+            return target;
+        }
+
+        HostingUnit ConvertHostingUnitBOToDO(HostingUnitBO unit)
+        {
+            HostingUnit target = new HostingUnit();
+            target.Diary = unit.Diary;
+            target.HostingUnitName = unit.HostingUnitName;
+            target.Key = unit.Key;
+            target.Owner = unit.Owner;
+            target.Status = (Status)unit.Status;
+            return target;
+        }
+
+        public HostingUnitBO GetUnit(uint key)
+        {
+            HostingUnitBO temp = null;
+            try { temp = ConvertHostingUnitDOToBO(dal.GetUnit(key)); }
+            catch (MissingException ex) { throw ex; }
+            return temp;
+        }
+
+        public void AddUnit(HostingUnitBO unit)
+        {
+            try { dal.AddHostingUnit(ConvertHostingUnitBOToDO(unit)); }
+            catch (DuplicateException ex) { throw ex; }
+        }
+
+        public void UpdUnit(HostingUnitBO unit)
+        {
+            try { dal.UpdateHostingUnit(ConvertHostingUnitBOToDO(unit)); }
+            catch (MissingException ex) { throw ex; }
+        }
+
+        public IEnumerable<HostingUnitBO> GetAvalableUnits(DateTime entryDate, uint days)
         {
             var units = dal.GetHostingUnits(x => x != null);
             return from item in units
                    where CheckUnitAvilabilty(item, entryDate, entryDate.AddDays(days))
-                   select item;
+                   select ConvertHostingUnitDOToBO(item);
         }
-        public int MarkDaysOfUnit(Order order)
-        {
-            HostingUnit unit;
-            try { unit = dal.GetUnit(order.HostingUnitKey); }
-            catch (MissingException ex) { throw ex; }
-            GuestRequest request;
-            try { request = dal.GetRequest(order.GuestRequestKey); }
-            catch (MissingException ex) { throw ex; }
 
-            if (!CheckUnitAvilabilty(unit, request.EntryDate, request.LeaveDate))
+        public int MarkDaysOfUnit(OrderBO order)
+        {
+
+            if (!CheckUnitAvilabilty(ConvertHostingUnitBOToDO(order.HostingUnit), order.GuestRequest.EntryDate, order.GuestRequest.LeaveDate))
                 return -1;
 
-            DateTime entryDate = request.EntryDate;
-            for (; entryDate < request.LeaveDate; entryDate = entryDate.AddDays(1))
+            DateTime entryDate = order.GuestRequest.EntryDate;
+            for (; entryDate < order.GuestRequest.LeaveDate; entryDate = entryDate.AddDays(1))
             {
-                unit[entryDate] = true;
+                order.HostingUnit.SetDates(entryDate);
             }
-            dal.UpdateHostingUnit(unit); // update the "real" unit in the DataBase
-            return (request.LeaveDate - request.EntryDate).Days;
+            dal.UpdateHostingUnit(ConvertHostingUnitBOToDO(order.HostingUnit)); // update the "real" unit in the DataBase
+            return (order.GuestRequest.LeaveDate - order.GuestRequest.EntryDate).Days;
         }
+
+
         #endregion
 
         #region manage functions

@@ -50,6 +50,7 @@
     <Compile Include="Host.cs" />
     <Compile Include="HostingUnit.cs" />
     <Compile Include="IDal.cs" />
+    <Compile Include="Indexer.cs" />
     <Compile Include="MissingException.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Person.cs" />

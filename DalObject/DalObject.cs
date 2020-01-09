@@ -247,7 +247,15 @@ namespace Dal
             return odr.Key;
         }
 
-        public void UpdateStatusOrder(uint Key, OrderStatus status, int numDays)
+        public void UpdOrder(Order odr)
+        {
+            int count = DataSource.orders.RemoveAll(x => x.Key == odr.Key);
+            if (count == 0)
+                throw new MissingException("Order key",Convert.ToString( odr.Key));
+            DataSource.orders.Add(odr.Clone());
+        }
+
+        public void UpdateStatusOrder(uint Key, OrderStatus status)
         {
             bool found = false;
             foreach (Order item in DataSource.orders)
@@ -256,12 +264,6 @@ namespace Dal
                 {
                     found = true;
                     item.Status = status;
-                    if (item.Status == OrderStatus.APPROVED ||
-                        item.Status == OrderStatus.NO_CLIENT_RESPONSE ||
-                        item.Status == OrderStatus.UNIT_NOT_AVALABELE)
-                        item.CloseDate = DateTime.Now;
-                    if (item.Status == OrderStatus.APPROVED)
-                        item.Fee = 10 * numDays;
                 }
             }
             if (!found)

@@ -67,7 +67,6 @@ namespace BlApi
         /// <param name="status"></param>
         void UpdStatusRequest(uint key, RequestStatusBO status);
 
-        IEnumerable<GuestRequestBO> GetGuestRequests(Func<GuestRequestBO, bool> predicate);
         #endregion
 
         #region Client
@@ -78,11 +77,36 @@ namespace BlApi
         /// <param name="client"></param>
         void AddClient(ClientBO client);
 
+        /// <summary>
+        ///  Exceptions : MissingException
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ClientBO GetClient(string id);
+
+
+        #endregion
+
+        #region Bank Branch
+
         #endregion
 
         #region Order 
 
-        void UpdStatusOrder(uint OrderKey, OrderStatus status);
+        /// <summary>
+        /// Exceptions : MissingException
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        OrderBO GetOrder(uint key);
+
+        /// <summary>
+        /// Exceptions : DuplicateException
+        /// </summary>
+        /// <param name="order"></param>
+        void AddOrder(OrderBO order);
+
+        void UpdStatusOrder(uint OrderKey, OrderStatusBO status);
 
         /// <summary>
         /// for canceled all the order with the given guestRequest Key
@@ -92,12 +116,6 @@ namespace BlApi
         /// <param name="OrderKey"></param>
         void CancelOrdersOfRequest(uint guestRequestKey, uint orderKey);
 
-        /// <summary>
-        /// Cancels all orders which offerd for this unit, 
-        /// which overlap with customer request dates for now captured dates
-        /// </summary>
-        /// <param name="odr">The Order which contained the captured unit and the details of the approved request</param>
-        void CancelUnitOrders(Order odr);
 
         /// <summary>
         /// Return the orders that the creation date is bigger from the given 
@@ -105,42 +123,53 @@ namespace BlApi
         /// </summary>
         /// <param name="numDays"></param>
         /// <returns></returns>
-        IEnumerable<Order> GetOdrsCreatedBigerFromNumDays(int numDays);
+        IEnumerable<OrderBO> GetOdrsCreatedBigerFromNumDays(int numDays);
 
         /// <summary>
         /// Return the number of orders that conect to the given request
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        int NumOfOrdersForRequst(GuestRequest request);
+        int NumOfOrdersForRequst(GuestRequestBO request);
 
         /// <summary>
         ///  Return the number of approved orders that conect to the given unit
         /// </summary>
         /// <param name="unit"></param>
         /// <returns></returns>
-        int NumOfApprovedOrdersForUnit(HostingUnit unit);
+        int NumOfApprovedOrdersForUnit(HostingUnitBO unit);
 
         #endregion
 
         #region Units function
-        int MarkDaysOfUnit(Order order);
-        IEnumerable<HostingUnit> GetAvalableUnits(DateTime entryDate, uint days);
+
+        /// <summary>
+        /// Exceptions : MissingException 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        HostingUnitBO GetUnit(uint key);
+
+        /// <summary>
+        ///  Exceptions : DuplicateException
+        /// </summary>
+        /// <param name="unit"></param>
+        void AddUnit(HostingUnitBO unit);
+
+        /// <summary>
+        ///  Exceptions : MissingException 
+        /// </summary>
+        /// <param name="unit"></param>
+        void UpdUnit(HostingUnitBO unit);
+
+        int MarkDaysOfUnit(OrderBO order);
+
+        IEnumerable<HostingUnitBO> GetAvalableUnits(DateTime entryDate, uint days);
         #endregion
 
         #region Manage
         double GetHostFee(string id);
         double GetAllFee();
-        #endregion
-
-        #region Check functions
-        bool CheckValidEmail(string email);
-        bool CheckLegalDates(GuestRequestBO request);
-        bool CheckHostClearance(Host host);
-        bool CheckUnitAvilabilty(HostingUnit unit, DateTime entryDate, DateTime leaveDate);
-        bool CheckOrderClosed(Order order);
-        bool CheckOpenOrdersForUnit(uint unitKey);
-        bool CheckOpenOrdersForHost(string id);
         #endregion
 
         #region system functions

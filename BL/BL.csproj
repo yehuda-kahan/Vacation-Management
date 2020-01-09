@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BankBranchBO.cs" />
     <Compile Include="BlImp.cs" />
     <Compile Include="ClientBO.cs" />
     <Compile Include="EnumsBO.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="HostBO.cs" />
     <Compile Include="HostingUnitBO.cs" />
     <Compile Include="IBl.cs" />
+    <Compile Include="IndexerBO.cs" />
     <Compile Include="OrderBO.cs" />
     <Compile Include="PersonBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
