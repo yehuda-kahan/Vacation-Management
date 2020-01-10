@@ -10,7 +10,11 @@ namespace BO
     public class HostBO
     {
         PersonBO PersonalInfo { get; set; }
-        List<HostingUnitBO> UnitsHost { get; set; }
+        IEnumerable<HostingUnitBO> UnitsHost { get; set; } 
+        IEnumerable<OrderBO> OrdersHost { get; set; } //Not includ the canceled Orders
         BankBranchBO BankDetales { get; set; }
+
+        public string WebSite { get; set; }
+        public bool CollectingClearance { get; set; }
     }
 }
