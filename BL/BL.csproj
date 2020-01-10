@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BankBranchBO.cs" />
+    <Compile Include="BlFactory.cs" />
     <Compile Include="BlImp.cs" />
     <Compile Include="ClientBO.cs" />
     <Compile Include="EnumsBO.cs" />
