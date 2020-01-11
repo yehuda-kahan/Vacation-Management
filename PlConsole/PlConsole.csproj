@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DalApi\DalApi.csproj">
-      <Project>{dcd44f03-f97d-45a1-95b7-c449c58f89ee}</Project>
-      <Name>DalApi</Name>
+    <ProjectReference Include="..\BL\BL.csproj">
+      <Project>{7cd38034-1903-41a1-ab8c-8f05cc29cc87}</Project>
+      <Name>BL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

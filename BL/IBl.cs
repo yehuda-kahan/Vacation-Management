@@ -7,7 +7,7 @@ using BO;
 
 namespace BlApi
 {
-    internal interface IBl
+    public interface IBl
     {
 
         #region Person

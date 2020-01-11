@@ -10,7 +10,7 @@ namespace BlApi
     {
         public static IBl GetBL()
         {
-            return new BL.BLImp();
+            return new BL.BlImp();
         }
     }
 }
