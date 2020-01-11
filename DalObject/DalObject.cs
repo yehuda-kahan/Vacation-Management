@@ -21,11 +21,22 @@ namespace Dal
 
         #region Person Function functions
 
-        public Person GetPerson(string Id)
+        public bool ChaeckPersonMail(string mail)
+        {
+            return DataSource.persons.Any(x => mail == x.Email);
+        }
+        public Person GetPersonById(string Id)
         {
             Person person = DataSource.persons.FirstOrDefault(x => Id == x.Id);
             return person == null ? throw new MissingException("Person ID", Id) : person.Clone();
         }
+
+        public Person GetPersonByMail(string mail)
+        {
+            Person person = DataSource.persons.FirstOrDefault(x => mail == x.Email);
+            return person == null ? throw new MissingException("Person ID", mail) : person.Clone();
+        }
+
         public void AddPerson(Person person)
         {
             if (DataSource.persons.Any(x => person.Id == x.Id))
@@ -33,7 +44,7 @@ namespace Dal
             DataSource.persons.Add(person.Clone());
         }
 
-        public IEnumerable<Person> GetPersonByName(string fullName)
+        public IEnumerable<Person> GetPersonsByName(string fullName)
         {
             var persons = from item in DataSource.persons
                           let FullName = item.FirstName + " " + item.LastName
@@ -156,20 +167,6 @@ namespace Dal
             DataSource.hosts.Add(host.Clone());
         }
 
-        public void UpdateStatusHost(string id, Status status)
-        {
-            bool found = false;
-            foreach (Host item in DataSource.hosts)
-            {
-                if (item.Id == id)
-                {
-                    found = true;
-                    item.Status = status;
-                }
-            }
-            if (!found)
-                throw new MissingException("Host ID", id);
-        }
         #endregion
 
         #region Units functions
@@ -251,7 +248,7 @@ namespace Dal
         {
             int count = DataSource.orders.RemoveAll(x => x.Key == odr.Key);
             if (count == 0)
-                throw new MissingException("Order key",Convert.ToString( odr.Key));
+                throw new MissingException("Order key", Convert.ToString(odr.Key));
             DataSource.orders.Add(odr.Clone());
         }
 
@@ -272,6 +269,13 @@ namespace Dal
         #endregion
 
         #region ListFunctions
+        public IEnumerable<Host> GetHosts(Func<Host, bool> predicate)
+        {
+            return from item in DataSource.hosts
+                   where predicate(item)
+                   select item;
+        }
+
         public IEnumerable<Order> GetOrders(Func<Order, bool> predicate)
         {
             return from item in DataSource.orders
@@ -304,6 +308,15 @@ namespace Dal
                    where predicate(item)
                    select item.Clone();
         }
+        #endregion
+
+        #region
+        public BankBranch GetBranch(uint bankNum, uint branchNum)
+        {
+            return DataSource.bankBranches.FirstOrDefault
+                (x => x.BankNumber == bankNum && x.BranchNumber == branchNum).Clone();//TODO throw
+        }
+
         #endregion
     }
 }

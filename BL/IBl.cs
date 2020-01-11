@@ -29,7 +29,9 @@ namespace BlApi
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        PersonBO GetPerson(string Id);
+        PersonBO GetPersonById(string Id);
+
+        PersonBO GetPersonByMail(string mail);
 
         /// <summary>
         /// Exceptions : MissingException.
@@ -88,7 +90,7 @@ namespace BlApi
         #endregion
 
         #region Bank Branch
-
+        BankBranchBO GetBranch(uint bankNum, uint branchNum);
         #endregion
 
         #region Order 
@@ -139,6 +141,8 @@ namespace BlApi
         /// <returns></returns>
         int NumOfApprovedOrdersForUnit(HostingUnitBO unit);
 
+        IEnumerable<OrderBO> GetOdrsOfHost(string id);
+
         #endregion
 
         #region Units function
@@ -165,6 +169,19 @@ namespace BlApi
         int MarkDaysOfUnit(OrderBO order);
 
         IEnumerable<HostingUnitBO> GetAvalableUnits(DateTime entryDate, uint days);
+
+        IEnumerable<HostingUnitBO> GetHostUnits(string id);
+        #endregion
+
+        #region Host
+
+        HostBO GetHost(string id);
+
+        void AddHost(HostBO host);
+
+        void UpdHost(HostBO host);
+
+        void DelHost(HostBO host);
         #endregion
 
         #region Manage
@@ -182,6 +199,18 @@ namespace BlApi
         /// <param name="last"></param>
         /// <returns></returns>
         int DaysBetweenDates(DateTime first, DateTime last = default);
+        #endregion
+
+        #region List function
+
+        IEnumerable<IGrouping<AreaLocationBO, GuestRequestBO>> GetRequestByArea();
+
+        IEnumerable<IGrouping<uint, GuestRequestBO>> GetRequestByNumOfGuest();
+
+        IEnumerable<IGrouping<int, HostBO>> GetHostsByNumOfUnits();
+
+        IEnumerable<IGrouping<AreaLocationBO, HostingUnitBO>> GetHostingUnitsByArea();
+
         #endregion
     }
 }

@@ -10,8 +10,8 @@ namespace DO
     [Serializable]
     public class MissingException : Exception
     {
-        string disExsisting;
-        string typeObj;
+        public string disExsisting;
+        public string typeObj;
 
         public MissingException() : base() { }
         public MissingException(string message) : base(message) { }

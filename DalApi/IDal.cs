@@ -10,13 +10,18 @@ namespace DalApi
     public interface IDal
     {
         #region Person
+
+        bool ChaeckPersonMail(string mail);
+
         /// <summary>
         /// Exceptions: MissingException
         /// </summary>
         /// <param name="Id"></param>
         /// <returns>A person or throwing a MissingException </returns>
-        Person GetPerson(string Id);
-        IEnumerable<Person> GetPersonByName(string name);
+        Person GetPersonById(string Id);
+        IEnumerable<Person> GetPersonsByName(string name);
+
+        Person GetPersonByMail(string Id);
 
         /// <summary>
         /// Exceptions: DuplicateException
@@ -76,7 +81,6 @@ namespace DalApi
         void AddHost(Host host);
         void UpdateHost(Host host);
         void DelHost(string Key);
-        void UpdateStatusHost(string id, Status status);
         #endregion
 
         #region Units
@@ -131,6 +135,14 @@ namespace DalApi
         IEnumerable<GuestRequest> GetGuestRequests(Func<GuestRequest, bool> predicate);
 
         IEnumerable<BankBranch> GetBranches();
+
+        IEnumerable<Host> GetHosts(Func<Host, bool> predicate);
+        #endregion
+
+        #region Bank
+
+        BankBranch GetBranch(uint bankNum, uint branchNum);
+      
         #endregion
     }
 }

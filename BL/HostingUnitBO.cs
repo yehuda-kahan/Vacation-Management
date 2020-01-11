@@ -12,18 +12,8 @@ namespace BO
         public string Owner { get; set; }   // ID of the Owner Host 
         public string HostingUnitName { get; set; }
         public bool[,] Diary { set; get; }
-        //public bool this[DateTime index]
-        //{
-        //    get
-        //    {
-        //        return Diary[index.Month - 1, index.Day - 1];
-        //    }
-        //    set
-        //    {
-        //        Diary[index.Month - 1, index.Day - 1] = true;
-        //    }
-        //}
 
+        public AreaLocationBO Area { get; set; }
         public StatusBO Status { get; set; }
 
         public override string ToString()

@@ -85,7 +85,7 @@ namespace BL
         public ClientBO GetClient(string id)
         {
             ClientBO client = new ClientBO();
-            try { client.PersonalInfo = GetPerson(id); }
+            try { client.PersonalInfo = GetPersonById(id); }
             catch (MissingException ex) { throw ex; }
             client.ClientRequests = GetGuestRequests(x => x.ClientId == id);
             return client;
@@ -118,7 +118,10 @@ namespace BL
             return target;
         }
 
-        //public BankBranchBO GetBranch()
+        public BankBranchBO GetBranch(uint bankNum, uint branchNum)
+        {
+            return ConverntBankBranchDOToBO(dal.GetBranch(bankNum, branchNum));
+        }
 
         #endregion
 
@@ -152,19 +155,32 @@ namespace BL
             return temp;
         }
 
-        public PersonBO GetPerson(string Id)
+        public PersonBO GetPersonById(string Id)
         {
             Person temp = null;
-            try { temp = dal.GetPerson(Id); }
+            try { temp = dal.GetPersonById(Id); }
             catch (MissingException ex) { throw ex; }
             return PersonConvertDOToBO(temp);
+        }
+
+        public PersonBO GetPersonByMail(string mail)
+        {
+            PersonBO person = null;
+            try { person = PersonConvertDOToBO(dal.GetPersonByMail(mail)); }
+            catch (MissingException ex) { throw ex; }
+            return person;
         }
 
         public void AddPerson(PersonBO person)
         {
             // TODO check id , 
-            try { dal.AddPerson(PersonConvertBOToDO(person)); }
-            catch (DuplicateException ex) { throw ex; }
+            if (!dal.ChaeckPersonMail(person.Email))
+            {
+                try { dal.AddPerson(PersonConvertBOToDO(person)); }
+                catch (DuplicateException ex) { throw ex; }
+            }
+            else
+                throw new DuplicateWaitObjectException("The mail alredy is in the system by a othrer user\n");
         }
 
         public void UpdPerson(PersonBO person)
@@ -284,8 +300,8 @@ namespace BL
             target.Fee = order.Fee;
             target.HostingUnit = ConvertHostingUnitDOToBO(dal.GetUnit(order.HostingUnitKey));
             target.GuestRequest = GuestRequesConvertDOToBO(dal.GetRequest(order.GuestRequestKey));
-            target.ClientFirstName = dal.GetPerson(target.GuestRequest.ClientId).FirstName;
-            target.ClientLastName = dal.GetPerson(target.GuestRequest.ClientId).LastName;
+            target.ClientFirstName = dal.GetPersonById(target.GuestRequest.ClientId).FirstName;
+            target.ClientLastName = dal.GetPersonById(target.GuestRequest.ClientId).LastName;
             target.CloseDate = order.CloseDate;
             target.HostId = order.HostId;
             target.OrderDate = order.OrderDate;
@@ -319,8 +335,18 @@ namespace BL
 
         public void AddOrder(OrderBO order)
         {
-            try { dal.AddOrder(ConvertOrderBOToDO(order)); }
-            catch (DuplicateException ex) { throw ex; }
+            try
+            {
+                dal.GetPersonById(order.GuestRequest.ClientId);
+                try
+                {
+                    dal.GetUnit(order.HostingUnit.Key);
+                    try { dal.AddOrder(ConvertOrderBOToDO(order)); }
+                    catch (DuplicateException ex) { throw ex; }
+                }
+                catch (MissingException ex) { throw new MissingException("Canot add this order because ", ex.ToString()); }
+            }
+            catch (MissingException ex) { throw new MissingException("Canot add this order because ", ex.ToString()); }
         }
 
         public void CancelOrdersOfRequest(uint guestRequestKey, uint OrderKey)
@@ -386,6 +412,14 @@ namespace BL
                    select ConvertOrderDOToBO(item);
         }
 
+        public IEnumerable<OrderBO> GetOdrsOfHost(string id)
+        {
+            IEnumerable<Order> temp = dal.GetOrders(x => x.HostId == id && x.Status != OrderStatus.CANCELED
+            && x.Status != OrderStatus.UNIT_NOT_AVALABELE);
+            return from item in temp
+                   select ConvertOrderDOToBO(item);
+        }
+
         public int NumOfApprovedOrdersForUnit(HostingUnitBO unit)
         {
             return dal.GetOrders(x => x.HostingUnitKey == unit.Key && x.Status == OrderStatus.APPROVED).Count();
@@ -398,6 +432,73 @@ namespace BL
         #endregion
 
         #region Host functions
+        HostBO ConvertHostDOToBO(Host host)
+        {
+            HostBO target = new HostBO();
+            target.CollectingClearance = host.CollectingClearance;
+            target.WebSite = host.WebSite;
+            target.BankAccountNumber = host.BankAccountNumber;
+            target.BankDetales = GetBranch(host.BankNumber, host.BranchNumber);
+            target.PersonalInfo = GetPersonById(host.Id);
+            target.UnitsHost = GetHostUnits(host.Id);
+            target.OrdersHost = GetOdrsOfHost(host.Id);
+            target.Status = (StatusBO)host.Status;
+            return target;
+        }
+
+        Host ConvertHostBOToDO(HostBO host)
+        {
+            Host target = new Host();
+            target.CollectingClearance = host.CollectingClearance;
+            target.WebSite = host.WebSite;
+            target.BankAccountNumber = host.BankAccountNumber;
+            target.BankNumber = host.BankDetales.BankNumber;
+            target.BranchNumber = host.BankDetales.BranchNumber;
+            target.Id = host.PersonalInfo.Id;
+            target.Status = (Status)host.Status;
+            return target;
+        }
+
+        public HostBO GetHost(string id)
+        {
+            return ConvertHostDOToBO(dal.GetHost(id));//TODO y catch;
+        }
+
+        public void AddHost(HostBO host)
+        {
+            try { dal.AddHost(ConvertHostBOToDO(host)); }
+            catch (DuplicateException ex) { throw ex; }
+        }
+
+        public void UpdHost(HostBO host)
+        {
+            if (host.CollectingClearance == false)
+            {
+                var temp = from item in host.OrdersHost
+                           where item.Status != OrderStatusBO.APPROVED
+                           select item;
+                if (temp.Any())
+                    throw new TypeAccessException
+                        ("NOT allowed to cancel clearance while there is opened orders in the system");
+            }
+            try { dal.UpdateHost(ConvertHostBOToDO(host)); }
+            catch (MissingException ex) { throw ex; }
+        }
+
+        public void DelHost(HostBO host)
+        {
+            if (host.CollectingClearance == false)
+            {
+                var temp = from item in host.OrdersHost
+                           where item.Status != OrderStatusBO.APPROVED
+                           select item;
+                if (temp.Any())
+                    throw new TypeAccessException
+                        ("NOT allowed to delete Host while there is opened orders in the system");
+            }
+            try { dal.DelHost(host.PersonalInfo.Id); }
+            catch (MissingException ex) { throw ex; }
+        }
 
         #endregion
 
@@ -406,6 +507,7 @@ namespace BL
         HostingUnitBO ConvertHostingUnitDOToBO(HostingUnit unit)
         {
             HostingUnitBO target = new HostingUnitBO();
+            target.Area = (AreaLocationBO)unit.Area;
             target.Diary = unit.Diary;
             target.HostingUnitName = unit.HostingUnitName;
             target.Key = unit.Key;
@@ -418,6 +520,7 @@ namespace BL
         {
             HostingUnit target = new HostingUnit();
             target.Diary = unit.Diary;
+            target.Area = (AreaLocation)unit.Area;
             target.HostingUnitName = unit.HostingUnitName;
             target.Key = unit.Key;
             target.Owner = unit.Owner;
@@ -450,6 +553,13 @@ namespace BL
             var units = dal.GetHostingUnits(x => x != null);
             return from item in units
                    where CheckUnitAvilabilty(item, entryDate, entryDate.AddDays(days))
+                   select ConvertHostingUnitDOToBO(item);
+        }
+
+        public IEnumerable<HostingUnitBO> GetHostUnits(string id)
+        {
+            var units = dal.GetHostingUnits(x => x.Owner == id);
+            return from item in units
                    select ConvertHostingUnitDOToBO(item);
         }
 
@@ -506,6 +616,40 @@ namespace BL
             Console.WriteLine("Mail send\n");
         }
 
+        #endregion
+
+        #region Lists function
+        public IEnumerable<IGrouping<AreaLocationBO, GuestRequestBO>> GetRequestByArea()
+        {
+            return from item in dal.GetGuestRequests()
+                   select GuestRequesConvertDOToBO(item)
+                         into tempResult
+                   group tempResult by tempResult.Area;
+        }
+
+        public IEnumerable<IGrouping<AreaLocationBO, HostingUnitBO>> GetHostingUnitsByArea()
+        {
+            return from item in dal.GetHostingUnits(x => x.Status == Status.ACTIVE)
+                   select ConvertHostingUnitDOToBO(item)
+                         into tempResult
+                   group tempResult by tempResult.Area;
+        }
+
+        public IEnumerable<IGrouping<uint, GuestRequestBO>> GetRequestByNumOfGuest()
+        {
+            return from item in dal.GetGuestRequests()
+                   select GuestRequesConvertDOToBO(item)
+                         into tempResult
+                   group tempResult by tempResult.Adults + tempResult.Children;
+        }
+
+        public IEnumerable<IGrouping<int, HostBO>> GetHostsByNumOfUnits()
+        {
+            return from item in dal.GetHosts(x => x.Status == Status.ACTIVE)
+                   select ConvertHostDOToBO(item)
+                   into tempHosts
+                   group tempHosts by tempHosts.UnitsHost.Count();
+        }
         #endregion
 
     }

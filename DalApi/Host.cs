@@ -15,6 +15,8 @@ namespace DO
         public bool CollectingClearance { get; set; }
         public Status Status { get; set; }
 
+        public string WebSite { get; set; }  
+
         public override string ToString()
         {
             return "Host ID : " + Id

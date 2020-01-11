@@ -13,7 +13,7 @@ namespace DO
         public string HostingUnitName { get; set; }
         public bool[,] Diary { set; get; }
        
-
+        public AreaLocation Area { get; set; }
         public Status Status { get; set; }
 
         public override string ToString()

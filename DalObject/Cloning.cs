@@ -17,6 +17,10 @@ namespace Dal
             {
                 if (item.FieldType.IsValueType || item.FieldType.Equals(typeof(string)))
                     item.SetValue(target, item.GetValue(original));
+                else if (item.FieldType.IsArray)
+                {
+                    item.SetValue(target, ((bool[,])item.GetValue(original)).Clone());
+                }
                 else
                 {
                     item.SetValue(target, item.GetValue(original).Clone());

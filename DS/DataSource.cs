@@ -52,7 +52,8 @@ namespace DS
                     BranchNumber = 905,
                     BankAccountNumber= 57112658,
                     CollectingClearance= true,
-                    Status = Status.ACTIVE
+                    Status = Status.ACTIVE,
+                    WebSite = "www.google.com"
                 },
             };
 
@@ -64,7 +65,8 @@ namespace DS
                     Owner="11223344",
                     HostingUnitName = "The villa",
                     Diary =new bool[12,31],
-                    Status = Status.ACTIVE
+                    Status = Status.ACTIVE,
+                    Area = AreaLocation.CENTER
                 },
                 new HostingUnit
                 {
@@ -72,7 +74,8 @@ namespace DS
                     Owner="11223344",
                     HostingUnitName = "The apartment",
                     Diary =new bool[12,31],
-                    Status = Status.ACTIVE
+                    Status = Status.ACTIVE,
+                    Area = AreaLocation.JERUSALEM
                 }
             };
 

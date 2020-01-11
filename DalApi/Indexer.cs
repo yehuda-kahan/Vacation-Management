@@ -11,12 +11,12 @@ namespace DalApi
     {
         public static void SetDates(this HostingUnit unit, DateTime date)
         {
-            unit.Diary[date.Day - 1, date.Month - 1] = true;
+            unit.Diary[date.Month - 1, date.Day - 1] = true;
         }
 
         public static bool GetDates(this HostingUnit unit, DateTime date)
         {
-            return unit.Diary[date.Day - 1, date.Month - 1];
+            return unit.Diary[ date.Month - 1, date.Day - 1];
         }
     }
 }
