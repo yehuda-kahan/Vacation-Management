@@ -11,10 +11,7 @@ namespace PlConsole
 {
     class Program
     {
-
         static IBl bl = BlFactory.GetBL();
-
-
         static void Main(string[] args)
         {
             Console.WriteLine(bl.GetPersonById("11223344"));
@@ -51,12 +48,10 @@ namespace PlConsole
                 Status = StatusBO.ACTIVE,
                 Area = AreaLocationBO.CENTER
             };
-            uint a= new uint();
-            try {a= bl.AddUnit(unit); }
+            uint a = new uint();
+            try { a = bl.AddUnit(unit); }
             catch (DuplicateKeyException ex) { Console.WriteLine(ex); }
             Console.WriteLine(a);
-
-
         }
     }
 }
