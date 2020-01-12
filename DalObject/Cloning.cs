@@ -19,7 +19,7 @@ namespace Dal
                     item.SetValue(target, item.GetValue(original));
                 else if (item.FieldType.IsArray)
                 {
-                    item.SetValue(target, ((bool[,])item.GetValue(original)).Clone());
+                    item.SetValue(target, ((Array)(item.GetValue(original))).Clone());
                 }
                 else
                 {
