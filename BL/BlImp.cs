@@ -580,9 +580,10 @@ namespace BL
             return temp;
         }
 
-        public void AddUnit(HostingUnitBO unit)
+        public uint AddUnit(HostingUnitBO unit)
         {
-            try { dal.AddHostingUnit(ConvertHostingUnitBOToDO(unit)); }
+
+            try { return dal.AddHostingUnit(ConvertHostingUnitBOToDO(unit)); }
             catch (DuplicateKeyException ex) { throw ex; }
         }
 

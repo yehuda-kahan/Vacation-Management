@@ -168,7 +168,7 @@ namespace BlApi
         ///  Exceptions : DuplicateKeyException
         /// </summary>
         /// <param name="unit"></param>
-        void AddUnit(HostingUnitBO unit);
+        uint AddUnit(HostingUnitBO unit);
 
         /// <summary>
         ///  Exceptions : MissingMemberException 

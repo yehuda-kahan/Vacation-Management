@@ -17,7 +17,7 @@ namespace PlConsole
 
         static void Main(string[] args)
         {
-            // Console.WriteLine(bl.GetPerson("11223344"));
+            Console.WriteLine(bl.GetPersonById("11223344"));
             // foreach(var item in bl.GetAvalableUnits(DateTime.Now, 5))
             //{
             //    Console.WriteLine(item.ToString());
@@ -44,15 +44,17 @@ namespace PlConsole
             //catch (MissingMemberException ex) { Console.WriteLine(ex); }
             HostingUnitBO unit = new HostingUnitBO
             {
-                Key = 1111,
+                Key = 11116,
                 Owner = "11223344",
                 HostingUnitName = "villa",
                 Diary = new bool[12, 31],
                 Status = StatusBO.ACTIVE,
                 Area = AreaLocationBO.CENTER
             };
-            try { bl.AddUnit(unit); }
+            uint a= new uint();
+            try {a= bl.AddUnit(unit); }
             catch (DuplicateKeyException ex) { Console.WriteLine(ex); }
+            Console.WriteLine(a);
 
 
         }
