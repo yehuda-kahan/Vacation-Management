@@ -13,28 +13,33 @@ namespace BlApi
         #region Person
 
         /// <summary>
-        /// Exceptions : MissingException, FormatException
+        /// Exceptions : MissingMemberException, FormatException
         /// </summary>
         /// <param name="person"></param>
         void UpdPerson(PersonBO person);
 
         /// <summary>
-        /// Exceptions : DuplicateException
+        /// Exceptions : DuplicateKeyException , InvalidOperationException
         /// </summary>
         /// <param name="person"></param>
         void AddPerson(PersonBO person);
 
         /// <summary>
-        /// Exceptions : MissingException
+        /// Exceptions : MissingMemberException
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
         PersonBO GetPersonById(string Id);
 
+        /// <summary>
+        ///  Exceptions : MissingMemberException
+        /// </summary>
+        /// <param name="mail"></param>
+        /// <returns></returns>
         PersonBO GetPersonByMail(string mail);
 
         /// <summary>
-        /// Exceptions : MissingException.
+        /// Exceptions : MissingMemberException.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="status"></param>
@@ -44,26 +49,26 @@ namespace BlApi
         #region Guest Requst function
 
         /// <summary>
-        /// Exceptions : DuplicateException , FormatException
+        /// Exceptions : DuplicateKeyException , FormatException
         /// </summary>
         /// <param name="request"></param>
         void AddRequest(GuestRequestBO request);
 
         /// <summary>
-        /// Exceptions : MissingException
+        /// Exceptions : MissingMemberException
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         GuestRequestBO GetRequest(uint key);
 
         /// <summary>
-        ///  Exceptions : MissingException , FormatException
+        ///  Exceptions : MissingMemberException , FormatException
         /// </summary>
         /// <param name="request"></param>
         void UpdRequest(GuestRequestBO request);
 
         /// <summary>
-        ///  Exceptions : MissingException
+        ///  Exceptions : MissingMemberException
         /// </summary>
         /// <param name="key"></param>
         /// <param name="status"></param>
@@ -74,13 +79,13 @@ namespace BlApi
         #region Client
 
         /// <summary>
-        /// Exceptions : DuplicateException
+        /// Exceptions : DuplicateKeyException , FormatException
         /// </summary>
         /// <param name="client"></param>
         void AddClient(ClientBO client);
 
         /// <summary>
-        ///  Exceptions : MissingException
+        ///  Exceptions : MissingMemberException
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -96,18 +101,23 @@ namespace BlApi
         #region Order 
 
         /// <summary>
-        /// Exceptions : MissingException
+        /// Exceptions : MissingMemberException
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         OrderBO GetOrder(uint key);
 
         /// <summary>
-        /// Exceptions : DuplicateException
+        /// Exceptions : DuplicateKeyException
         /// </summary>
         /// <param name="order"></param>
         void AddOrder(OrderBO order);
 
+        /// <summary>
+        /// Exceptions : InvalidOperationException, MissingMemberException
+        /// </summary>
+        /// <param name="OrderKey"></param>
+        /// <param name="status"></param>
         void UpdStatusOrder(uint OrderKey, OrderStatusBO status);
 
         /// <summary>
@@ -148,20 +158,20 @@ namespace BlApi
         #region Units function
 
         /// <summary>
-        /// Exceptions : MissingException 
+        /// Exceptions : MissingMemberException 
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         HostingUnitBO GetUnit(uint key);
 
         /// <summary>
-        ///  Exceptions : DuplicateException
+        ///  Exceptions : DuplicateKeyException
         /// </summary>
         /// <param name="unit"></param>
         void AddUnit(HostingUnitBO unit);
 
         /// <summary>
-        ///  Exceptions : MissingException 
+        ///  Exceptions : MissingMemberException 
         /// </summary>
         /// <param name="unit"></param>
         void UpdUnit(HostingUnitBO unit);
@@ -175,8 +185,17 @@ namespace BlApi
 
         #region Host
 
+        /// <summary>
+        /// Exceptions : MissingMemberException
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         HostBO GetHost(string id);
 
+        /// <summary>
+        /// Exceptions : DuplicatekeyException
+        /// </summary>
+        /// <param name="host"></param>
         void AddHost(HostBO host);
 
         void UpdHost(HostBO host);

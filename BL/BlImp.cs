@@ -9,6 +9,7 @@ using DO;
 using BO;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
+using System.Data.Linq;
 
 namespace BL
 {
@@ -17,23 +18,78 @@ namespace BL
         readonly IDal dal = DalFactory.GetDal();
 
         #region Check functions
-        public bool CheckValidEmail(string email)
+        private bool IsValidMail(string email)
         {
             string pattern = @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|" + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)" + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$";
             var regex = new Regex(pattern, RegexOptions.IgnoreCase);
             return regex.IsMatch(email);
         }
-        public bool CheckLegalDates(GuestRequestBO request)
+
+        private bool IsNumeric(string NumStr)
+        {
+            long temp;
+            return long.TryParse(NumStr, out temp);
+        }
+
+        private bool IsValidTZ(string TZ)
+        {
+            int sum = 0;
+            int tmp = 0;
+            int mult = 0;
+
+            TZ = TZ.Trim();
+            if (!IsNumeric(TZ))
+            { return false; }
+            if (TZ == null || TZ.Length == 0 || TZ.Length != 9)
+            {
+                return false;
+            }
+
+            mult = (TZ.Length % 2 == 0) ? 2 : 1;
+
+            for (int i = 0; i < TZ.Length - 1; i++)
+            {
+                try
+                {
+                    tmp = Convert.ToInt32(TZ.Substring(i, 1)) * mult;
+
+                    if (tmp > 9)
+                    {
+                        tmp = 1 + tmp - 10;
+                    }
+
+                    sum += tmp;
+                    mult = (mult == 2) ? 1 : 2;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            sum += Convert.ToInt32(TZ.Substring(TZ.Length - 1, 1));
+
+            if (sum > 0 && sum % 10 == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool IsLegalDates(GuestRequestBO request)
         {
             return request.LeaveDate > request.EntryDate;
         }
 
-        public bool CheckHostClearance(Host host)
+        private bool CheckHostClearance(Host host)
         {
             return host.CollectingClearance;
         }
 
-        public bool CheckUnitAvilabilty(HostingUnit unit, DateTime entryDate, DateTime leaveDate)
+        private bool CheckUnitAvilabilty(HostingUnit unit, DateTime entryDate, DateTime leaveDate)
         {
             for (; entryDate < leaveDate; entryDate = entryDate.AddDays(1))
             {
@@ -43,21 +99,21 @@ namespace BL
             return true;
         }
 
-        public bool CheckOrderClosed(Order order)
+        private bool CheckOrderClosed(Order order)
         {
             return order.Status == OrderStatus.APPROVED;
         }
 
-        public bool CheckOpenOrdersForUnit(uint unitKey)
+        private bool CheckOpenOrdersForUnit(uint unitKey)
         {
             var orders = dal.GetOrders(x => x.HostingUnitKey == unitKey &&
             (x.Status == OrderStatus.PROCESSING || x.Status == OrderStatus.MAIL_SENT));
             if (orders.Count() > 0)
                 return true;
             return false;
-        }
+        } //TODO check necessarity
 
-        public bool CheckOpenOrdersForHost(string id)
+        private bool CheckOpenOrdersForHost(string id)
         {
             var orders = dal.GetOrders(x => x.HostId == id &&
             (x.Status == OrderStatus.PROCESSING || x.Status == OrderStatus.MAIL_SENT));
@@ -72,12 +128,12 @@ namespace BL
         public void AddClient(ClientBO client)
         {
             try { AddPerson(client.PersonalInfo); }
-            catch (DuplicateException ex) { throw ex; }
+            catch (DuplicateKeyException ex) { throw ex; }
 
             foreach (GuestRequestBO item in client.ClientRequests)
             {
                 try { AddRequest(item); }
-                catch (DuplicateException duplicateEx) { throw duplicateEx; }
+                catch (DuplicateKeyException duplicateEx) { throw duplicateEx; }
                 catch (FormatException formatEx) { throw formatEx; }
             }
         }
@@ -86,7 +142,7 @@ namespace BL
         {
             ClientBO client = new ClientBO();
             try { client.PersonalInfo = GetPersonById(id); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
             client.ClientRequests = GetGuestRequests(x => x.ClientId == id);
             return client;
         }
@@ -159,7 +215,7 @@ namespace BL
         {
             Person temp = null;
             try { temp = dal.GetPersonById(Id); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
             return PersonConvertDOToBO(temp);
         }
 
@@ -167,34 +223,35 @@ namespace BL
         {
             PersonBO person = null;
             try { person = PersonConvertDOToBO(dal.GetPersonByMail(mail)); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
             return person;
         }
 
         public void AddPerson(PersonBO person)
         {
-            // TODO check id , 
+            if (!IsValidTZ(person.Id))
+                new InvalidOperationException("The given Id is invalid");
             if (!dal.ChaeckPersonMail(person.Email))
             {
                 try { dal.AddPerson(PersonConvertBOToDO(person)); }
-                catch (DuplicateException ex) { throw ex; }
+                catch (DuplicateKeyException ex) { throw ex; }
             }
             else
-                throw new DuplicateWaitObjectException("The mail alredy is in the system by a othrer user\n");
+                throw new DuplicateKeyException(person.Email, "The mail alredy is in the system by a othrer user\n");
         }
 
         public void UpdPerson(PersonBO person)
         {
-            if (!CheckValidEmail(person.Email))
+            if (!IsValidMail(person.Email))
                 throw new FormatException("The given mail " + person.Email + " is invalid");
             try { dal.UpdatePerson(PersonConvertBOToDO(person)); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
         }
 
         public void UpdStatusPerson(string id, StatusBO status)
         {
             try { dal.UpdateStatusPerson(id, (Status)status); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
         }
 
         #endregion
@@ -243,10 +300,10 @@ namespace BL
 
         public void AddRequest(GuestRequestBO request)
         {
-            if (CheckLegalDates(request))
+            if (IsLegalDates(request))
             {
                 try { dal.AddGuestRequest(GuestRequesConvertBOToDO(request)); }
-                catch (DuplicateException ex) { throw ex; }
+                catch (DuplicateKeyException ex) { throw ex; }
             }
             else
                 throw new FormatException("Leave date must be bigger from entry date");
@@ -256,16 +313,16 @@ namespace BL
         {
             GuestRequest temp = null;
             try { temp = dal.GetRequest(key); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
             return GuestRequesConvertDOToBO(temp);
         }
 
         public void UpdRequest(GuestRequestBO request)
         {
-            if (CheckLegalDates(request))
+            if (IsLegalDates(request))
             {
                 try { dal.UpdateGuestRequest(GuestRequesConvertBOToDO(request)); }
-                catch (MissingException ex) { throw ex; }
+                catch (MissingMemberException ex) { throw ex; }
             }
             else
                 throw new FormatException("Leave date must be bigger from entry date");
@@ -274,7 +331,7 @@ namespace BL
         public void UpdStatusRequest(uint key, RequestStatusBO status)
         {
             try { dal.UpdateStatusRequest(key, (RequestStatus)status); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
         }
 
         /// <summary>
@@ -329,7 +386,7 @@ namespace BL
         {
             OrderBO order = null;
             try { order = ConvertOrderDOToBO(dal.GetOrder(key)); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
             return order;
         }
 
@@ -342,11 +399,11 @@ namespace BL
                 {
                     dal.GetUnit(order.HostingUnit.Key);
                     try { dal.AddOrder(ConvertOrderBOToDO(order)); }
-                    catch (DuplicateException ex) { throw ex; }
+                    catch (DuplicateKeyException ex) { throw ex; }
                 }
-                catch (MissingException ex) { throw new MissingException("Canot add this order because ", ex.ToString()); }
+                catch (MissingMemberException ex) { throw new MissingMemberException("Canot add this order because ", ex.ToString()); }
             }
-            catch (MissingException ex) { throw new MissingException("Canot add this order because ", ex.ToString()); }
+            catch (MissingMemberException ex) { throw new MissingMemberException("Canot add this order because ", ex.ToString()); }
         }
 
         public void CancelOrdersOfRequest(uint guestRequestKey, uint OrderKey)
@@ -382,16 +439,16 @@ namespace BL
             Order order = null;
             int numDays = 0;
             try { order = dal.GetOrder(OrderKey); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
             if (CheckOrderClosed(order))
-                throw new Exception("Order status canot be changed after approved"); //TODO change exception type
+                throw new InvalidOperationException("Order status canot be changed after approved");
             if (status == OrderStatusBO.APPROVED)
             {
                 // we want to make a deal
                 if ((numDays = MarkDaysOfUnit(ConvertOrderDOToBO(order))) == -1)
                 {
                     dal.UpdateStatusOrder(OrderKey, OrderStatus.UNIT_NOT_AVALABELE);
-                    throw new Exception("The unit is not abalable");
+                    throw new InvalidOperationException("The unit is not abalable");
                 }
                 CancelOrdersOfRequest(order.GuestRequestKey, OrderKey);
                 CancelUnitOrders(order);
@@ -467,7 +524,7 @@ namespace BL
         public void AddHost(HostBO host)
         {
             try { dal.AddHost(ConvertHostBOToDO(host)); }
-            catch (DuplicateException ex) { throw ex; }
+            catch (DuplicateKeyException ex) { throw ex; }
         }
 
         public void UpdHost(HostBO host)
@@ -482,7 +539,7 @@ namespace BL
                         ("NOT allowed to cancel clearance while there is opened orders in the system");
             }
             try { dal.UpdateHost(ConvertHostBOToDO(host)); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
         }
 
         public void DelHost(HostBO host)
@@ -497,7 +554,7 @@ namespace BL
                         ("NOT allowed to delete Host while there is opened orders in the system");
             }
             try { dal.DelHost(host.PersonalInfo.Id); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
         }
 
         #endregion
@@ -532,20 +589,20 @@ namespace BL
         {
             HostingUnitBO temp = null;
             try { temp = ConvertHostingUnitDOToBO(dal.GetUnit(key)); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
             return temp;
         }
 
         public void AddUnit(HostingUnitBO unit)
         {
             try { dal.AddHostingUnit(ConvertHostingUnitBOToDO(unit)); }
-            catch (DuplicateException ex) { throw ex; }
+            catch (DuplicateKeyException ex) { throw ex; }
         }
 
         public void UpdUnit(HostingUnitBO unit)
         {
             try { dal.UpdateHostingUnit(ConvertHostingUnitBOToDO(unit)); }
-            catch (MissingException ex) { throw ex; }
+            catch (MissingMemberException ex) { throw ex; }
         }
 
         public IEnumerable<HostingUnitBO> GetAvalableUnits(DateTime entryDate, uint days)

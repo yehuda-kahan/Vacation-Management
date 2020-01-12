@@ -14,30 +14,30 @@ namespace DalApi
         bool ChaeckPersonMail(string mail);
 
         /// <summary>
-        /// Exceptions: MissingException
+        /// Exceptions: MissingMemberException
         /// </summary>
         /// <param name="Id"></param>
-        /// <returns>A person or throwing a MissingException </returns>
+        /// <returns>A person or throwing a MissingMemberException </returns>
         Person GetPersonById(string Id);
         IEnumerable<Person> GetPersonsByName(string name);
 
         Person GetPersonByMail(string Id);
 
         /// <summary>
-        /// Exceptions: DuplicateException
+        /// Exceptions: DuplicateKeyException
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
         void AddPerson(Person person);
 
         /// <summary>
-        /// Exceptions: MissingException
+        /// Exceptions: MissingMemberException
         /// </summary>
         /// <param name="person"></param>
         void UpdatePerson(Person person);
 
         /// <summary>
-        /// Exceptions: MissingException
+        /// Exceptions: MissingMemberException
         /// </summary>
         /// <param name="id"></param>
         /// <param name="status"></param>
@@ -47,28 +47,28 @@ namespace DalApi
         #region Guest Request
 
         /// <summary>
-        /// Exceptions :  DuplicateException
+        /// Exceptions :  DuplicateKeyException
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         uint AddGuestRequest(GuestRequest request);
 
         /// <summary>
-        /// Exceptions : MissingException
+        /// Exceptions : MissingMemberException
         /// </summary>
         /// <param name="Key"></param>
         /// <returns></returns>
         GuestRequest GetRequest(uint Key);
 
         /// <summary>
-        /// Exceptions : MissingException
+        /// Exceptions : MissingMemberException
         /// </summary>
         /// <param name="ClientId"></param>
         /// <returns></returns>
         IEnumerable<GuestRequest> GetAllRequestsOfClient(string ClientId);
 
         /// <summary>
-        /// Exceptions : MissingException
+        /// Exceptions : MissingMemberException
         /// </summary>
         /// <param name="request"></param>
         void UpdateGuestRequest(GuestRequest request);
@@ -78,6 +78,10 @@ namespace DalApi
 
         #region Host
         Host GetHost(string Id);
+        /// <summary>
+        /// Exceptions : DuplicateKeyException
+        /// </summary>
+        /// <param name="host"></param>
         void AddHost(Host host);
         void UpdateHost(Host host);
         void DelHost(string Key);
@@ -85,6 +89,11 @@ namespace DalApi
 
         #region Units
         HostingUnit GetUnit(uint Key);
+        /// <summary>
+        /// Exceptions : DuplicateKeyException
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
         uint AddHostingUnit(HostingUnit unit);
         void UpdateHostingUnit(HostingUnit unit);
         void DelHostingUnit(uint Key);
@@ -95,6 +104,11 @@ namespace DalApi
         Order GetOrder(uint Key);
         IEnumerable<Order> GetOrdersHostingUnitKey(uint HostingUnitKey);
         Order GetOrderGuestRequestKey(uint GuestRequestKey);
+        /// <summary>
+        /// Exceptions : DuplicateKeyException
+        /// </summary>
+        /// <param name="odr"></param>
+        /// <returns></returns>
         uint AddOrder(Order odr);
 
         void UpdOrder(Order odr);

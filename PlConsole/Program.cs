@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Linq;
 using BO;
 using BlApi;
 
@@ -21,25 +22,39 @@ namespace PlConsole
             //{
             //    Console.WriteLine(item.ToString());
             //}
-            PersonBO person = new PersonBO()
-            {
-                Id = "204284376",
-                Email = "yehudajka@gmail.com",
-                IdType = IdTypesBO.ID,
-                FirstName = "yehuda",
-                LastName = "kahan",
-                Password = "98765",
-                PhoneNomber = "+972587271600",
-                Status = StatusBO.ACTIVE
-            };
-            try
-            {
-                bl.AddPerson(person);
-            }
-            catch (DuplicateWaitObjectException ex) { Console.WriteLine(ex.Message); }
+            //PersonBO person = new PersonBO()
+            //{
+            //    Id = "204284376",
+            //    Email = "yehudajka@gmail.com",
+            //    IdType = IdTypesBO.ID,
+            //    FirstName = "yehuda",
+            //    LastName = "kahan",
+            //    Password = "98765",
+            //    PhoneNomber = "+972587271600",
+            //    Status = StatusBO.ACTIVE
+            //};
+            //try
+            //{
+            //    bl.AddPerson(person);
+            //}
+            //catch (DuplicateWaitObjectException ex) { Console.WriteLine(ex.Message); }
             //Console.WriteLine(bl.GetPersonByMail("yehudajka@gmail.com"));
             //Console.WriteLine(bl.GetPersonById("204284376"));
-            
+            //try { Console.WriteLine(bl.GetRequest(20000002).ToString()); }
+            //catch (MissingMemberException ex) { Console.WriteLine(ex); }
+            HostingUnitBO unit = new HostingUnitBO
+            {
+                Key = 1111,
+                Owner = "11223344",
+                HostingUnitName = "villa",
+                Diary = new bool[12, 31],
+                Status = StatusBO.ACTIVE,
+                Area = AreaLocationBO.CENTER
+            };
+            try { bl.AddUnit(unit); }
+            catch (DuplicateKeyException ex) { Console.WriteLine(ex); }
+
+
         }
     }
 }
