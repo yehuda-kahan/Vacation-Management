@@ -41,15 +41,23 @@ namespace BL
             if (!IsNumeric(TZ))
             { return false; }
             if (TZ == null || TZ.Length == 0 || TZ.Length != 9)
+            {
                 return false;
+            }
+
             mult = (TZ.Length % 2 == 0) ? 2 : 1;
+
             for (int i = 0; i < TZ.Length - 1; i++)
             {
                 try
                 {
                     tmp = Convert.ToInt32(TZ.Substring(i, 1)) * mult;
+
                     if (tmp > 9)
+                    {
                         tmp = 1 + tmp - 10;
+                    }
+
                     sum += tmp;
                     mult = (mult == 2) ? 1 : 2;
                 }
@@ -60,10 +68,15 @@ namespace BL
             }
 
             sum += Convert.ToInt32(TZ.Substring(TZ.Length - 1, 1));
+
             if (sum > 0 && sum % 10 == 0)
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
 
         private bool IsLegalDates(GuestRequestBO request)
@@ -582,7 +595,6 @@ namespace BL
 
         public uint AddUnit(HostingUnitBO unit)
         {
-
             try { return dal.AddHostingUnit(ConvertHostingUnitBOToDO(unit)); }
             catch (DuplicateKeyException ex) { throw ex; }
         }
