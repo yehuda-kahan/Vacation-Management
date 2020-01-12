@@ -11,12 +11,12 @@ namespace BL
     {
         internal static void SetDates(this HostingUnitBO unit, DateTime date)
         {
-            unit.Diary[date.Day - 1, date.Month - 1] = true;
+            unit.Diary[date.Month - 1, date.Day - 1] = true;
         }
 
         internal static bool GetDates(this HostingUnitBO unit, DateTime date)
         {
-            return unit.Diary[date.Day - 1, date.Month - 1];
+            return unit.Diary[date.Month - 1, date.Day - 1];
         }
     }
 }
