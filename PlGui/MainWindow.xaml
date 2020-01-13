@@ -15,6 +15,14 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
         Title="MainWindow" MinHeight="720" MinWidth="1020" Height="700" Width="1000"  WindowStyle="None"  FlowDirection="RightToLeft"
-        AllowsTransparency="True"   WindowState="Maximized" Loaded="Window_Loaded">
-    
+        AllowsTransparency="True"   WindowState="Maximized" >
+    <!--Loaded="Window_Loaded"-->
+    <Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="40"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="18*"/>
+    </Grid.RowDefinitions>
+        <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="16"/>
+    </Grid>
 </Window>

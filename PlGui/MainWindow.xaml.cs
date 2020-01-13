@@ -25,12 +25,12 @@ namespace PlGui
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+        //private void Window_Loaded(object sender, RoutedEventArgs e)
+        //{
 
-            System.Windows.Data.CollectionViewSource personBOViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("personBOViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // personBOViewSource.Source = [generic data source]
-        }
+        //    System.Windows.Data.CollectionViewSource personBOViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("personBOViewSource")));
+        //    // Load data by setting the CollectionViewSource.Source property:
+        //    // personBOViewSource.Source = [generic data source]
+        //}
     }
 }
