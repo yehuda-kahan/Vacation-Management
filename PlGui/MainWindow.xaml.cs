@@ -24,16 +24,11 @@ namespace PlGui
     public partial class MainWindow : Window
     {
 
-      
+
         public MainWindow()
         {
             InitializeComponent();
-            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-           
-            this.FlowDirection = FlowDirection.RightToLeft;
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            InitializeComponent();
-            SystemCommands.MaximizeWindow(this);
+            
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -44,7 +39,41 @@ namespace PlGui
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            this.closeIcon.Visibility = Visibility.Visible;
+            if (((Button)sender).Name == "Minimize")
+                MinimizeIcon.Visibility = Visibility.Visible;
+            if (((Button)sender).Name == "Maximize")
+                MaximizeIcon.Visibility = Visibility.Visible;
+            if (((Button)sender).Name == "Close")
+                CloseIcone.Visibility = Visibility.Visible;
+
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (((Button)sender).Name == "Minimize")
+                MinimizeIcon.Visibility = Visibility.Hidden;
+            if (((Button)sender).Name == "Maximize")
+                MaximizeIcon.Visibility = Visibility.Hidden;
+            if (((Button)sender).Name == "Close")
+                CloseIcone.Visibility = Visibility.Hidden;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Button_Click_MaximizeWindow(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+                SystemCommands.RestoreWindow(this);
+            else
+                SystemCommands.MaximizeWindow(this);
+        }
+
+        private void Button_Click_MimimizeWindow(object sender, RoutedEventArgs e)
+        {
+            SystemCommands.MinimizeWindow(this);
         }
     }
 }

@@ -14,7 +14,7 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow"  Height="700" Width="1200" MaxHeight="700" MaxWidth="1000"  WindowStyle="None"  FlowDirection="RightToLeft"
+        Title="MainWindow" MinHeight="400" MinWidth="700" Height="700" Width="1000" MaxHeight="1400" MaxWidth="2000"  WindowStyle="None"  FlowDirection="RightToLeft" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" MouseDown="Window_MouseDown"   >
     <!--Loaded="Window_Loaded"-->
     <Grid>
@@ -25,34 +25,41 @@
         </Grid.RowDefinitions>
         <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="16"/>
 
-        <StackPanel x:Name="ManageButtonStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 20 0">
+        <StackPanel x:Name="ManageButtonStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 6 20 0">
 
-            <Button Width="25" Height="25"  Margin="10 0" >
-                <Button.Content>
-                    <Image Margin="5"/>
-                </Button.Content>
+
+            <Button x:Name="Maximize"
+                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="Button_Click_MaximizeWindow"
+                    ToolTip="Maximize"
+                    Background="#FF0BC50B"
+                    Height="22" 
+                    Width="22"  Margin="5" BorderBrush="#FF3EC90A" RenderTransformOrigin="0.5,0.5">
+                <Image x:Name="MaximizeIcon" Source="Icons\MaximizeIcon.png" Width="20" Height="20" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" >
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="-45"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
             </Button>
-            <Button  Width="25" Height="25"  Background="red" IsCancel="True" >
-                <Button.Content>
-                    <Image  />
-                </Button.Content>
+
+            <Button x:Name="Minimize"
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="Button_Click_MimimizeWindow"
+                    ToolTip="Minimize"
+                    Background="#FFFFEA1E"
+                    Height="22" 
+                    Width="22"  Margin="5" BorderBrush="#FFAAB207">
+                <Image x:Name="MinimizeIcon" Source="Icons\MinimizeIcon.png" Width="20" Height="20" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" />
             </Button>
-            <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" MouseEnter="Button_MouseEnter"  
+
+            <Button x:Name="Close" 
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="Button_Click"    
                     ToolTip="Close"
                     Background="#FFFF4B4B"
-                    Height="24" 
-                    Width="24" BorderBrush="{x:Null}"  Margin="5">
-                <materialDesign:PackIcon x:Name="closeIcon"
-                                         Visibility="Hidden" 
-                                         Kind="WindowClose" 
-                                         Height="22" Width="22" 
-                                         HorizontalAlignment="Center" 
-                                         VerticalAlignment="Center" 
-                                         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
+                    Height="22" 
+                    Width="22"  Margin="5" BorderBrush="#FFC53347">
+                <Image x:Name="CloseIcone" Source="Icons\CloseIcon.png" Width="20" Height="20" RenderTransformOrigin="0.5,0.5"  Visibility="Hidden"/>
             </Button>
-
-
-
 
         </StackPanel>
         <Grid Grid.Row="2" Margin="20">
