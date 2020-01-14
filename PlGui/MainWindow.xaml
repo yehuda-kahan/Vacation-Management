@@ -17,40 +17,54 @@
         Title="MainWindow"  Height="700" Width="1200" MaxHeight="700" MaxWidth="1000"  WindowStyle="None"  FlowDirection="RightToLeft"
         AllowsTransparency="True" MouseDown="Window_MouseDown"   >
     <!--Loaded="Window_Loaded"-->
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="18*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="16"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="18*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="16"/>
 
-            <StackPanel x:Name="ManageButtonStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 20 0">
-                <Button  Width="25" Height="25" >
-                    <Button.Content>
-                        <Image  Margin="5"/>
-                    </Button.Content>
-                </Button>
-                <Button Width="25" Height="25"  Margin="10 0" >
-                    <Button.Content>
-                        <Image Margin="5"/>
-                    </Button.Content>
-                </Button>
+        <StackPanel x:Name="ManageButtonStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 20 0">
+
+            <Button Width="25" Height="25"  Margin="10 0" >
+                <Button.Content>
+                    <Image Margin="5"/>
+                </Button.Content>
+            </Button>
             <Button  Width="25" Height="25"  Background="red" IsCancel="True" >
                 <Button.Content>
-                        <Image  Margin="5"/>
-                    </Button.Content>
-                </Button>
-            </StackPanel>
-            <Grid Grid.Row="2" Margin="20">
-                <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Image  />
+                </Button.Content>
+            </Button>
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" MouseEnter="Button_MouseEnter"  
+                    ToolTip="Close"
+                    Background="#FFFF4B4B"
+                    Height="24" 
+                    Width="24" BorderBrush="{x:Null}"  Margin="5">
+                <materialDesign:PackIcon x:Name="closeIcon"
+                                         Visibility="Hidden" 
+                                         Kind="WindowClose" 
+                                         Height="22" Width="22" 
+                                         HorizontalAlignment="Center" 
+                                         VerticalAlignment="Center" 
+                                         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
+            </Button>
 
-                    <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White"/>
-                    <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White"/>
 
 
 
-                </TabControl>
-            </Grid>
+        </StackPanel>
+        <Grid Grid.Row="2" Margin="20">
+            <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White"/>
+                <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White"/>
+
+
+
+
+            </TabControl>
         </Grid>
+    </Grid>
 </Window>

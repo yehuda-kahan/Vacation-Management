@@ -41,5 +41,10 @@ namespace PlGui
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
+
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.closeIcon.Visibility = Visibility.Visible;
+        }
     }
 }
