@@ -14,15 +14,43 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" MinHeight="720" MinWidth="1020" Height="700" Width="1000"  WindowStyle="None"  FlowDirection="RightToLeft"
-        AllowsTransparency="True"   WindowState="Maximized" >
+        Title="MainWindow"  Height="700" Width="1200" MaxHeight="700" MaxWidth="1000"  WindowStyle="None"  FlowDirection="RightToLeft"
+        AllowsTransparency="True" MouseDown="Window_MouseDown"   >
     <!--Loaded="Window_Loaded"-->
-    <Grid>
-    <Grid.RowDefinitions>
-        <RowDefinition Height="40"/>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="18*"/>
-    </Grid.RowDefinitions>
-        <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="16"/>
-    </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="18*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="16"/>
+
+            <StackPanel x:Name="ManageButtonStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 20 0">
+                <Button  Width="25" Height="25" >
+                    <Button.Content>
+                        <Image  Margin="5"/>
+                    </Button.Content>
+                </Button>
+                <Button Width="25" Height="25"  Margin="10 0" >
+                    <Button.Content>
+                        <Image Margin="5"/>
+                    </Button.Content>
+                </Button>
+            <Button  Width="25" Height="25"  Background="red" IsCancel="True" >
+                <Button.Content>
+                        <Image  Margin="5"/>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+            <Grid Grid.Row="2" Margin="20">
+                <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                    <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White"/>
+                    <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White"/>
+
+
+
+                </TabControl>
+            </Grid>
+        </Grid>
 </Window>

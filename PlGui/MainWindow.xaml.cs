@@ -13,24 +13,33 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace PlGui
 {
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
+      
         public MainWindow()
         {
             InitializeComponent();
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+           
+            this.FlowDirection = FlowDirection.RightToLeft;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            InitializeComponent();
+            SystemCommands.MaximizeWindow(this);
         }
 
-        //private void Window_Loaded(object sender, RoutedEventArgs e)
-        //{
-
-        //    System.Windows.Data.CollectionViewSource personBOViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("personBOViewSource")));
-        //    // Load data by setting the CollectionViewSource.Source property:
-        //    // personBOViewSource.Source = [generic data source]
-        //}
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
     }
 }
