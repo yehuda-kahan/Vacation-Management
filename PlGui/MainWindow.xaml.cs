@@ -13,24 +13,67 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace PlGui
 {
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
-        //private void Window_Loaded(object sender, RoutedEventArgs e)
-        //{
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
 
-        //    System.Windows.Data.CollectionViewSource personBOViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("personBOViewSource")));
-        //    // Load data by setting the CollectionViewSource.Source property:
-        //    // personBOViewSource.Source = [generic data source]
-        //}
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (((Button)sender).Name == "Minimize")
+                MinimizeIcon.Visibility = Visibility.Visible;
+            if (((Button)sender).Name == "Maximize")
+                MaximizeIcon.Visibility = Visibility.Visible;
+            if (((Button)sender).Name == "Close")
+                CloseIcone.Visibility = Visibility.Visible;
+
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (((Button)sender).Name == "Minimize")
+                MinimizeIcon.Visibility = Visibility.Hidden;
+            if (((Button)sender).Name == "Maximize")
+                MaximizeIcon.Visibility = Visibility.Hidden;
+            if (((Button)sender).Name == "Close")
+                CloseIcone.Visibility = Visibility.Hidden;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Button_Click_MaximizeWindow(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+                SystemCommands.RestoreWindow(this);
+            else
+                SystemCommands.MaximizeWindow(this);
+        }
+
+        private void Button_Click_MimimizeWindow(object sender, RoutedEventArgs e)
+        {
+            SystemCommands.MinimizeWindow(this);
+        }
     }
 }

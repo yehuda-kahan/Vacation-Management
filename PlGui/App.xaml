@@ -4,13 +4,60 @@
              xmlns:local="clr-namespace:PlGui"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-            <ResourceDictionary>
-                <ResourceDictionary.MergedDictionaries>
-                    <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
-                    <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                    <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
-                    <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
-                </ResourceDictionary.MergedDictionaries>
-            </ResourceDictionary>
-        </Application.Resources>
+        <ResourceDictionary>
+
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            
+            
+            <LinearGradientBrush x:Key="SelectedTabBackGround">
+                <GradientStop Offset="0" Color="Black"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="ButtonsColor">
+                <GradientStop Offset="0" Color= "#FF3C3535"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="ButtonsColorWhenMouseOver">
+                <GradientStop Offset="0" Color="#FF3C3535"/>
+            </LinearGradientBrush>
+
+           
+
+            <Style TargetType="TabItem" >
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TabItem">
+                            <Border Name="Border"  Margin="2,0">
+                                <ContentPresenter x:Name="ContentSite"  VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="10,2"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="black"  />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter TargetName="Border" Property="Background" Value="{DynamicResource ButtonsColor}" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True" SourceName="Border">
+                                    <Setter TargetName="Border" Property="Background" Value="black"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+           
+        </ResourceDictionary>
+
+
+
+    </Application.Resources>
+
+
 </Application>
