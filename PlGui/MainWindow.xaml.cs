@@ -75,5 +75,15 @@ namespace PlGui
         {
             SystemCommands.MinimizeWindow(this);
         }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TabControl tabControl = sender as TabControl;
+            if (tabControl.SelectedIndex == 1)
+            {
+                AdminPasswordBorder.Visibility = Visibility.Collapsed;
+                AdminPasswordBorder.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

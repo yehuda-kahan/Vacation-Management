@@ -24,17 +24,23 @@
             <RowDefinition Height="18*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="16"/>
+        <Button Grid.Row="1" Style="{StaticResource MaterialDesignIconButton}" ToolTip="Logout" 
+                Height="25" Width="25" HorizontalAlignment="Right"  Margin="0,0,25,0">
+            <materialDesign:PackIcon Kind="LogoutVariant" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                                     Width="23" Height="23" 
+                                     Foreground="#FF9382B2"
+                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                     />
+        </Button>
 
         <StackPanel x:Name="ManageButtonStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 6 20 0">
-
-
             <Button x:Name="Maximize"
                  Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="Button_Click_MaximizeWindow"
                     ToolTip="Maximize"
                     Background="#FF0BC50B"
-                    Height="22" 
-                    Width="22"  Margin="5" BorderBrush="#FF3EC90A" RenderTransformOrigin="0.5,0.5">
-                <Image x:Name="MaximizeIcon" Source="Icons\MaximizeIcon.png" Width="20" Height="20" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" >
+                    Height="20" 
+                    Width="20"  Margin="5" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
+                <Image x:Name="MaximizeIcon" Source="Icons\MaximizeIcon.png" Width="18" Height="18" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" >
                     <Image.RenderTransform>
                         <TransformGroup>
                             <RotateTransform Angle="-45"/>
@@ -47,26 +53,40 @@
                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="Button_Click_MimimizeWindow"
                     ToolTip="Minimize"
                     Background="#FFFFEA1E"
-                    Height="22" 
-                    Width="22"  Margin="5" BorderBrush="#FFAAB207">
-                <Image x:Name="MinimizeIcon" Source="Icons\MinimizeIcon.png" Width="20" Height="20" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" />
+                    Height="20" 
+                    Width="20"  Margin="5" BorderBrush="{x:Null}">
+                <Image x:Name="MinimizeIcon" Source="Icons\MinimizeIcon.png" Width="18" Height="18" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" />
             </Button>
 
             <Button x:Name="Close" 
                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="Button_Click_ClouseWindow"    
                     ToolTip="Close"
                     Background="#FFFF4B4B"
-                    Height="22" 
-                    Width="22"  Margin="5" BorderBrush="#FFC53347">
-                <Image x:Name="CloseIcone" Source="Icons\CloseIcon.png" Width="20" Height="20" RenderTransformOrigin="0.5,0.5"  Visibility="Hidden"/>
+                    Height="20" 
+                    Width="20"  Margin="5" BorderBrush="{x:Null}">
+                <Image x:Name="CloseIcone" Source="Icons\CloseIcon.png" Width="18" Height="18" RenderTransformOrigin="0.5,0.5"  Visibility="Hidden"/>
             </Button>
 
         </StackPanel>
         <Grid Grid.Row="2" Margin="20">
-            <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
 
                 <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White"/>
-                <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White"/>
+                <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border x:Name="AdminPasswordBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
+                            <StackPanel Height="120" Width="300">
+                                <TextBlock Text="הכנס סיסמה:"/>
+                                <PasswordBox x:Name="PassBox_passAdmin" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" />
+                                <Button Content="היכנס" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </TabItem>
 
 
 
