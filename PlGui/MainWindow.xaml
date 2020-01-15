@@ -69,21 +69,47 @@
 
         </StackPanel>
         <Grid Grid.Row="2" Margin="20">
-            <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
+            <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged" Background="{x:Null}" BorderBrush="{x:Null}">
 
                 <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White"/>
-                <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White">
+                <TabItem Header="לקוח" Width="180" Height="30" FontSize="16" Foreground="White">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Border x:Name="AdminPasswordBorder" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
-                            <StackPanel Height="120" Width="300">
-                                <TextBlock Text="הכנס סיסמה:"/>
-                                <PasswordBox x:Name="PassBox_passAdmin" Height="30" Padding="2" VerticalContentAlignment="Center" Margin="0 10" />
-                                <Button Content="היכנס" />
-                            </StackPanel>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border x:Name="clientLogin" Visibility="Visible" Grid.ColumnSpan="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <materialDesign:Card Grid.ColumnSpan="2"  materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030"/>
+                                <materialDesign:Card Margin="100" materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="32" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
+                                    <StackPanel x:Name="logIn" Grid.Column="0" Margin="10,10,5,10"  HorizontalAlignment="Center"  VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
+                                            <TextBox x:Name="UserMail" materialDesign:HintAssist.Hint="שם משתמש"  materialDesign:HintAssist.HelperText="כתובת מייל איננו חוקי" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Center" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Width="167" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" />
+                                            <materialDesign:PackIcon Kind="AlternateEmail" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="25" Foreground="#FF787878"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,15,0,10">
+                                            <PasswordBox x:Name="Password" Grid.Column="0"  materialDesign:HintAssist.Hint="סיסמה" materialDesign:HintAssist.Foreground="Gray" materialDesign:TextFieldAssist.UnderlineBrush="Gray" Padding="0,0,3,0" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Width="167" CaretBrush="#FF787878" SelectionBrush="#FF787878" />
+                                            <materialDesign:PackIcon Kind="VpnKey" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="25" Foreground="#FF787878"/>
+                                        </StackPanel>
+                                        <Button x:Name="LogInBut" Content="הבא" Margin="0,30" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="110" Height="40" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Background="#FF3B3B3C" BorderBrush="{x:Null}" Click="LogIn_But"/>
+                                    </StackPanel>
+                                </materialDesign:Card>
+
+                            </Grid>
+
+                        </Border>
+                        <Border x:Name="clientWindow" Visibility="Hidden" Grid.ColumnSpan="2">
+                            <materialDesign:Card   materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
+
+
+
+                            </materialDesign:Card>
                         </Border>
                     </Grid>
                 </TabItem>

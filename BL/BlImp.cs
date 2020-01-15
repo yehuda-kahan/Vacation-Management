@@ -18,7 +18,7 @@ namespace BL
         readonly IDal dal = DalFactory.GetDal();
 
         #region Check functions
-        private bool IsValidMail(string email)
+        public bool IsValidMail(string email)
         {
             string pattern = @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|" + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)" + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$";
             var regex = new Regex(pattern, RegexOptions.IgnoreCase);

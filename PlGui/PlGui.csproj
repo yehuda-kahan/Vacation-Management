@@ -94,15 +94,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="BlApi.BlFactory.datasource" />
-    <None Include="BlApi.IBl.datasource" />
-    <None Include="BO.BankBranchBO.datasource" />
-    <None Include="BO.ClientBO.datasource" />
-    <None Include="BO.GuestRequestBO.datasource" />
-    <None Include="BO.HostBO.datasource" />
-    <None Include="BO.HostingUnitBO.datasource" />
-    <None Include="BO.OrderBO.datasource" />
-    <None Include="BO.PersonBO.datasource" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
