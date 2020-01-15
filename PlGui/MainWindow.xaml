@@ -85,19 +85,19 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-
                                 <materialDesign:Card Grid.ColumnSpan="2"  materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030"/>
-                                <materialDesign:Card Margin="100" materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="32" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
-                                    <StackPanel x:Name="logIn" Grid.Column="0" Margin="10,10,5,10"  HorizontalAlignment="Center"  VerticalAlignment="Center">
-                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
-                                            <TextBox x:Name="UserMail" materialDesign:HintAssist.Hint="שם משתמש"  materialDesign:HintAssist.HelperText="כתובת מייל איננו חוקי" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Center" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Width="167" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" />
-                                            <materialDesign:PackIcon Kind="AlternateEmail" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="25" Foreground="#FF787878"/>
+                                <materialDesign:Card Margin="100" materialDesign:ShadowAssist.ShadowDepth="Depth1" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
+                                    <StackPanel x:Name="logIn" Grid.Column="0" Margin="10"  HorizontalAlignment="Stretch"  VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal" Margin="0">
+                                            <materialDesign:PackIcon Kind="Account" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                            <TextBox x:Name="UserMail" materialDesign:HintAssist.Hint="שם משתמש" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Width="210" PreviewKeyUp="UserMail_PreviewKeyUp" />
                                         </StackPanel>
+                                        <TextBlock x:Name="ErorrMail"  Visibility="Collapsed" Margin="35,0,0,0" Text="יש להזין מייל חוקי" FontSize="11" Foreground="#FFF74646"/>
                                         <StackPanel Orientation="Horizontal" Margin="0,15,0,10">
-                                            <PasswordBox x:Name="Password" Grid.Column="0"  materialDesign:HintAssist.Hint="סיסמה" materialDesign:HintAssist.Foreground="Gray" materialDesign:TextFieldAssist.UnderlineBrush="Gray" Padding="0,0,3,0" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Width="167" CaretBrush="#FF787878" SelectionBrush="#FF787878" />
-                                            <materialDesign:PackIcon Kind="VpnKey" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="25" Foreground="#FF787878"/>
+                                            <materialDesign:PackIcon Kind="Key" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                            <PasswordBox x:Name="Password" Grid.Column="0" Margin="3" materialDesign:HintAssist.Hint="סיסמה" materialDesign:HintAssist.Foreground="Gray" materialDesign:TextFieldAssist.UnderlineBrush="Gray"  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Width="210" CaretBrush="#FF787878" SelectionBrush="#FF787878" />
                                         </StackPanel>
-                                        <Button x:Name="LogInBut" Content="הבא" Margin="0,30" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="110" Height="40" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Background="#FF3B3B3C" BorderBrush="{x:Null}" Click="LogIn_But"/>
+                                        <Button x:Name="LogInBut"  Content="הבא" Margin="0,30" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="110" Height="40" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Background="#FF3B3B3C" BorderBrush="{x:Null}" Click="LogIn_But"/>
                                     </StackPanel>
                                 </materialDesign:Card>
 

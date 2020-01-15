@@ -30,7 +30,7 @@ namespace PlGui
         public MainWindow()
         {
             InitializeComponent();
-            
+
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -88,16 +88,19 @@ namespace PlGui
             }
         }
 
-             
+
 
         private void LogIn_But(object sender, RoutedEventArgs e)
         {
             if (!bl.IsValidMail(UserMail.Text))
+            {
                 MessageBox.Show("mail problem");
+                return;
+            }
             PersonBO temp = null;
             try
             {
-                temp=bl.GetPersonByMail(UserMail.Text);
+                temp = bl.GetPersonByMail(UserMail.Text);
                 if (Password.Password == temp.Password)
                 {
                     clientLogin.Visibility = Visibility.Collapsed;
@@ -106,10 +109,20 @@ namespace PlGui
                 else
                     MessageBox.Show("worng password");
             }
-            catch(MissingMemberException ex)
+            catch (MissingMemberException ex)
             {
-                MessageBox.Show("the maill was not found in the system "+ ex.ToString());
+                MessageBox.Show("the maill was not found in the system ");
             }
+        }
+
+        private void UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (UserMail.Text == "")
+                ErorrMail.Visibility = Visibility.Collapsed;
+            if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
+                ErorrMail.Visibility = Visibility.Visible;
+            if (bl.IsValidMail(UserMail.Text))
+                ErorrMail.Visibility = Visibility.Hidden;
         }
     }
 }

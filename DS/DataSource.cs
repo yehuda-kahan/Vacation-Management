@@ -26,7 +26,7 @@ namespace DS
                     FirstName ="avi",
                     LastName ="ros",
                     PhoneNomber="+972502783644",
-                    Email="avrummi2018@gmail.com",
+                    Email="avrumi2018@gmail.com",
                     Password="Aa212",
                     Status = Status.ACTIVE
                 },
