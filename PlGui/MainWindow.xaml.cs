@@ -60,7 +60,7 @@ namespace PlGui
                 CloseIcone.Visibility = Visibility.Hidden;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_ClouseWindow(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

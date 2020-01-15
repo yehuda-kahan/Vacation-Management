@@ -59,7 +59,7 @@
             </Button>
 
             <Button x:Name="Close" 
-                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="Button_Click"    
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="Button_Click_ClouseWindow"    
                     ToolTip="Close"
                     Background="#FFFF4B4B"
                     Height="20" 
