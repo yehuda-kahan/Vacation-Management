@@ -15,14 +15,15 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
         Title="MainWindow" MinHeight="720" MinWidth="1020" Height="700" Width="1000"  WindowStyle="None"  FlowDirection="RightToLeft"
-        AllowsTransparency="True"   WindowState="Maximized" >
+        AllowsTransparency="True"   WindowState="Normal" >
     <!--Loaded="Window_Loaded"-->
     <Grid>
-    <Grid.RowDefinitions>
-        <RowDefinition Height="40"/>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="18*"/>
-    </Grid.RowDefinitions>
-        <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="16"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="18*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="18" FontFamily="David"/>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="271,8,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>
