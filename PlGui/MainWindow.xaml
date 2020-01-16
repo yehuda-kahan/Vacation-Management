@@ -84,7 +84,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Border x:Name="clientLogin" Visibility="Collapsed" Grid.ColumnSpan="2">
+                        <Border x:Name="clientLogin" Visibility="Visible" Grid.ColumnSpan="2">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -110,7 +110,7 @@
                             </Grid>
 
                         </Border>
-                        <Border x:Name="clientWindow" Visibility="Visible" Grid.ColumnSpan="2">
+                        <Border x:Name="clientWindow" Visibility="Collapsed" Grid.ColumnSpan="2">
                             <materialDesign:Card   materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
                                 <Grid x:Name="ClientInfo" >
                                     <Grid.ColumnDefinitions>

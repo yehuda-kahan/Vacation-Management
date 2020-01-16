@@ -23,7 +23,10 @@ namespace Dal
                 }
                 else
                 {
-                    item.SetValue(target, item.GetValue(original).Clone());
+                    if (item.GetValue(original) == null)
+                        item.SetValue(target, null);
+                    else
+                        item.SetValue(target, item.GetValue(original).Clone());
                 }
             }
             return target;
