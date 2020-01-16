@@ -162,5 +162,10 @@ namespace PlGui
         {
             
         }
+
+        private void list_click(object sender, MouseButtonEventArgs e)
+        {
+            MaterialDesignThemes.Wpf.DialogHost.Show(ListRequest.SelectedItem);
+        }
     }
 }
