@@ -26,7 +26,7 @@ namespace PlGui
     public partial class MainWindow : Window
     {
         static IBl bl = BlFactory.GetBL();
-
+        public ClientBO client;
         public MainWindow()
         {
             InitializeComponent();
@@ -92,26 +92,21 @@ namespace PlGui
 
         private void LogIn_But(object sender, RoutedEventArgs e)
         {
-            if (!bl.IsValidMail(UserMail.Text))
-            {
-                MessageBox.Show("mail problem");
-                return;
-            }
             PersonBO temp = null;
             try
             {
                 temp = bl.GetPersonByMail(UserMail.Text);
                 if (Password.Password == temp.Password)
                 {
+                    client = bl.GetClient(temp.Id);
+                    ClientInfo.DataContext = client;
                     clientLogin.Visibility = Visibility.Collapsed;
                     clientWindow.Visibility = Visibility.Visible;
                 }
-                else
-                    MessageBox.Show("worng password");
             }
             catch (MissingMemberException ex)
             {
-                MessageBox.Show("the maill was not found in the system ");
+                ErorrInput.Visibility = Visibility.Visible;
             }
         }
 
@@ -123,6 +118,42 @@ namespace PlGui
                 ErorrMail.Visibility = Visibility.Visible;
             if (bl.IsValidMail(UserMail.Text))
                 ErorrMail.Visibility = Visibility.Hidden;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource personBOViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("personBOViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // personBOViewSource.Source = [generic data source]
+        }
+
+        private void ChangeInfoBut_click(object sender, RoutedEventArgs e)
+        {
+            if ((string)ChangeInfoBut.Content == "עריכה")
+            {
+                ChangeInfoBut.Content = "שמירה";
+                FirstName.IsEnabled = true;
+                LastName.IsEnabled = true;
+                Email.IsEnabled = true;
+                Phone.IsEnabled = true;
+            }
+            else if ((string)ChangeInfoBut.Content == "שמירה")
+            {
+                client.PersonalInfo.FirstName = FirstName.Text;
+                client.PersonalInfo.LastName = LastName.Text;
+                client.PersonalInfo.Email = Email.Text;
+                client.PersonalInfo.PhoneNomber = Phone.Text;
+                bl.UpdPerson(client.PersonalInfo);
+                ChangeInfoBut.Content = "עריכה";
+                FirstName.IsEnabled = false;
+                LastName.IsEnabled = false;
+                Email.IsEnabled = false;
+                Phone.IsEnabled = false;
+            }
+
+
+
         }
     }
 }

@@ -10,12 +10,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.teal.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
-            
-            
+
+
+
             <LinearGradientBrush x:Key="SelectedTabBackGround">
                 <GradientStop Offset="0" Color="Black"/>
             </LinearGradientBrush>
@@ -26,7 +26,7 @@
                 <GradientStop Offset="0" Color="#FF3C3535"/>
             </LinearGradientBrush>
 
-           
+
 
             <Style TargetType="TabItem" >
                 <Setter Property="Template">
@@ -52,7 +52,7 @@
             </Style>
 
 
-           
+
         </ResourceDictionary>
 
 
