@@ -84,7 +84,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Border x:Name="clientLogin" Visibility="Collapsed" Grid.ColumnSpan="2">
+                        <Border x:Name="clientLogin" Visibility="Visible" Grid.ColumnSpan="2">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -110,7 +110,7 @@
                             </Grid>
 
                         </Border>
-                        <Border x:Name="clientWindow" Visibility="Visible" Grid.ColumnSpan="2">
+                        <Border x:Name="clientWindow" Visibility="Hidden" Grid.ColumnSpan="2">
                             <materialDesign:Card   materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
                                 <Grid x:Name="ClientInfo" >
                                     <Grid.ColumnDefinitions>
@@ -145,33 +145,7 @@
                                         <StackPanel Grid.Row="0" Margin="5">
                                             <Button x:Name="AddguestRequest" HorizontalAlignment="Right" Margin="0,20,20,20" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="הוספת בקשת אירוח" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Click="ChangeInfoBut_click" />
                                         </StackPanel>
-
-
-                                        <!-- piece together your own items control to create some nice stuff that will make everyone think you are cool. and rightly so, because you are cool.  you might even be a hipster for all I know -->
-                                        <ItemsControl Grid.Row="1"  ItemsSource="{Binding ClientRequests}" Grid.IsSharedSizeScope="True" Margin="12 0 12 0">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate DataType="local:GuestRequestBO">
-                                                    <Border x:Name="Border" Padding="8">
-                                                        <Grid>
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition SharedSizeGroup="Checkerz" />
-                                                                <ColumnDefinition />
-                                                            </Grid.ColumnDefinitions>
-                                                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsSelected}" />
-                                                            <StackPanel Margin="8 0 0 0" Grid.Column="1">
-                                                                <TextBlock FontWeight="Bold" Text="{Binding GuestRequestBO.ClientId}" />
-                                                                <TextBlock Text="{Binding GuestRequestBO.CreateDate}" />
-                                                            </StackPanel>
-                                                        </Grid>
-                                                    </Border>
-                                                    <DataTemplate.Triggers>
-                                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
-                                                        </DataTrigger>
-                                                    </DataTemplate.Triggers>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
+                                        <ListBox x:Name="ListRequest" Grid.Row="1" ItemsSource="{Binding}" ItemTemplate="{StaticResource ListRequestUI}" MouseDown="ListRequest_MouseDown"  />
                                     </Grid>
                                 </Grid>
 

@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:PlGui"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+
         <ResourceDictionary>
 
 
@@ -51,8 +52,31 @@
                 </Setter>
             </Style>
 
+            <local:DateTimeToStringConvert x:Key="DateTimeToStringConvert"/>
 
-
+            <DataTemplate x:Key="ListRequestUI" DataType="local:GuestRequestBO">
+                <Border>
+                    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="32" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="מספר בקשה :"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path= Key}" />
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="תאריך יצירת בקשה :"  />
+                            <TextBlock Grid.Column="1"  Grid.Row="1" Text="{Binding Path= CreateDate, Converter={StaticResource DateTimeToStringConvert}}" Margin="2,0,0,0"/>
+                            <TextBlock Grid.Column="0" Grid.Row="2" Text="סטטוס בקשה :"/>
+                            <TextBlock Grid.Column="1"  Grid.Row="2" Text="{Binding Path= Status}" />
+                        </Grid>
+                    </materialDesign:Card>
+                </Border>
+            </DataTemplate>
         </ResourceDictionary>
 
 

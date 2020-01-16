@@ -34,11 +34,11 @@ namespace DS
                 {
                      Id ="12345678",
                     IdType = IdTypes.DRIVING_LICENSE,
-                    FirstName ="yuda",
-                    LastName ="khan",
+                    FirstName ="yehuda",
+                    LastName ="kahan",
                     PhoneNomber="+972587271600",
                     Email="yehudajka@gmail.com",
-                    Password="Bb1212",
+                    Password="1234",
                     Status = Status.ACTIVE
                 }
             };
@@ -109,7 +109,7 @@ namespace DS
                 {
                     Key=20000001,
                     ClientId = "12345678",
-                    CreateDate =new DateTime(2019,12,12),
+                    CreateDate =new DateTime(2019,04,21),
                     EntryDate =new DateTime(2020,01,01),
                     LeaveDate =new DateTime(2020,01,04),
                     Area = AreaLocation.ALL,
@@ -122,14 +122,47 @@ namespace DS
                     Garden = ThreeOptions.MAYBE,
                     Status = RequestStatus.OPEN
                 },
-
                 new GuestRequest
                 {
                     Key=20000002,
                     ClientId = "12345678",
+                    CreateDate =new DateTime(2019,12,12),
+                    EntryDate =new DateTime(2020,01,10),
+                    LeaveDate =new DateTime(2020,01,15),
+                    Area = AreaLocation.ALL,
+                    Type = UnitType.ZIMMER,
+                    Adults =2,
+                    Children=2,
+                    Pool = ThreeOptions.YES,
+                    Jacuzzi = ThreeOptions.YES,
+                    ChildrensAttractions = ThreeOptions.MAYBE,
+                    Garden = ThreeOptions.MAYBE,
+                    Status = RequestStatus.OPEN
+                },
+                new GuestRequest
+                {
+                    Key=20000003,
+                    ClientId = "12345678",
                     CreateDate =new DateTime(2019,12,31),
                     EntryDate =new DateTime(2020,02,01),
                     LeaveDate =new DateTime(2020,02,04),
+                    Area = AreaLocation.JERUSALEM,
+                    Type = UnitType.HOTEL,
+                    Adults =2,
+                    Children=0,
+                    Pool = ThreeOptions.YES,
+                    Jacuzzi = ThreeOptions.MAYBE,
+                    ChildrensAttractions = ThreeOptions.NO,
+                    Garden = ThreeOptions.MAYBE,
+                    Status = RequestStatus.OPEN
+                },
+                 new GuestRequest
+                {
+                    Key=20000004,
+                    ClientId = "12345678",
+                    CreateDate =new DateTime(2019,12,31),
+                    EntryDate =new DateTime(2020,02,10),
+                    LeaveDate =new DateTime(2020,02,14),
                     Area = AreaLocation.JERUSALEM,
                     Type = UnitType.HOTEL,
                     Adults =2,

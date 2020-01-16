@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections.ObjectModel;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -27,6 +28,8 @@ namespace PlGui
     {
         static IBl bl = BlFactory.GetBL();
         public ClientBO client;
+        ObservableCollection<GuestRequestBO> requests;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -100,6 +103,8 @@ namespace PlGui
                 {
                     client = bl.GetClient(temp.Id);
                     ClientInfo.DataContext = client;
+                    requests = new ObservableCollection<GuestRequestBO>(client.ClientRequests); // making the list request of the guest
+                    ListRequest.DataContext = requests;
                     clientLogin.Visibility = Visibility.Collapsed;
                     clientWindow.Visibility = Visibility.Visible;
                 }
@@ -151,9 +156,11 @@ namespace PlGui
                 Email.IsEnabled = false;
                 Phone.IsEnabled = false;
             }
+        }
 
-
-
+        private void ListRequest_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            
         }
     }
 }
