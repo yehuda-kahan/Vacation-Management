@@ -15,7 +15,10 @@
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
         Title="MainWindow" MinHeight="400" MinWidth="700" Height="700" Width="1000" MaxHeight="1400" MaxWidth="2000"  WindowStyle="None"  FlowDirection="RightToLeft" WindowStartupLocation="CenterScreen"
-        AllowsTransparency="True" MouseDown="Window_MouseDown"   >
+        AllowsTransparency="True" MouseDown="Window_MouseDown" Loaded="Window_Loaded"   >
+    <Window.Resources>
+        <CollectionViewSource x:Key="personBOViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:PersonBO}, CreateList=True}"/>
+    </Window.Resources>
     <!--Loaded="Window_Loaded"-->
     <Grid>
         <Grid.RowDefinitions>
@@ -71,7 +74,9 @@
         <Grid Grid.Row="2" Margin="20">
             <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged" Background="{x:Null}" BorderBrush="{x:Null}">
 
-                <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White"/>
+                <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White">
+                    <Button Margin="200" Content="Button" Height="100" Width="75"/>
+                </TabItem>
                 <TabItem Header="לקוח" Width="180" Height="30" FontSize="16" Foreground="White">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -79,7 +84,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Border x:Name="clientLogin" Visibility="Visible" Grid.ColumnSpan="2">
+                        <Border x:Name="clientLogin" Visibility="Collapsed" Grid.ColumnSpan="2">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -88,6 +93,7 @@
                                 <materialDesign:Card Grid.ColumnSpan="2"  materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030"/>
                                 <materialDesign:Card Margin="100" materialDesign:ShadowAssist.ShadowDepth="Depth1" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
                                     <StackPanel x:Name="logIn" Grid.Column="0" Margin="10"  HorizontalAlignment="Stretch"  VerticalAlignment="Center">
+                                        <TextBlock x:Name="ErorrInput" Margin="35,0,5,5" Visibility="Collapsed" Text="שם משתמש או סיסמה אינם נכונים" FontSize="11" Foreground="#FFF74646"/>
                                         <StackPanel Orientation="Horizontal" Margin="0">
                                             <materialDesign:PackIcon Kind="Account" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
                                             <TextBox x:Name="UserMail" materialDesign:HintAssist.Hint="שם משתמש" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Width="210" PreviewKeyUp="UserMail_PreviewKeyUp" />
@@ -97,22 +103,84 @@
                                             <materialDesign:PackIcon Kind="Key" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
                                             <PasswordBox x:Name="Password" Grid.Column="0" Margin="3" materialDesign:HintAssist.Hint="סיסמה" materialDesign:HintAssist.Foreground="Gray" materialDesign:TextFieldAssist.UnderlineBrush="Gray"  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Width="210" CaretBrush="#FF787878" SelectionBrush="#FF787878" />
                                         </StackPanel>
-                                        <Button x:Name="LogInBut"  Content="הבא" Margin="0,30" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="110" Height="40" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Background="#FF3B3B3C" BorderBrush="{x:Null}" Click="LogIn_But"/>
+                                        <Button x:Name="LogInBut"  Content="הבא" Margin="0,30" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="110" Height="40" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"  Click="LogIn_But"/>
                                     </StackPanel>
                                 </materialDesign:Card>
 
                             </Grid>
 
                         </Border>
-                        <Border x:Name="clientWindow" Visibility="Hidden" Grid.ColumnSpan="2">
+                        <Border x:Name="clientWindow" Visibility="Visible" Grid.ColumnSpan="2">
                             <materialDesign:Card   materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
+                                <Grid x:Name="ClientInfo" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" x:Name="clientInfo" Margin="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal"  Margin="0,0,0,10" HorizontalAlignment="Stretch">
+                                            <materialDesign:PackIcon Kind="Account" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                            <TextBox x:Name="FirstName" Text="{Binding Path= PersonalInfo.FirstName}" IsEnabled="False" materialDesign:HintAssist.Hint="שם פרטי" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="130" />
+                                            <TextBox x:Name="LastName" Text="{Binding Path= PersonalInfo.LastName}" IsEnabled="False" materialDesign:HintAssist.Hint="שם משפחה" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Width="Auto" HorizontalAlignment="Center" MinWidth="130" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"  Margin="0,0,0,10" HorizontalAlignment="Stretch" MinWidth="300">
+                                            <materialDesign:PackIcon Kind="Email" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                            <TextBox x:Name="Email" Text="{Binding Path= PersonalInfo.Email}" IsEnabled="False" materialDesign:HintAssist.Hint="Mail" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" MinWidth="263"  Width="Auto"   />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"  Margin="0,0,0,10" HorizontalAlignment="Stretch">
+                                            <materialDesign:PackIcon Kind="Phone" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                            <TextBox x:Name="Phone" Text="{Binding Path=PersonalInfo.PhoneNomber}" IsEnabled="False" materialDesign:HintAssist.Hint="טלפון" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="263" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"  Margin="0,0,0,10" HorizontalAlignment="Stretch">
+                                            <materialDesign:PackIcon Kind="IdentificationCard" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                            <TextBox x:Name="ID" Text="{Binding Path=PersonalInfo.Id}" IsEnabled="False" materialDesign:HintAssist.Hint="מספר מזהה" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="263" />
+                                        </StackPanel>
+                                        <Button x:Name="ChangeInfoBut" HorizontalAlignment="Right" Margin="20" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="עריכה" Width="100" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Click="ChangeInfoBut_click" />
+                                    </StackPanel>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="5*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Row="0" Margin="5">
+                                            <Button x:Name="AddguestRequest" HorizontalAlignment="Right" Margin="0,20,20,20" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="הוספת בקשת אירוח" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Click="ChangeInfoBut_click" />
+                                        </StackPanel>
 
 
+                                        <!-- piece together your own items control to create some nice stuff that will make everyone think you are cool. and rightly so, because you are cool.  you might even be a hipster for all I know -->
+                                        <ItemsControl Grid.Row="1"  ItemsSource="{Binding ClientRequests}" Grid.IsSharedSizeScope="True" Margin="12 0 12 0">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="local:GuestRequestBO">
+                                                    <Border x:Name="Border" Padding="8">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition SharedSizeGroup="Checkerz" />
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsSelected}" />
+                                                            <StackPanel Margin="8 0 0 0" Grid.Column="1">
+                                                                <TextBlock FontWeight="Bold" Text="{Binding GuestRequestBO.ClientId}" />
+                                                                <TextBlock Text="{Binding GuestRequestBO.CreateDate}" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Border>
+                                                    <DataTemplate.Triggers>
+                                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource MaterialDesignSelection}" />
+                                                        </DataTrigger>
+                                                    </DataTemplate.Triggers>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Grid>
 
                             </materialDesign:Card>
                         </Border>
                     </Grid>
                 </TabItem>
+
+
 
 
 
