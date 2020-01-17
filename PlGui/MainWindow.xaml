@@ -165,12 +165,6 @@
                         </materialDesign:DialogHost>
                     </Grid>
                 </TabItem>
-
-
-
-
-
-
             </TabControl>
         </Grid>
     </Grid>
