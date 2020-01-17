@@ -113,10 +113,27 @@
                         <materialDesign:DialogHost Grid.ColumnSpan="2">
                             <materialDesign:DialogHost.DialogContentTemplate>
                                 <DataTemplate DataType="local:GuestRequestBO">
-                                    <StackPanel Margin="20">
-                                        <TextBlock Text="{Binding Path= ClientId}" />
-                                        <TextBlock Text="{Binding Path= Key}" />
-                                    </StackPanel>
+                                    <Border>
+                                        <materialDesign:Card BorderBrush="White"  BorderThickness="0.5"  Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
+                                            <Grid MinWidth="450" MinHeight="450">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path= Status , StringFormat= סטטוס בקשה :{0}}" Foreground="White"/>-->
+                                                <TextBox  Text="{Binding Path= Status}"  materialDesign:HintAssist.Hint="סטטוס" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" CaretBrush="#FF787878" SelectionBrush="#FF787878" MinWidth="150" Foreground="White" />
+                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path= Key ,  StringFormat=תאריך כניסה :{0: dd/MM/yyyy}}" Foreground="White" />
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path= Key ,  StringFormat=תאריך יציאה :{0: dd/MM/yyyy}}" Foreground="White" />
+                                            </Grid>
+                                        </materialDesign:Card>
+                                    </Border>
                                 </DataTemplate>
                             </materialDesign:DialogHost.DialogContentTemplate>
 
@@ -165,11 +182,6 @@
                         </materialDesign:DialogHost>
                     </Grid>
                 </TabItem>
-
-
-
-
-
 
             </TabControl>
         </Grid>
