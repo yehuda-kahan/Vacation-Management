@@ -115,7 +115,7 @@
                                 <DataTemplate DataType="local:GuestRequestBO">
                                     <Border>
                                         <materialDesign:Card BorderBrush="White"  BorderThickness="0.5"  Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
-                                            <Grid MinWidth="450" MinHeight="450">
+                                            <Grid >
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
@@ -127,10 +127,13 @@
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
+                                                <ComboBox  Grid.Row="0" Grid.Column="1" materialDesign:HintAssist.Hint="OS" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" ItemsSource="{Binding Path=Status}" >
+                                                   
+                                                </ComboBox>
                                                 <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path= Status , StringFormat= סטטוס בקשה :{0}}" Foreground="White"/>-->
-                                                <TextBox  Text="{Binding Path= Status}"  materialDesign:HintAssist.Hint="סטטוס" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" CaretBrush="#FF787878" SelectionBrush="#FF787878" MinWidth="150" Foreground="White" />
-                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path= Key ,  StringFormat=תאריך כניסה :{0: dd/MM/yyyy}}" Foreground="White" />
-                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path= Key ,  StringFormat=תאריך יציאה :{0: dd/MM/yyyy}}" Foreground="White" />
+                                                <TextBox   Grid.Row="0" Grid.Column="0" materialDesign:HintAssist.Hint="סטטוס :" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="130" Foreground="White" />
+                                                <!--<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path= Key ,  StringFormat=תאריך כניסה :{0: dd/MM/yyyy}}" Foreground="White" />
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path= Key ,  StringFormat=תאריך יציאה :{0: dd/MM/yyyy}}" Foreground="White" />-->
                                             </Grid>
                                         </materialDesign:Card>
                                     </Border>
