@@ -106,6 +106,7 @@ namespace PlGui
                     clientLogin.Visibility = Visibility.Collapsed;
                     clientWindow.Visibility = Visibility.Visible;
                 }
+                ErorrInput.Visibility = Visibility.Visible;
             }
             catch (MissingMemberException ex)
             {
