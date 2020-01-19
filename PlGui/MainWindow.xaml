@@ -125,11 +125,12 @@
                                                 <TextBox x:Name="FirstName" Text="{Binding Path= PersonalInfo.FirstName}" IsEnabled="False" materialDesign:HintAssist.Hint="שם פרטי" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="130" />
                                                 <TextBox x:Name="LastName" Text="{Binding Path= PersonalInfo.LastName}" IsEnabled="False" materialDesign:HintAssist.Hint="שם משפחה" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Width="Auto" HorizontalAlignment="Center" MinWidth="130" />
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal"  Margin="0,0,0,10" HorizontalAlignment="Stretch" MinWidth="300">
-                                                <materialDesign:PackIcon Kind="Email" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
-                                                <TextBox x:Name="Email" Text="{Binding Path= PersonalInfo.Email}" IsEnabled="False" materialDesign:HintAssist.Hint="Mail" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" MinWidth="263"  Width="Auto"   />
+                                            <StackPanel Orientation="Horizontal"  Margin="0,0,0,0" HorizontalAlignment="Stretch" MinWidth="300">
+                                                <materialDesign:PackIcon Kind="Email" VerticalAlignment="Bottom" Margin="3,3,3,0"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                                <TextBox x:Name="Email" Text="{Binding Path= PersonalInfo.Email}" PreviewKeyUp="MailCheck" IsEnabled="False" materialDesign:HintAssist.Hint="Mail" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" MinWidth="263"  Width="Auto"   />
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal"  Margin="0,0,0,10" HorizontalAlignment="Stretch">
+                                            <TextBlock x:Name="ErorrMailUd"  Visibility="Collapsed" Margin="35,0,0,0" Text="יש להזין מייל חוקי" FontSize="11" Foreground="#FFF74646"/>
+                                            <StackPanel Orientation="Horizontal"  Margin="0,10" HorizontalAlignment="Stretch">
                                                 <materialDesign:PackIcon Kind="Phone" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
                                                 <TextBox x:Name="Phone" Text="{Binding Path=PersonalInfo.PhoneNomber}" IsEnabled="False" materialDesign:HintAssist.Hint="טלפון" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="263" />
                                             </StackPanel>
@@ -145,9 +146,9 @@
                                                 <RowDefinition Height="5*"/>
                                             </Grid.RowDefinitions>
                                             <StackPanel Grid.Row="0" Margin="5">
-                                                <Button x:Name="AddguestRequest" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand }" HorizontalAlignment="Right" Margin="0,20,20,20" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="הוספת בקשת אירוח" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Click="ChangeInfoBut_click" />
+                                                <Button x:Name="AddguestRequest"  HorizontalAlignment="Right" Margin="0,20,20,20" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="הוספת בקשת אירוח" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Click="createRequest" />
                                             </StackPanel>
-                                            <ListBox x:Name="ListRequest" Margin="10" MouseDoubleClick="list_click" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="1" ItemsSource="{Binding}" ItemTemplate="{StaticResource ListRequestUI}" MouseDown="ListRequest_MouseDown"  />
+                                            <ListBox x:Name="ListRequest" Margin="5" MouseDoubleClick="list_click" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="1" ItemsSource="{Binding}" ItemTemplate="{StaticResource ListRequestUI}" MouseDown="ListRequest_MouseDown"  />
                                         </Grid>
                                     </Grid>
 
@@ -156,7 +157,6 @@
                         </materialDesign:DialogHost>
                     </Grid>
                 </TabItem>
-
             </TabControl>
         </Grid>
     </Grid>

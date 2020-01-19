@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BO;
 using BlApi;
-
+using System.Data.Linq;
 
 namespace PlGui
 {
@@ -26,13 +26,12 @@ namespace PlGui
     {
         static IBl bl = BlFactory.GetBL();
         public ClientBO client;
-        ObservableCollection<GuestRequestBO> requests;
+        public ObservableCollection<GuestRequestBO> requests;
 
         public MainWindow()
         {
-            List<int> LongListToTestComboVirtualization = new List<int>(Enumerable.Range(0, 1000));
             InitializeComponent();
-            
+
 
         }
 
@@ -167,6 +166,31 @@ namespace PlGui
 
             MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControl);
         }
-       
+
+        private void MailCheck(object sender, KeyEventArgs e)
+        {
+            if (UserMail.Text == "")
+                ErorrMailUd.Visibility = Visibility.Collapsed;
+            if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
+                ErorrMailUd.Visibility = Visibility.Visible;
+            if (bl.IsValidMail(UserMail.Text))
+                ErorrMailUd.Visibility = Visibility.Collapsed;
+        }
+
+        private void createRequest(object sender, RoutedEventArgs e)
+        {
+            AddRequestDialogUserControl requestUserControlNew = new AddRequestDialogUserControl(client.PersonalInfo.Id);
+            requestUserControlNew.UpdList += RequestUserControlNew_UpdList;
+            MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControlNew);
+        }
+
+        private void RequestUserControlNew_UpdList()
+        {
+
+            
+            requests = new ObservableCollection<GuestRequestBO>(bl.GetClient(client.PersonalInfo.Id).ClientRequests);
+            ListRequest.DataContext = requests;
+            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
+        }
     }
 }

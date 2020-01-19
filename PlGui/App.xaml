@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
 
-           
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
@@ -51,25 +51,23 @@
                 </Setter>
             </Style>
 
-
-            
             <local:DateTimeToStringConvert x:Key="DateTimeToStringConvert"/>
 
             <DataTemplate x:Key="ListRequestUI" DataType="local:GuestRequestBO" >
                 <Border>
-                    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="32" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+                    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="15" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" MinWidth="350">
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1.5*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Grid.Row="0" Text="{ Binding Path= Key ,StringFormat=מספר בקשה : {0}}" FontWeight="Bold" />
-                            <TextBlock Grid.Column="0"  Grid.Row="1" Text="{Binding Path= CreateDate, StringFormat=תאריך יצירה :{0: dd/MM/yyyy}}" Margin="0,0,3,0"/>
-                            <TextBlock Grid.Column="1"  Grid.Row="1" Text="{Binding Path= Status  ,StringFormat=סטטוס : {0}}" Margin="3,0,0,0" />
+                            <TextBlock Grid.Column="0" Grid.ColumnSpan="2"  Text="{ Binding Path= Key ,StringFormat=מספר בקשה : {0}}" FontWeight="Bold" />
+                            <TextBlock Grid.Column="0" Grid.Row="1"  Text="{Binding Path= CreateDate, StringFormat=תאריך יצירה :{0: dd/MM/yyyy}}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1"  Text="{Binding Path= Status ,StringFormat=סטטוס : {0}}" />
                         </Grid>
                     </materialDesign:Card>
                 </Border>

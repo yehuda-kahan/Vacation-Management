@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,24 +12,31 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BlApi;
 using BO;
+using BlApi;
+using System.Data.Linq;
 
 namespace PlGui
 {
     /// <summary>
-    /// Interaction logic for DialogRequestUserControl.xaml
+    /// Interaction logic for AddRequestDialogUserControl.xaml
     /// </summary>
-    public partial class DialogRequestUserControl : UserControl
+    public partial class AddRequestDialogUserControl : UserControl
     {
-
         static IBl bl = BlFactory.GetBL();
-        private GuestRequestBO request;
+        private GuestRequestBO request = new GuestRequestBO();
+        internal event Action UpdList;
 
-        public DialogRequestUserControl(GuestRequestBO guestRequest)
+
+        public AddRequestDialogUserControl(string id)
         {
+            request.EntryDate = DateTime.Now;
+            request.LeaveDate = DateTime.Now.AddDays(1);
+           
             InitializeComponent();
-            request = guestRequest;
+            EntryDate.DisplayDateStart = DateTime.Now;
+            request.ClientId =id;
+            request.CreateDate = DateTime.Now;
             UserControlGrid.DataContext = request;
             comboArea.SelectedIndex = (int)request.Area;
             comboJacuzzi.SelectedIndex = (int)request.Jacuzzi;
@@ -38,7 +44,7 @@ namespace PlGui
             comboGarden.SelectedIndex = (int)request.Garden;
             comboChildrensAttractions.SelectedIndex = (int)request.ChildrensAttractions;
             if (request.Status == RequestStatusBO.CANCELLED || request.Status == RequestStatusBO.ORDERED)
-                ChangBut.IsEnabled = false;
+                CreateBut.IsEnabled = false;
         }
 
 
@@ -84,6 +90,7 @@ namespace PlGui
                     return;
                 else
                     children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
+               
             }
             else if (((Button)sender).Name == "MinChBut")
             {
@@ -93,50 +100,6 @@ namespace PlGui
                     children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
             }
         }
-
-        private void ChangBut_Click(object sender, RoutedEventArgs e)
-        {
-            if ((string)ChangBut.Content == "עריכה")
-            {
-                ChangBut.Content = "שמור";
-                EntryDate.IsEnabled = true;
-                EntryDate.DisplayDateStart = DateTime.Today;
-                LeaveDate.IsEnabled = true;
-                adults.IsEnabled = true;
-                children.IsEnabled = true;
-                comboJacuzzi.IsEnabled = true;
-                comboArea.IsEnabled = true;
-                comboGarden.IsEnabled = true;
-                comboPool.IsEnabled = true;
-                comboArea.IsEnabled = true;
-                comboChildrensAttractions.IsEnabled = true;
-                comboUnitType.IsEnabled = true;
-                ChangeAd.IsEnabled = true;
-                ChangeCh.IsEnabled = true;
-
-            }
-            else if ((string)ChangBut.Content == "שמור")
-            {
-                ChangBut.Content = "עריכה";
-                EntryDate.IsEnabled = false;
-                LeaveDate.IsEnabled = false;
-                adults.IsEnabled = false;
-                children.IsEnabled = false;
-                comboJacuzzi.IsEnabled = false;
-                comboArea.IsEnabled = false;
-                comboGarden.IsEnabled = false;
-                comboPool.IsEnabled = false;
-                comboArea.IsEnabled = false;
-                comboChildrensAttractions.IsEnabled = false;
-                comboUnitType.IsEnabled = false;
-                ChangeAd.IsEnabled = false;
-                ChangeCh.IsEnabled = false;
-                try { bl.UpdRequest(request); }
-                catch (MissingMemberException ex) { }
-                catch (FormatException ex) { }//TODO mess box
-            }
-        }
-
         private void EntryDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (EntryDate.SelectedDate.HasValue)
@@ -144,6 +107,14 @@ namespace PlGui
                 LeaveDate.DisplayDateStart = EntryDate.SelectedDate.Value.AddDays(1);
                 LeaveDate.DataContext = LeaveDate;
             }
+        }
+        private void CreateBut_Click(object sender, RoutedEventArgs e)
+        {
+            uint temp = 0;
+            try { temp = bl.AddRequest(request); }
+            catch (DuplicateKeyException ex) { MessageBox.Show("here1"); }
+            catch (FormatException ex) { MessageBox.Show("here2"); }//TODO mess box
+            UpdList();
         }
     }
 }

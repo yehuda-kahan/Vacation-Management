@@ -298,11 +298,12 @@ namespace BL
             return temp;
         }
 
-        public void AddRequest(GuestRequestBO request)
+        public uint AddRequest(GuestRequestBO request)
         {
+            uint temp;
             if (IsLegalDates(request))
             {
-                try { dal.AddGuestRequest(GuestRequesConvertBOToDO(request)); }
+                try { temp = dal.AddGuestRequest(GuestRequesConvertBOToDO(request)); return temp; }
                 catch (DuplicateKeyException ex) { throw ex; }
             }
             else

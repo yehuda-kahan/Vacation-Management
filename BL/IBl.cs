@@ -52,7 +52,7 @@ namespace BlApi
         /// Exceptions : DuplicateKeyException , FormatException
         /// </summary>
         /// <param name="request"></param>
-        void AddRequest(GuestRequestBO request);
+        uint AddRequest(GuestRequestBO request);
 
         /// <summary>
         /// Exceptions : MissingMemberException
