@@ -118,12 +118,12 @@ namespace PlGui
 
         private void UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if (UserMail.Text == "")
-                ErorrMail.Visibility = Visibility.Collapsed;
-            if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
-                ErorrMail.Visibility = Visibility.Visible;
-            if (bl.IsValidMail(UserMail.Text))
-                ErorrMail.Visibility = Visibility.Hidden;
+            //if (UserMail.Text == "")
+            //    ErorrMail.Visibility = Visibility.Collapsed;
+            //if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
+            //    ErorrMail.Visibility = Visibility.Visible;
+            //if (bl.IsValidMail(UserMail.Text))
+            //    ErorrMail.Visibility = Visibility.Hidden;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

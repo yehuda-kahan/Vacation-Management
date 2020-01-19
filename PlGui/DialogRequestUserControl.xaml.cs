@@ -35,6 +35,8 @@ namespace PlGui
             comboPool.SelectedIndex = (int)request.Pool;
             comboGarden.SelectedIndex = (int)request.Garden;
             comboChildrensAttractions.SelectedIndex = (int)request.ChildrensAttractions;
+            if (request.Status == RequestStatusBO.CANCELLED || request.Status == RequestStatusBO.ORDERED)
+                ChangBut.IsEnabled = true;
         }
 
 
@@ -83,12 +85,27 @@ namespace PlGui
             }
             else if (((Button)sender).Name == "MinChBut")
             {
-                if (Convert.ToInt32(adults.Text) <= 0)
+                if (Convert.ToInt32(children.Text) <= 0)
                     return;
                 else
-                    adults.Text = Convert.ToString((Convert.ToInt32(adults.Text) - 1));
+                    children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
             }
         }
 
+        private void ChangBut_Click(object sender, RoutedEventArgs e)
+        {
+            EntryDate.IsEnabled = true;
+            EntryDate.DisplayDateStart = DateTime.Today;
+            LeaveDate.IsEnabled = true;
+
+            adults.IsEnabled = true;
+            children.IsEnabled = true;
+            comboJacuzzi.IsEnabled = true;
+        }
+
+        private void CloseBut_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -37,8 +37,8 @@ namespace DS
                     FirstName ="yehuda",
                     LastName ="kahan",
                     PhoneNomber="+972587271600",
-                    Email="yehudajka@gmail.com",
-                    Password="1234",
+                    Email="1",
+                    Password="1",
                     Status = Status.ACTIVE
                 }
             };
@@ -109,9 +109,9 @@ namespace DS
                 {
                     Key=1,
                     ClientId = "12345678",
-                    CreateDate =new DateTime(2019,04,21),
-                    EntryDate =new DateTime(2020,01,01),
-                    LeaveDate =new DateTime(2020,01,04),
+                    CreateDate =new DateTime(2020,04,21),
+                    EntryDate =new DateTime(2020,05,01),
+                    LeaveDate =new DateTime(2020,07,04),
                     Area = AreaLocation.ALL,
                     Type = UnitType.ZIMMER,
                     Adults =2,
@@ -120,7 +120,7 @@ namespace DS
                     Jacuzzi = ThreeOptions.YES,
                     ChildrensAttractions = ThreeOptions.MAYBE,
                     Garden = ThreeOptions.MAYBE,
-                    Status = RequestStatus.CANCELLED
+                    Status = RequestStatus.ORDERED
                 },
                 new GuestRequest
                 {

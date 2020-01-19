@@ -104,7 +104,7 @@
                                             <materialDesign:PackIcon Kind="Key" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
                                             <PasswordBox x:Name="Password" Grid.Column="0" Margin="3" materialDesign:HintAssist.Hint="סיסמה" materialDesign:HintAssist.Foreground="Gray" materialDesign:TextFieldAssist.UnderlineBrush="Gray"  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Width="210" CaretBrush="#FF787878" SelectionBrush="#FF787878" />
                                         </StackPanel>
-                                        <Button x:Name="LogInBut"  Content="הבא" Margin="0,30" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="110" Height="40" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"  Click="LogIn_But"/>
+                                        <Button x:Name="LogInBut" IsDefault="True" Content="הבא" Margin="0,30" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="110" Height="40" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"  Click="LogIn_But"/>
                                     </StackPanel>
                                 </materialDesign:Card>
 
@@ -137,7 +137,7 @@
                                                 <materialDesign:PackIcon Kind="IdentificationCard" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
                                                 <TextBox x:Name="ID" Text="{Binding Path=PersonalInfo.Id}" IsEnabled="False" materialDesign:HintAssist.Hint="מספר מזהה" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="263" />
                                             </StackPanel>
-                                            <Button x:Name="ChangeInfoBut" HorizontalAlignment="Right" Margin="20" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="עריכה" Width="100" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Click="ChangeInfoBut_click" />
+                                            <Button x:Name="ChangeInfoBut" IsDefault="True" HorizontalAlignment="Right" Margin="20" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="עריכה" Width="100" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Click="ChangeInfoBut_click" />
                                         </StackPanel>
                                         <Grid Grid.Column="1">
                                             <Grid.RowDefinitions>
