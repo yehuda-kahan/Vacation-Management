@@ -107,7 +107,7 @@ namespace DS
             {
                 new GuestRequest
                 {
-                    Key=20000001,
+                    Key=1,
                     ClientId = "12345678",
                     CreateDate =new DateTime(2019,04,21),
                     EntryDate =new DateTime(2020,01,01),
@@ -120,7 +120,7 @@ namespace DS
                     Jacuzzi = ThreeOptions.YES,
                     ChildrensAttractions = ThreeOptions.MAYBE,
                     Garden = ThreeOptions.MAYBE,
-                    Status = RequestStatus.OPEN
+                    Status = RequestStatus.CANCELLED
                 },
                 new GuestRequest
                 {
