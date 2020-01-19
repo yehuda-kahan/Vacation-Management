@@ -17,13 +17,13 @@
 
 
             <LinearGradientBrush x:Key="SelectedTabBackGround">
-                <GradientStop Offset="0" Color="Black"/>
+                <GradientStop Offset="0" Color="#FF1E1E1E"/>
             </LinearGradientBrush>
             <LinearGradientBrush x:Key="ButtonsColor">
                 <GradientStop Offset="0" Color= "#FF3C3535"/>
             </LinearGradientBrush>
             <LinearGradientBrush x:Key="ButtonsColorWhenMouseOver">
-                <GradientStop Offset="0" Color="#FF3C3535"/>
+                <GradientStop Offset="0" Color="#FF1E1E1E"/>
             </LinearGradientBrush>
 
 
@@ -37,13 +37,13 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="Border" Property="Background" Value="black"  />
+                                    <Setter TargetName="Border" Property="Background" Value="{ DynamicResource  SelectedTabBackGround}"  />
                                 </Trigger>
                                 <Trigger Property="IsSelected" Value="False">
                                     <Setter TargetName="Border" Property="Background" Value="{DynamicResource ButtonsColor}" />
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True" SourceName="Border">
-                                    <Setter TargetName="Border" Property="Background" Value="black"/>
+                                    <Setter TargetName="Border" Property="Background" Value="{ DynamicResource  ButtonsColorWhenMouseOver}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -55,7 +55,7 @@
 
             <DataTemplate x:Key="ListRequestUI" DataType="local:GuestRequestBO" >
                 <Border>
-                    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="15" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" MinWidth="350">
+                    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Background="#FF1E1E1E" Padding="15" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" MinWidth="350">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>

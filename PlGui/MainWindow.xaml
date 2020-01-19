@@ -92,7 +92,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <materialDesign:Card Grid.ColumnSpan="2"  materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030"/>
-                                <materialDesign:Card Margin="100" materialDesign:ShadowAssist.ShadowDepth="Depth1" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
+                                <materialDesign:Card  Margin="100" materialDesign:ShadowAssist.ShadowDepth="Depth1" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF1E1E1E">
                                     <StackPanel x:Name="logIn" Grid.Column="0" Margin="10"  HorizontalAlignment="Stretch"  VerticalAlignment="Center">
                                         <TextBlock x:Name="ErorrInput" Margin="35,0,5,5" Visibility="Collapsed" Text="שם משתמש או סיסמה אינם נכונים" FontSize="11" Foreground="#FFF74646"/>
                                         <StackPanel Orientation="Horizontal" Margin="0">

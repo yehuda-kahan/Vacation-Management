@@ -116,5 +116,10 @@ namespace PlGui
             catch (FormatException ex) { MessageBox.Show("here2"); }//TODO mess box
             UpdList();
         }
+
+        private void EntryDate_DialogOpened(object sender, MaterialDesignThemes.Wpf.DialogOpenedEventArgs eventArgs)
+        {
+
+        }
     }
 }
