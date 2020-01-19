@@ -31,16 +31,64 @@ namespace PlGui
             request = guestRequest;
             UserControlGrid.DataContext = request;
             comboArea.SelectedIndex = (int)request.Area;
+            comboJacuzzi.SelectedIndex = (int)request.Jacuzzi;
+            comboPool.SelectedIndex = (int)request.Pool;
+            comboGarden.SelectedIndex = (int)request.Garden;
+            comboChildrensAttractions.SelectedIndex = (int)request.ChildrensAttractions;
+        }
+
+
+        private void combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((ComboBox)sender).Name == "comboArea")
+                request.Area = (AreaLocationBO)comboArea.SelectedIndex;
+            else if (((ComboBox)sender).Name == "comboJacuzzi")
+                request.Jacuzzi = (ThreeOptionsBO)comboJacuzzi.SelectedIndex;
+            else if (((ComboBox)sender).Name == "comboPool")
+                request.Pool = (ThreeOptionsBO)comboPool.SelectedIndex;
+            else if (((ComboBox)sender).Name == "comboGarden")
+                request.Garden = (ThreeOptionsBO)comboGarden.SelectedIndex;
+            else if (((ComboBox)sender).Name == "comboChildrensAttractions")
+                request.ChildrensAttractions = (ThreeOptionsBO)comboChildrensAttractions.SelectedIndex;
+            else if (((ComboBox)sender).Name == "comboUnitType")
+                request.Type = (UnitTypeBO)comboUnitType.SelectedIndex;
         }
 
         private void Plus_Click(object sender, RoutedEventArgs e)
         {
-
+            if (((Button)sender).Name == "PlusAdBut")
+            {
+                if (Convert.ToInt32(adults.Text) >= 99)
+                    return;
+                else
+                    adults.Text = Convert.ToString((Convert.ToInt32(adults.Text) + 1));
+            }
+            else if (((Button)sender).Name == "PlusChBut")
+            {
+                if (Convert.ToInt32(children.Text) >= 99)
+                    return;
+                else
+                    children.Text = Convert.ToString((Convert.ToInt32(children.Text) + 1));
+            }
         }
 
-        private void comboArea_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Min_Click(object sender, RoutedEventArgs e)
         {
-            request.Area = (AreaLocationBO)comboArea.SelectedIndex;
+            if (((Button)sender).Name == "MinAdBut")
+            {
+                if (Convert.ToInt32(children.Text) <= 0)
+                    return;
+                else
+                    children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
+            }
+            else if (((Button)sender).Name == "MinChBut")
+            {
+                if (Convert.ToInt32(adults.Text) <= 0)
+                    return;
+                else
+                    adults.Text = Convert.ToString((Convert.ToInt32(adults.Text) - 1));
+            }
         }
+
     }
 }
