@@ -105,7 +105,7 @@ namespace PlGui
             if (EntryDate.SelectedDate.HasValue)
             {
                 LeaveDate.DisplayDateStart = EntryDate.SelectedDate.Value.AddDays(1);
-                LeaveDate.DataContext = LeaveDate;
+                LeaveDate.SelectedDate = EntryDate.SelectedDate.Value.AddDays(1);
             }
         }
         private void CreateBut_Click(object sender, RoutedEventArgs e)
@@ -117,9 +117,6 @@ namespace PlGui
             UpdList();
         }
 
-        private void EntryDate_DialogOpened(object sender, MaterialDesignThemes.Wpf.DialogOpenedEventArgs eventArgs)
-        {
-
-        }
+        
     }
 }
