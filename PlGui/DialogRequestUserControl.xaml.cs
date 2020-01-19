@@ -94,18 +94,48 @@ namespace PlGui
 
         private void ChangBut_Click(object sender, RoutedEventArgs e)
         {
-            EntryDate.IsEnabled = true;
-            EntryDate.DisplayDateStart = DateTime.Today;
-            LeaveDate.IsEnabled = true;
+            if ((string)ChangBut.Content == "עריכה")
+            {
+                ChangBut.Content = "שמור";
+                EntryDate.IsEnabled = true;
+                EntryDate.DisplayDateStart = DateTime.Today;
+                LeaveDate.IsEnabled = true;
+                adults.IsEnabled = true;
+                children.IsEnabled = true;
+                comboJacuzzi.IsEnabled = true;
+                comboArea.IsEnabled = true;
+                comboGarden.IsEnabled = true;
+                comboPool.IsEnabled = true;
+                comboArea.IsEnabled = true;
+                comboChildrensAttractions.IsEnabled = true;
+                comboUnitType.IsEnabled = true;
+                MinAdBut.IsEnabled = true;
+                PlusAdBut.IsEnabled = true;
+                MinChBut.IsEnabled = true;
+                PlusChBut.IsEnabled = true;
 
-            adults.IsEnabled = true;
-            children.IsEnabled = true;
-            comboJacuzzi.IsEnabled = true;
+            }
+            else if ((string)ChangBut.Content == "שמור")
+            {
+                ChangBut.Content = "עריכה";
+                EntryDate.IsEnabled = false;
+                LeaveDate.IsEnabled = false;
+                adults.IsEnabled = false;
+                children.IsEnabled = false;
+                comboJacuzzi.IsEnabled = false;
+                comboArea.IsEnabled = false;
+                comboGarden.IsEnabled = false;
+                comboPool.IsEnabled = false;
+                comboArea.IsEnabled = false;
+                comboChildrensAttractions.IsEnabled = false;
+                comboUnitType.IsEnabled = false;
+                MinAdBut.IsEnabled = false;
+                PlusAdBut.IsEnabled = false;
+                MinChBut.IsEnabled = false;
+                PlusChBut.IsEnabled = false;
+            }
         }
 
-        private void CloseBut_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
     }
 }
