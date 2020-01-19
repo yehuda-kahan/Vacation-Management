@@ -17,6 +17,7 @@
         Title="MainWindow" MinHeight="400" MinWidth="700" Height="700" Width="1000" MaxHeight="1400" MaxWidth="2000"  WindowStyle="None"  FlowDirection="RightToLeft" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" MouseDown="Window_MouseDown" Loaded="Window_Loaded"   >
     <Window.Resources>
+        
         <CollectionViewSource x:Key="personBOViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:PersonBO}, CreateList=True}"/>
     </Window.Resources>
     <!--Loaded="Window_Loaded"-->
@@ -110,12 +111,12 @@
                             </Grid>
 
                         </Border>
-                        <materialDesign:DialogHost Grid.ColumnSpan="2" CloseOnClickAway="True">
+                        <materialDesign:DialogHost Grid.ColumnSpan="2">
                             <materialDesign:DialogHost.DialogContentTemplate> 
-                                <DataTemplate DataType="local:GuestRequestBO">
-                                    <Border>
+                                <DataTemplate DataType="local:GuestRequestBO" >
+                                    <Border x:Name="aabb">
                                         <materialDesign:Card BorderBrush="White"  BorderThickness="0.5"  Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
-                                            <Grid MinWidth="450" MinHeight="450">
+                                            <Grid IsEnabled="True" Margin="5" x:Name="aqsw">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
@@ -126,11 +127,23 @@
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
-                                                <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path= Status , StringFormat= סטטוס בקשה :{0}}" Foreground="White"/>-->
-                                                <TextBox   Grid.Row="0" Grid.Column="0" materialDesign:HintAssist.Hint="סטטוס :" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="130" Foreground="White" />
-                                                <!--<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path= Key ,  StringFormat=תאריך כניסה :{0: dd/MM/yyyy}}" Foreground="White" />
-                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path= Key ,  StringFormat=תאריך יציאה :{0: dd/MM/yyyy}}" Foreground="White" />-->
+                                                <TextBox Margin="5" Text="{Binding Path=Status}" materialDesign:HintAssist.Foreground="Gray"  materialDesign:HintAssist.Hint="סטטוס"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" />
+                                                <DatePicker Width="100" Margin="5" Grid.Column="1" SelectedDate="{Binding Path= CreateDate}" DisplayDate="{Binding Path= CreateDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="תאריך יצירה" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" />
+                                                <DatePicker Width="100" Margin="5" Grid.Row="1" SelectedDate="{Binding Path= EntryDate}" DisplayDate="{Binding Path= EntryDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="מתאריך" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" />
+                                                <DatePicker Width="100" Margin="5" Grid.Column="1" Grid.Row="1"  SelectedDate="{Binding Path= CreateDate}" DisplayDate="{Binding Path= CreateDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="עד תאריך" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" />
+                                                <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="2" >
+                                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Click="Plus_Click"  ToolTip="MaterialDesignFloatingActionMiniLightButton" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}">
+                                                        <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
+                                                    </Button>
+                                                    <TextBox x:Name="adults" HorizontalAlignment="Center" Text="{Binding Path= Adults}" IsEnabled="False" materialDesign:HintAssist.Hint="מבוגרים"   Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Foreground="White"/>
+                                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" ToolTip="MaterialDesignFloatingActionMiniLightButton" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}">
+                                                        <materialDesign:PackIcon Kind="Minus" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
+                                                    </Button>
+                                                </StackPanel>
+
+
                                             </Grid>
                                         </materialDesign:Card>
                                     </Border>

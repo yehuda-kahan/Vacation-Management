@@ -30,7 +30,9 @@ namespace PlGui
 
         public MainWindow()
         {
+            List<int> LongListToTestComboVirtualization = new List<int>(Enumerable.Range(0, 1000));
             InitializeComponent();
+            
 
         }
 
@@ -162,5 +164,12 @@ namespace PlGui
         {
             MaterialDesignThemes.Wpf.DialogHost.Show(ListRequest.SelectedItem);
         }
+
+        private void Plus_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        
     }
 }
