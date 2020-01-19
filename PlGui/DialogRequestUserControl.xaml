@@ -6,43 +6,34 @@
              xmlns:local="clr-namespace:PlGui"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid FlowDirection="RightToLeft" >
-        <Border >
-            <materialDesign:Card BorderBrush="White"  BorderThickness="0.5"  Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030" Foreground="White">
-                <Grid IsEnabled="True" Margin="5" x:Name="UserControlGrid">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <TextBox Margin="5" Text="{Binding Path=Key}" materialDesign:HintAssist.Foreground="Gray"  materialDesign:HintAssist.Hint="מספר בקשה"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" SelectionBrush="#FF787878" CaretBrush="#FF787878" />
-                    <DatePicker Width="100" Margin="5" Grid.Row="0" Grid.Column="1" SelectedDate="{Binding Path= CreateDate, Mode=TwoWay}" DisplayDate="{Binding Path= CreateDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="תאריך יצירה" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" />
-                    <DatePicker Width="100" Margin="5" Grid.Row="1"  Grid.Column="0" SelectedDate="{Binding Path= EntryDate}" DisplayDate="{Binding Path= EntryDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="מתאריך" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" />
-                    <DatePicker Width="100" Margin="5" Grid.Column="1" Grid.Row="1"  SelectedDate="{Binding Path= CreateDate}" DisplayDate="{Binding Path= CreateDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="עד תאריך" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" />
-                    <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="2" Grid.Column="1" >
-                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Click="Plus_Click"  ToolTip="MaterialDesignFloatingActionMiniLightButton" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}">
-                            <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
-                        </Button>
-                        <TextBox x:Name="adults"  HorizontalAlignment="Center" Text="{Binding Path= Adults}" IsEnabled="False" materialDesign:HintAssist.Hint="מבוגרים"   Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Foreground="White"/>
-                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" ToolTip="MaterialDesignFloatingActionMiniLightButton" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}">
-                            <materialDesign:PackIcon Kind="Minus" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
-                        </Button>
-                    </StackPanel>
-                    <ComboBox x:Name="comboArea"  Grid.Row="3" Grid.Column="0" materialDesign:HintAssist.Hint="OS" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" SelectionChanged="comboArea_SelectionChanged">
-                        <ComboBoxItem>פתוח</ComboBoxItem>
-                        <ComboBoxItem>פג תוקף</ComboBoxItem>
-                        <ComboBoxItem>בוטל</ComboBoxItem>
-                        <ComboBoxItem>הוזמן</ComboBoxItem>
-                    </ComboBox>
-                </Grid>
-            </materialDesign:Card>
-        </Border>
+    <Grid>
+        <materialDesign:Card  materialDesign:ShadowAssist.ShadowDepth="Depth1" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
+            <Grid >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ComboBox   Grid.Row="0" Grid.Column="1" materialDesign:HintAssist.Hint="ססטוס" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White">
+                    <ComboBoxItem>OPEN</ComboBoxItem>
+                    <ComboBoxItem>EXPIRED</ComboBoxItem>
+                    <ComboBoxItem>CANCELLED</ComboBoxItem>
+                    <ComboBoxItem>ORDERED</ComboBoxItem>
+                </ComboBox>
+                <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path= Status , StringFormat= סטטוס בקשה :{0}}" Foreground="White"/>-->
+                <TextBox   Grid.Row="0" Grid.Column="0" materialDesign:HintAssist.Hint="סטטוס :" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="130" Foreground="#89FFFFFF"  />
+                <!--<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path= Key ,  StringFormat=תאריך כניסה :{0: dd/MM/yyyy}}" Foreground="White" />
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path= Key ,  StringFormat=תאריך יציאה :{0: dd/MM/yyyy}}" Foreground="White" />-->
+            </Grid>
+        </materialDesign:Card>
+
+
     </Grid>
 </UserControl>
