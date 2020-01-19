@@ -79,7 +79,11 @@
                 </TabItem>
                 <TabItem Header="לקוח" Width="180" Height="30" FontSize="16" Foreground="White">
                     <Grid>
-                        <!--check if need columnDfinition here-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
                         <Border x:Name="clientLogin" Visibility="Visible" Grid.ColumnSpan="2">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -106,9 +110,33 @@
                             </Grid>
 
                         </Border>
-                        
-                        <materialDesign:DialogHost Grid.ColumnSpan="2">
-                            
+                        <materialDesign:DialogHost Grid.ColumnSpan="2" CloseOnClickAway="True">
+                            <materialDesign:DialogHost.DialogContentTemplate> 
+                                <DataTemplate DataType="local:GuestRequestBO">
+                                    <Border>
+                                        <materialDesign:Card BorderBrush="White"  BorderThickness="0.5"  Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
+                                            <Grid MinWidth="450" MinHeight="450">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path= Status , StringFormat= סטטוס בקשה :{0}}" Foreground="White"/>-->
+                                                <TextBox   Grid.Row="0" Grid.Column="0" materialDesign:HintAssist.Hint="סטטוס :" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="130" Foreground="White" />
+                                                <!--<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path= Key ,  StringFormat=תאריך כניסה :{0: dd/MM/yyyy}}" Foreground="White" />
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path= Key ,  StringFormat=תאריך יציאה :{0: dd/MM/yyyy}}" Foreground="White" />-->
+                                            </Grid>
+                                        </materialDesign:Card>
+                                    </Border>
+                                </DataTemplate>
+                            </materialDesign:DialogHost.DialogContentTemplate>
+
                             <Border x:Name="clientWindow" Visibility="Hidden" Grid.ColumnSpan="2">
                                 <materialDesign:Card   materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
                                     <Grid x:Name="ClientInfo" >
@@ -149,8 +177,8 @@
                                     </Grid>
 
                                 </materialDesign:Card>
+
                             </Border>
-                            
                         </materialDesign:DialogHost>
                     </Grid>
                 </TabItem>

@@ -19,8 +19,6 @@ using BlApi;
 
 namespace PlGui
 {
-
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -108,6 +106,7 @@ namespace PlGui
                     clientLogin.Visibility = Visibility.Collapsed;
                     clientWindow.Visibility = Visibility.Visible;
                 }
+                ErorrInput.Visibility = Visibility.Visible;
             }
             catch (MissingMemberException ex)
             {
@@ -127,10 +126,6 @@ namespace PlGui
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            System.Windows.Data.CollectionViewSource personBOViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("personBOViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // personBOViewSource.Source = [generic data source]
         }
 
         private void ChangeInfoBut_click(object sender, RoutedEventArgs e)
@@ -160,7 +155,7 @@ namespace PlGui
 
         private void ListRequest_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            
+
         }
 
         private void list_click(object sender, MouseButtonEventArgs e)
