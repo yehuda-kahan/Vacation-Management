@@ -17,7 +17,7 @@
         Title="MainWindow" MinHeight="400" MinWidth="700" Height="700" Width="1000" MaxHeight="1400" MaxWidth="2000"  WindowStyle="None"  FlowDirection="RightToLeft" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" MouseDown="Window_MouseDown" Loaded="Window_Loaded"   >
     <Window.Resources>
-        
+
         <CollectionViewSource x:Key="personBOViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:PersonBO}, CreateList=True}"/>
     </Window.Resources>
     <!--Loaded="Window_Loaded"-->
@@ -112,8 +112,6 @@
 
                         </Border>
                         <materialDesign:DialogHost Grid.ColumnSpan="2">
-                             
-                                
 
                             <Border x:Name="clientWindow" Visibility="Hidden" Grid.ColumnSpan="2">
                                 <materialDesign:Card   materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030">
