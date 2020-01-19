@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BlApi;
 using BO;
 
 namespace PlGui
@@ -21,11 +22,25 @@ namespace PlGui
     /// </summary>
     public partial class DialogRequestUserControl : UserControl
     {
+        static IBl bl = BlFactory.GetBL();
         private GuestRequestBO request;
+
         public DialogRequestUserControl(GuestRequestBO guestRequest)
         {
             InitializeComponent();
             request = guestRequest;
+            UserControlGrid.DataContext = request;
+            comboArea.SelectedIndex = (int)request.Area;
+        }
+
+        private void Plus_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void comboArea_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            request.Area = (AreaLocationBO)comboArea.SelectedIndex;
         }
     }
 }

@@ -166,13 +166,7 @@ namespace PlGui
             DialogRequestUserControl requestUserControl = new DialogRequestUserControl(request);
 
             MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControl);
-        }
 
-        private void Plus_Click(object sender, RoutedEventArgs e)
-        {
-           
-        }
-
-        
+        }            
     }
 }
