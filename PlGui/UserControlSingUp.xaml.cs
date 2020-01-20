@@ -25,7 +25,8 @@ namespace PlGui
     {
         static IBl bl = BlFactory.GetBL();
         PersonBO person = new PersonBO();
-        public delegate void OpenClientWin(string id);
+        internal event Action<string> OpenClientWin;
+
         public UserControlSingUp()
         {
             InitializeComponent();
@@ -37,10 +38,13 @@ namespace PlGui
         {
             if (Email.Text == "")
                 ErorrMail.Visibility = Visibility.Collapsed;
-            if (!bl.IsValidMail(Email.Text) && Email.Text != "")
+            else if (!bl.IsValidMail(Email.Text) && Email.Text != "")
+            {
                 ErorrMail.Visibility = Visibility.Visible;
-            if (bl.IsValidMail(Email.Text))
-                ErorrMail.Visibility = Visibility.Hidden;
+                CreateBut.IsEnabled = false;
+            }
+            else if (bl.IsValidMail(Email.Text))
+                ErorrMail.Visibility = Visibility.Collapsed;
         }
 
         private void CreateBut_Click(object sender, RoutedEventArgs e)
@@ -52,12 +56,37 @@ namespace PlGui
             person.Email = Email.Text;
             person.Password = Password.Password;
             person.PhoneNomber = Phone.Text;
-            try { bl.AddPerson(person); }
+            try
+            {
+                bl.AddPerson(person);
+                OpenClientWin(person.Id);
+                MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
+            }
             catch (DuplicateKeyException ex) { MessageBox.Show("here1"); }
             catch (InvalidOperationException ex) { MessageBox.Show("here2"); }
-            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
-            //OpenClientWin temp = new OpenClientWin(this.Parent.);
+           
+        }
 
+        private void Id_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (Id.Text.Length == 9)
+            {
+                if (!bl.IsValidTZ(Id.Text))
+                {
+                    ErorrID.Visibility = Visibility.Visible;
+                    CreateBut.IsEnabled = false;
+                }
+                else
+                {
+                    ErorrID.Visibility = Visibility.Collapsed;
+                    CreateBut.IsEnabled = true;
+                }
+            }
+            else
+            {
+                ErorrID.Visibility = Visibility.Collapsed;
+                CreateBut.IsEnabled = true;
+            }
         }
     }
 }

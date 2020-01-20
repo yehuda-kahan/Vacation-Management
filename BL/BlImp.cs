@@ -31,7 +31,7 @@ namespace BL
             return long.TryParse(NumStr, out temp);
         }
 
-        private bool IsValidTZ(string TZ)
+        public bool IsValidTZ(string TZ)
         {
             int sum = 0;
             int tmp = 0;

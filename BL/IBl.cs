@@ -220,6 +220,8 @@ namespace BlApi
         int DaysBetweenDates(DateTime first, DateTime last = default);
 
         bool IsValidMail(string email);
+
+        bool IsValidTZ(string TZ);
         #endregion
 
         #region List function

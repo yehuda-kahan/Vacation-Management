@@ -121,7 +121,7 @@ namespace PlGui
         }
         private void CreateBut_Click(object sender, RoutedEventArgs e)
         {
-            if (children.Text == "0" || adults.Text == "0")
+            if (children.Text == "0" && adults.Text == "0")
             {
                 MessageBox.Show("אנא בחר מספר את מספר הנופשים הרצוי");
                 return;

@@ -174,7 +174,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="SingUpFourm" >
+                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="aa" >
                             <Border x:Name="HostLogin" Grid.ColumnSpan="2" CornerRadius="10" >
                                 <Border.Background>
                                     <SolidColorBrush Color="{DynamicResource BackColor}"/>

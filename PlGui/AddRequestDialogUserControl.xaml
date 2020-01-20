@@ -91,7 +91,11 @@
                             <ComboBoxItem>ירושלים</ComboBoxItem>
                         </ComboBox>
                         <Button x:Name="CreateBut" Content="צור" Grid.Column="1"  Grid.Row="5"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="CreateBut_Click"/>
-                        <Button x:Name="CloseBut"  Content="סגור"  Grid.Column="0" Grid.Row="5" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0"  Foreground="#FFA02917"/>
+                        <Button x:Name="CloseBut"  Content="סגור"  Grid.Column="0" Grid.Row="5" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0"  >
+                            <Button.Foreground>
+                                <SolidColorBrush Color="{DynamicResource CloseColor}"/>
+                            </Button.Foreground>
+                        </Button>
                     </Grid>
                 </materialDesign:Card>
             </Border>

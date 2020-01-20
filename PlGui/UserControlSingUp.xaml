@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PlGui"
              mc:Ignorable="d" >
+   
 
 
     <Grid FlowDirection="RightToLeft" >
@@ -35,7 +36,7 @@
                         <materialDesign:PackIcon Kind="AlternateEmail" VerticalAlignment="Bottom"  Margin="0,0,3,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
                         <TextBox x:Name="Email" materialDesign:HintAssist.Hint="כתובת  אימייל" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"   PreviewKeyUp="UserMail_PreviewKeyUp" MinWidth="220" />
                     </StackPanel>
-                    <TextBlock x:Name="ErorrMail"  Visibility="Collapsed" Margin="35,0,0,0" Text="יש להזין מייל חוקי" FontSize="11" Foreground="#FFF74646"/>
+                    <TextBlock x:Name="ErorrMail"  Grid.ColumnSpan="2" Grid.Row="3" Visibility="Collapsed" Margin="35,0,0,0" Text="יש להזין מייל חוקי" FontSize="11" Foreground="#FFF74646"/>
                     <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="3" Margin="10" >
                         <materialDesign:PackIcon Kind="phone" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
                         <TextBox x:Name="Phone" materialDesign:HintAssist.Hint="טלפון" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"   PreviewKeyUp="UserMail_PreviewKeyUp" MinWidth="220"  />
@@ -46,11 +47,16 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="5" Margin="10" >
                         <materialDesign:PackIcon Kind="IdCard" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
-                        <TextBox x:Name="Id" materialDesign:HintAssist.Hint="מספר מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"   PreviewKeyUp="UserMail_PreviewKeyUp" MinWidth="160"  />
+                        <TextBox x:Name="Id" materialDesign:HintAssist.Hint="מספר מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  PreviewKeyUp="Id_PreviewKeyUp" MinWidth="160" MaxLength="10"/>
                         <ComboBox x:Name="IDType"  Margin="8,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  materialDesign:HintAssist.Hint="סוג"    Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" MinWidth="50" ></ComboBox>
                     </StackPanel>
-                    <Button x:Name="CreateBut" Content="הבא" Grid.Column="1"  Grid.Row="7"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="CreateBut_Click"/>
-                    <Button x:Name="CloseBut"  Content="ביטול"  Grid.Column="0" Grid.Row="7" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0"  Foreground="#FFA02917"/>
+                    <TextBlock x:Name="ErorrID"  Grid.ColumnSpan="2" Grid.Row="5" Visibility="Collapsed" Margin="35,0,0,0" Text="יש להזין מזהה חוקי" FontSize="11" Foreground="#FFF74646"/>
+                    <Button x:Name="CreateBut" Content="הבא" Grid.Column="1"  Grid.Row="6"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="CreateBut_Click"/>
+                    <Button x:Name="CloseBut"  Content="ביטול"  Grid.Column="0" Grid.Row="6" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0">
+                        <Button.Foreground>
+                            <SolidColorBrush Color="{DynamicResource CloseColor}"/>
+                        </Button.Foreground>
+                    </Button>
 
 
 

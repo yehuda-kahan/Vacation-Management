@@ -197,14 +197,21 @@ namespace PlGui
         private void SingUp_click(object sender, RoutedEventArgs e)
         {
             UserControlSingUp addPerson = new UserControlSingUp();
-            //addPerson.op
+            addPerson.OpenClientWin += AddPerson_OpenClientWin1;
             MaterialDesignThemes.Wpf.DialogHost.Show(addPerson, "SingUpFourm");
         }
 
-        public void AddPerson_OpenClientWin(string id)
+        private void AddPerson_OpenClientWin1(string obj)
         {
-
+            client = bl.GetClient(obj);
+            ClientInfo.DataContext = client;
+            requests = new ObservableCollection<GuestRequestBO>(client.ClientRequests); // making the list request of the guest
+            ListRequest.DataContext = requests;
+            clientLogin.Visibility = Visibility.Collapsed;
+            clientWindow.Visibility = Visibility.Visible;
         }
+
+       
 
 
     }
