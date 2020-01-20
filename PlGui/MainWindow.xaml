@@ -168,6 +168,49 @@
                         </materialDesign:DialogHost>
                     </Grid>
                 </TabItem>
+                <TabItem Header="מארח" Width="180" Height="30" FontSize="16" Foreground="White" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="SingUpFourm" >
+                            <Border x:Name="HostLogin" Grid.ColumnSpan="2" CornerRadius="10" >
+                                <Border.Background>
+                                    <SolidColorBrush Color="{DynamicResource BackColor}"/>
+                                </Border.Background>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <materialDesign:Card Grid.ColumnSpan="2"  materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="{x:Null}"/>
+                                    <materialDesign:Card  Margin="100" materialDesign:ShadowAssist.ShadowDepth="Depth1" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF1E1E1E" Opacity="0.7">
+                                        <StackPanel x:Name="HostlogIn" Grid.Column="0" Margin="10"  HorizontalAlignment="Center"  VerticalAlignment="Center">
+                                            <TextBlock x:Name="HostLoginBlock" HorizontalAlignment="Center"  Text="כניסה למערכת" FontSize="15" Foreground="WhiteSmoke" Margin="0,0,0,10"/>
+                                            <TextBlock x:Name="HostErorrInput" Margin="35,0,5,5" Visibility="Collapsed" Text="שם משתמש או סיסמה אינם נכונים" FontSize="11" Foreground="#FFF74646"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0">
+                                                <materialDesign:PackIcon Kind="Account" VerticalAlignment="Bottom" Margin="3"  Width="20" Height="20"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                                <TextBox x:Name="HostUserMail" materialDesign:HintAssist.Hint="שם משתמש" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Width="210" PreviewKeyUp="UserMail_PreviewKeyUp" />
+                                            </StackPanel>
+                                            <TextBlock x:Name="HostErorrMail"  Visibility="Collapsed" Margin="35,0,0,0" Text="יש להזין מייל חוקי" FontSize="11" Foreground="#FFF74646"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,15,0,10">
+                                                <materialDesign:PackIcon Kind="Key" VerticalAlignment="Bottom" Margin="3"  Width="20" Height="20"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                                <PasswordBox x:Name="HostPassword" Grid.Column="0" Margin="3" materialDesign:HintAssist.Hint="סיסמה" materialDesign:HintAssist.Foreground="Gray" materialDesign:TextFieldAssist.UnderlineBrush="Gray"  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Width="210" CaretBrush="#FF787878" SelectionBrush="#FF787878" />
+                                            </StackPanel>
+                                            <Button x:Name="HostLogInBut" IsDefault="True" Content="הבא" Margin="0,30,0,10" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="110" Height="40" ToolTip="כניסה למערכת"  Click="LogIn_But"/>
+                                            <Button x:Name="HostSingup" Content="הרשמה"  Style="{StaticResource MaterialDesignFlatButton}"  Width="110" Height="40"  Click="SingUp_click"/>
+
+                                        </StackPanel>
+                                    </materialDesign:Card>
+                                </Grid>
+                            </Border>
+                        </materialDesign:DialogHost>
+
+                        
+                    </Grid>
+                </TabItem>
             </TabControl>
         </Grid>
     </Grid>
