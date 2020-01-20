@@ -71,14 +71,20 @@ namespace PlGui
                 if (Convert.ToInt32(adults.Text) >= 99)
                     return;
                 else
+                {
                     adults.Text = Convert.ToString((Convert.ToInt32(adults.Text) + 1));
+                    request.Adults = Convert.ToUInt32(adults.Text);
+                }
             }
             else if (((Button)sender).Name == "PlusChBut")
             {
                 if (Convert.ToInt32(children.Text) >= 99)
                     return;
                 else
+                {
                     children.Text = Convert.ToString((Convert.ToInt32(children.Text) + 1));
+                    request.Children = Convert.ToUInt32(children.Text);
+                }
             }
         }
 
@@ -89,15 +95,20 @@ namespace PlGui
                 if (Convert.ToInt32(children.Text) <= 0)
                     return;
                 else
+                {
                     children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
-
+                    request.Adults = Convert.ToUInt32(adults.Text);
+                }
             }
             else if (((Button)sender).Name == "MinChBut")
             {
                 if (Convert.ToInt32(children.Text) <= 0)
                     return;
                 else
+                {
                     children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
+                    request.Children = Convert.ToUInt32(children.Text);
+                }
             }
         }
         private void EntryDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -110,7 +121,6 @@ namespace PlGui
         }
         private void CreateBut_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(request.ToString());
             uint temp = 0;
             try { temp = bl.AddRequest(request); }
             catch (DuplicateKeyException ex) { MessageBox.Show("here1"); }
@@ -118,9 +128,6 @@ namespace PlGui
             UpdList();
         }
 
-        private void EntryDate_DialogOpened(object sender, MaterialDesignThemes.Wpf.DialogOpenedEventArgs eventArgs)
-        {
 
-        }
     }
 }
