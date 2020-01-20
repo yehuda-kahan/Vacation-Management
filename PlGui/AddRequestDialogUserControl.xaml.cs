@@ -32,10 +32,10 @@ namespace PlGui
         {
             request.EntryDate = DateTime.Now;
             request.LeaveDate = DateTime.Now.AddDays(1);
-           
+
             InitializeComponent();
             EntryDate.DisplayDateStart = DateTime.Now;
-            request.ClientId =id;
+            request.ClientId = id;
             request.CreateDate = DateTime.Now;
             UserControlGrid.DataContext = request;
             comboArea.SelectedIndex = (int)request.Area;
@@ -71,14 +71,20 @@ namespace PlGui
                 if (Convert.ToInt32(adults.Text) >= 99)
                     return;
                 else
+                {
                     adults.Text = Convert.ToString((Convert.ToInt32(adults.Text) + 1));
+                    request.Adults = Convert.ToUInt32(adults.Text);
+                }
             }
             else if (((Button)sender).Name == "PlusChBut")
             {
                 if (Convert.ToInt32(children.Text) >= 99)
                     return;
                 else
+                {
                     children.Text = Convert.ToString((Convert.ToInt32(children.Text) + 1));
+                    request.Children = Convert.ToUInt32(children.Text);
+                }
             }
         }
 
@@ -89,15 +95,20 @@ namespace PlGui
                 if (Convert.ToInt32(children.Text) <= 0)
                     return;
                 else
+                {
                     children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
-               
+                    request.Adults = Convert.ToUInt32(adults.Text);
+                }
             }
             else if (((Button)sender).Name == "MinChBut")
             {
                 if (Convert.ToInt32(children.Text) <= 0)
                     return;
                 else
+                {
                     children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
+                    request.Children = Convert.ToUInt32(children.Text);
+                }
             }
         }
         private void EntryDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -117,6 +128,6 @@ namespace PlGui
             UpdList();
         }
 
-        
+
     }
 }

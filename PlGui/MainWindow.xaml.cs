@@ -83,10 +83,12 @@ namespace PlGui
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TabControl tabControl = sender as TabControl;
-            if (tabControl.SelectedIndex == 1)
+            if (tabControl.SelectedIndex == 0)
             {
-                //AdminPasswordBorder.Visibility = Visibility.Collapsed;
-                //AdminPasswordBorder.Visibility = Visibility.Visible;
+                clientLogin.Visibility = Visibility.Visible;
+                clientWindow.Visibility = Visibility.Collapsed;
+                UserMail.Text = "";
+                Password.Password = "";
             }
         }
 
@@ -164,7 +166,7 @@ namespace PlGui
             GuestRequestBO request = (GuestRequestBO)ListRequest.SelectedItem;
             DialogRequestUserControl requestUserControl = new DialogRequestUserControl(request);
 
-            MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControl);
+            MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControl, "clientDialog");
         }
 
         private void MailCheck(object sender, KeyEventArgs e)
@@ -181,16 +183,29 @@ namespace PlGui
         {
             AddRequestDialogUserControl requestUserControlNew = new AddRequestDialogUserControl(client.PersonalInfo.Id);
             requestUserControlNew.UpdList += RequestUserControlNew_UpdList;
-            MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControlNew);
+            MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControlNew, "clientDialog");
+
         }
 
         private void RequestUserControlNew_UpdList()
         {
-
-            
             requests = new ObservableCollection<GuestRequestBO>(bl.GetClient(client.PersonalInfo.Id).ClientRequests);
             ListRequest.DataContext = requests;
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
         }
+
+        private void SingUp_click(object sender, RoutedEventArgs e)
+        {
+            UserControlSingUp addPerson = new UserControlSingUp();
+            //addPerson.op
+            MaterialDesignThemes.Wpf.DialogHost.Show(addPerson, "SingUpFourm");
+        }
+
+        public void AddPerson_OpenClientWin(string id)
+        {
+
+        }
+
+
     }
 }
