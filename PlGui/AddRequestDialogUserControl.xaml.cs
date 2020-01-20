@@ -32,10 +32,10 @@ namespace PlGui
         {
             request.EntryDate = DateTime.Now;
             request.LeaveDate = DateTime.Now.AddDays(1);
-           
+
             InitializeComponent();
             EntryDate.DisplayDateStart = DateTime.Now;
-            request.ClientId =id;
+            request.ClientId = id;
             request.CreateDate = DateTime.Now;
             UserControlGrid.DataContext = request;
             comboArea.SelectedIndex = (int)request.Area;
@@ -90,7 +90,7 @@ namespace PlGui
                     return;
                 else
                     children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
-               
+
             }
             else if (((Button)sender).Name == "MinChBut")
             {
@@ -105,11 +105,12 @@ namespace PlGui
             if (EntryDate.SelectedDate.HasValue)
             {
                 LeaveDate.DisplayDateStart = EntryDate.SelectedDate.Value.AddDays(1);
-                LeaveDate.DataContext = LeaveDate;
+                LeaveDate.SelectedDate = EntryDate.SelectedDate.Value.AddDays(1);
             }
         }
         private void CreateBut_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show(request.ToString());
             uint temp = 0;
             try { temp = bl.AddRequest(request); }
             catch (DuplicateKeyException ex) { MessageBox.Show("here1"); }
