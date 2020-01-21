@@ -54,6 +54,11 @@ namespace PlGui
             person.FirstName = FirstName.Text;
             person.LastName = LastName.Text;
             person.Email = Email.Text;
+            if (CheckForMailInSys(Email.Text))
+            {
+                MessageBox.Show("המייל נמצא בשימוש ע''י משתמש אחר");
+                return;
+            }
             person.Password = Password.Password;
             person.PhoneNomber = Phone.Text;
             try
@@ -64,7 +69,7 @@ namespace PlGui
             }
             catch (DuplicateKeyException ex) { MessageBox.Show("here1"); }
             catch (InvalidOperationException ex) { MessageBox.Show("here2"); }
-           
+
         }
 
         private void Id_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -88,5 +93,18 @@ namespace PlGui
                 CreateBut.IsEnabled = true;
             }
         }
+        public bool CheckForMailInSys(string mail)
+        {
+            try
+            {
+                bl.GetPersonByMail(Email.Text);
+                return true;
+            }
+            catch (MissingMemberException ex)
+            {
+                return false;
+            }
+        }
+
     }
 }
