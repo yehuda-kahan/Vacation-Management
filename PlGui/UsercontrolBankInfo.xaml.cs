@@ -16,6 +16,7 @@ using BlApi;
 using BO;
 namespace PlGui
 {
+    
     /// <summary>
     /// Interaction logic for BankInfo.xaml
     /// </summary>
