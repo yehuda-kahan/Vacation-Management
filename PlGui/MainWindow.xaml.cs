@@ -84,7 +84,7 @@ namespace PlGui
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TabControl tabControl = sender as TabControl;
-            if (tabControl.SelectedIndex == 1)
+            if (tabControl.SelectedIndex == 0)
             {
                 clientLogin.Visibility = Visibility.Visible;
                 clientWindow.Visibility = Visibility.Collapsed;
@@ -176,17 +176,16 @@ namespace PlGui
         {
             GuestRequestBO request = (GuestRequestBO)ListRequest.SelectedItem;
             DialogRequestUserControl requestUserControl = new DialogRequestUserControl(request);
-
             MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControl, "clientWinDialog");
         }
 
-       
+
 
         private void createRequest(object sender, RoutedEventArgs e)
         {
             AddRequestDialogUserControl requestUserControlNew = new AddRequestDialogUserControl(client.PersonalInfo.Id);
             requestUserControlNew.UpdList += RequestUserControlNew_UpdList;
-            MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControlNew, "clientDialog");
+            MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControlNew, "clientWinDialog");
 
         }
 
@@ -217,7 +216,7 @@ namespace PlGui
 
         #endregion client
 
-       
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         ///                                        Host Functions
         /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -235,7 +234,14 @@ namespace PlGui
                 temp = bl.GetPersonByMail(HostUserMail.Text);
                 if (HostPassword.Password == temp.Password)
                 {
-                    host = bl.GetHost(temp.Id);
+                    try
+                    {
+                        host = bl.GetHost(temp.Id);
+                    }
+                    catch (MissingMemberException ex)
+                    {
+
+                    }//TODO 
                     HostInfo.DataContext = host;
                     hostingUnits = new ObservableCollection<HostingUnitBO>(host.UnitsHost); // making the list request of the guest
                     ListRequest.DataContext = requests;
