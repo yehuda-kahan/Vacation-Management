@@ -16,7 +16,7 @@ using BlApi;
 using BO;
 namespace PlGui
 {
-    
+
     /// <summary>
     /// Interaction logic for BankInfo.xaml
     /// </summary>
@@ -27,8 +27,8 @@ namespace PlGui
         HostBO Host;
         public UserControlBankInfo(HostBO host)
         {
-            Host = host;
             InitializeComponent();
+            Host = host;
             UserControlGrid.DataContext = host;
         }
 
