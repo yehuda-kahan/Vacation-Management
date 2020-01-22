@@ -30,8 +30,6 @@ namespace PlGui
         public UserControlSingUp()
         {
             InitializeComponent();
-
-
         }
 
         private void UserMail_PreviewKeyUp(object sender, KeyEventArgs e)

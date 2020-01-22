@@ -54,8 +54,7 @@
                 </Setter>
             </Style>
 
-            <local:DateTimeToStringConvert x:Key="DateTimeToStringConvert"/>
-
+           
             <DataTemplate x:Key="ListRequestUI" DataType="local:GuestRequestBO" >
                 <Border>
                     <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Background="#FF303030" Padding="15" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" MinWidth="350">
@@ -75,6 +74,27 @@
                     </materialDesign:Card>
                 </Border>
             </DataTemplate>
+
+            <DataTemplate x:Key="ListHostingUnitsUI" DataType="local:HostingUnitBO" >
+                <Border>
+                    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Background="#FF303030" Padding="15" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" MinWidth="350">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Grid.ColumnSpan="2"  Text="{ Binding Path= HostingUnitName ,StringFormat=שם היחידה :{0}}" FontWeight="Bold" />
+                            <!--<TextBlock Grid.Column="0" Grid.Row="1"  Text="{Binding Path= CreateDate, StringFormat=תאריך יצירה :{0: dd/MM/yyyy}}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1"  Text="{Binding Path= Status ,StringFormat=סטטוס : {0}}" />-->
+                        </Grid>
+                    </materialDesign:Card>
+                </Border>
+            </DataTemplate>
+
 
         </ResourceDictionary>
 
