@@ -11,6 +11,8 @@ namespace Dal
     {
         internal static T Clone<T>(this T original)
         {
+            if (original == null)
+                return default;
             T target = (T)Activator.CreateInstance(original.GetType());
             var infos = original.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static);
             foreach (var item in infos)

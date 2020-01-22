@@ -26,12 +26,11 @@ namespace PlGui
         static IBl bl = BlFactory.GetBL();
         PersonBO person = new PersonBO();
         internal event Action<string> OpenClientWin;
+       
 
         public UserControlSingUp()
         {
             InitializeComponent();
-
-
         }
 
         private void UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -65,7 +64,6 @@ namespace PlGui
             {
                 bl.AddPerson(person);
                 OpenClientWin(person.Id);
-                MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
             }
             catch (DuplicateKeyException ex) { MessageBox.Show("here1"); }
             catch (InvalidOperationException ex) { MessageBox.Show("here2"); }

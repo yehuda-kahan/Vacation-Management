@@ -26,6 +26,7 @@ namespace PlGui
     {
         static IBl bl = BlFactory.GetBL();
         public ClientBO client;
+        public HostBO host;
         public ObservableCollection<GuestRequestBO> requests;
 
         public MainWindow()
@@ -83,7 +84,7 @@ namespace PlGui
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TabControl tabControl = sender as TabControl;
-            if (tabControl.SelectedIndex == 0)
+            if (tabControl.SelectedIndex == 1)
             {
                 clientLogin.Visibility = Visibility.Visible;
                 clientWindow.Visibility = Visibility.Collapsed;
@@ -203,6 +204,7 @@ namespace PlGui
 
         private void AddPerson_OpenClientWin1(string obj)
         {
+            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
             client = bl.GetClient(obj);
             ClientInfo.DataContext = client;
             requests = new ObservableCollection<GuestRequestBO>(client.ClientRequests); // making the list request of the guest
@@ -211,8 +213,29 @@ namespace PlGui
             clientWindow.Visibility = Visibility.Visible;
         }
 
-       
+        private void AddHoset_Click(string obj)
+        {
+            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
+            host = new HostBO();
+            host.PersonalInfo = bl.GetPersonById(obj);
+            host.BankDetales = new BankBranchBO();
+            UserControlBankInfo AddBankDeitels = new UserControlBankInfo(host);
+            AddBankDeitels.OpenHostWin += AddBankDeitels_OpenHostWin;
+            MaterialDesignThemes.Wpf.DialogHost.Show(AddBankDeitels, "HostDialog");
+        }
 
+        private void AddBankDeitels_OpenHostWin(string obj)
+        {
+            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
+            host = bl.GetHost(obj);
 
+        }
+
+        private void HostSingUp_click(object sender, RoutedEventArgs e)
+        {
+            UserControlSingUp addPerson = new UserControlSingUp();
+            addPerson.OpenClientWin += AddHoset_Click;
+            MaterialDesignThemes.Wpf.DialogHost.Show(addPerson, "HostDialog");
+        }
     }
 }

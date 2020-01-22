@@ -174,7 +174,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="aa" >
+                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="HostDialog" >
                             <Border x:Name="HostLogin" Grid.ColumnSpan="2" CornerRadius="10" >
                                 <Border.Background>
                                     <SolidColorBrush Color="{DynamicResource BackColor}"/>
@@ -200,7 +200,7 @@
                                                 <PasswordBox x:Name="HostPassword" Grid.Column="0" Margin="3" materialDesign:HintAssist.Hint="סיסמה" materialDesign:HintAssist.Foreground="Gray" materialDesign:TextFieldAssist.UnderlineBrush="Gray"  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Width="210" CaretBrush="#FF787878" SelectionBrush="#FF787878" />
                                             </StackPanel>
                                             <Button x:Name="HostLogInBut" IsDefault="True" Content="הבא" Margin="0,30,0,10" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="110" Height="40" ToolTip="כניסה למערכת"  Click="LogIn_But"/>
-                                            <Button x:Name="HostSingup" Content="הרשמה"  Style="{StaticResource MaterialDesignFlatButton}"  Width="110" Height="40"  Click="SingUp_click"/>
+                                            <Button x:Name="HostSingup" Content="הרשמה"  Style="{StaticResource MaterialDesignFlatButton}"  Width="110" Height="40"  Click="HostSingUp_click"/>
 
                                         </StackPanel>
                                     </materialDesign:Card>
