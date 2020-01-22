@@ -240,11 +240,12 @@ namespace PlGui
                     }
                     catch (MissingMemberException ex)
                     {
-
+                        MessageBox.Show("אינך רשום במערכת כמארח");
+                        return;
                     }//TODO 
                     HostInfo.DataContext = host;
                     hostingUnits = new ObservableCollection<HostingUnitBO>(host.UnitsHost); // making the list request of the guest
-                    ListRequest.DataContext = requests;
+                    UnitsList.DataContext = hostingUnits;
                     HostLogin.Visibility = Visibility.Collapsed;
                     HostWindow.Visibility = Visibility.Visible;
                 }
@@ -256,7 +257,7 @@ namespace PlGui
             }
         }
 
-        private void HostSingUp_click(object sender, RoutedEventArgs e)
+        private void Host_SingUp_click(object sender, RoutedEventArgs e)
         {
             UserControlSingUp addPerson = new UserControlSingUp();
             addPerson.OpenClientWin += AddHoset_Click;

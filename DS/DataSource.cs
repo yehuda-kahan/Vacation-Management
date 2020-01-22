@@ -32,7 +32,7 @@ namespace DS
                 },
                 new Person
                 {
-                     Id ="2",
+                     Id ="1",
                     IdType = IdTypes.DRIVING_LICENSE,
                     FirstName ="yehuda",
                     LastName ="kahan",
@@ -62,7 +62,7 @@ namespace DS
                 new HostingUnit
                 {
                     Key=1111,
-                    Owner="2",
+                    Owner="1",
                     HostingUnitName = "The villa",
                     Diary =new bool[12,31],
                     Status = Status.ACTIVE,
@@ -71,7 +71,7 @@ namespace DS
                 new HostingUnit
                 {
                     Key=1112,
-                    Owner="2",
+                    Owner="1",
                     HostingUnitName = "The apartment",
                     Diary =new bool[12,31],
                     Status = Status.ACTIVE,
