@@ -34,7 +34,7 @@ namespace PlGui
 
         private void CreatBut(object sender, RoutedEventArgs e)
         {
-            bl.AddHost(Host);
+            //bl.AddHost(Host);
             OpenHostWin(Host.PersonalInfo.Id);
         }
     }
