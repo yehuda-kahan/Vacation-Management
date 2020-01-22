@@ -29,6 +29,7 @@ namespace PlGui
         public HostBO host;
         public ObservableCollection<GuestRequestBO> requests;
 
+
         public MainWindow()
         {
             InitializeComponent();
@@ -167,7 +168,7 @@ namespace PlGui
             GuestRequestBO request = (GuestRequestBO)ListRequest.SelectedItem;
             DialogRequestUserControl requestUserControl = new DialogRequestUserControl(request);
 
-            MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControl, "clientDialog");
+            MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControl, "clientWinDialog");
         }
 
         private void MailCheck(object sender, KeyEventArgs e)
@@ -231,11 +232,39 @@ namespace PlGui
 
         }
 
-        private void HostSingUp_click(object sender, RoutedEventArgs e)
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///                                        Host Functions
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+       
+        HostBO host;
+        ObservableCollection<HostingUnitBO> hostingUnits;
+
+        private void Host_LogIn_But(object sender, RoutedEventArgs e)
         {
-            UserControlSingUp addPerson = new UserControlSingUp();
-            addPerson.OpenClientWin += AddHoset_Click;
-            MaterialDesignThemes.Wpf.DialogHost.Show(addPerson, "HostDialog");
+            PersonBO temp = null;
+            try
+            {
+                temp = bl.GetPersonByMail(HostUserMail.Text);
+                if (HostPassword.Password == temp.Password)
+                {
+                    host = bl.GetHost(temp.Id);
+                    HostInfo.DataContext = host;
+                   hostingUnits = new ObservableCollection<HostingUnitBO>(host.UnitsHost); // making the list request of the guest
+                    ListRequest.DataContext = requests;
+                   HostLogin.Visibility = Visibility.Collapsed;
+                    HostWindow.Visibility = Visibility.Visible;
+                }
+                HostErorrInput.Visibility = Visibility.Visible;
+            }
+            catch (MissingMemberException ex)
+            {
+                HostErorrInput.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Host_UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }
