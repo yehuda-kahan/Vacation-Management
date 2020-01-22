@@ -180,19 +180,19 @@ namespace DS
                 new BankBranch
                 {
                     BankNumber =10,
-                    BankName = "leumi",
+                    BankName = "לאומי",
                     BranchNumber= 940,
-                    BranchAddress= "Rutshild 58",
-                    BranchCity = "petah tikva",
+                    BranchAddress= "רוטשילד 50",
+                    BranchCity = "פתח תקווה",
                     Status = Status.ACTIVE
                 },
                 new BankBranch
                 {
                     BankNumber =10,
-                    BankName = "leumi",
+                    BankName = "לאומי",
                     BranchNumber= 905,
-                    BranchAddress= "Faran 15",
-                    BranchCity = "Jerusalem",
+                    BranchAddress= "פארן 15",
+                    BranchCity = "ירושלים",
                     Status = Status.ACTIVE
                 }
             };

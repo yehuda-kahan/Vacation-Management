@@ -237,17 +237,17 @@ namespace PlGui
                     try
                     {
                         host = bl.GetHost(temp.Id);
+                        HostInfo.DataContext = host;
+                        hostingUnits = new ObservableCollection<HostingUnitBO>(host.UnitsHost); // making the list request of the guest
+                        UnitsList.DataContext = hostingUnits;
+                        HostLogin.Visibility = Visibility.Collapsed;
+                        HostWindow.Visibility = Visibility.Visible;
                     }
                     catch (MissingMemberException ex)
                     {
                         MessageBox.Show("אינך רשום במערכת כמארח");
-                        return;
+                        AddHoset_Click(temp.Id);
                     }//TODO 
-                    HostInfo.DataContext = host;
-                    hostingUnits = new ObservableCollection<HostingUnitBO>(host.UnitsHost); // making the list request of the guest
-                    UnitsList.DataContext = hostingUnits;
-                    HostLogin.Visibility = Visibility.Collapsed;
-                    HostWindow.Visibility = Visibility.Visible;
                 }
                 HostErorrInput.Visibility = Visibility.Visible;
             }
@@ -277,8 +277,12 @@ namespace PlGui
         private void AddBankDeitels_OpenHostWin(string obj)
         {
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
-            // host = bl.GetHost(obj);
-
+            host = bl.GetHost(obj);
+            HostInfo.DataContext = host;
+            hostingUnits = new ObservableCollection<HostingUnitBO>(host.UnitsHost); // making the list request of the guest
+            UnitsList.DataContext = hostingUnits;
+            HostLogin.Visibility = Visibility.Collapsed;
+            HostWindow.Visibility = Visibility.Visible;
         }
 
 

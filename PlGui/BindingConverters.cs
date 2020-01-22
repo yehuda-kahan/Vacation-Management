@@ -24,4 +24,26 @@ namespace PlGui
             return text;
         }
     }
+
+    public class StringToUintConvert : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return default;
+            uint num = (uint)value;
+            return num.ToString();
+           
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return default;
+            string str = (String)value;
+            return uint.Parse(str);
+        }
+    }
 }
+
+

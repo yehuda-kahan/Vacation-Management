@@ -34,8 +34,17 @@ namespace PlGui
 
         private void CreatBut(object sender, RoutedEventArgs e)
         {
-            //bl.AddHost(Host);
+            bl.AddHost(Host);
+            MessageBox.Show(Host.BankDetales.ToString());
             OpenHostWin(Host.PersonalInfo.Id);
+        }
+
+        private void BankName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BankName.SelectedIndex == 0)
+                BankNum.Text = (10).ToString();
+            if (BankName.SelectedIndex == 1)
+                BankNum.Text = (12).ToString();
         }
     }
 }
