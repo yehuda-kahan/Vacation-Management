@@ -120,7 +120,7 @@
                             </Border>
                         </materialDesign:DialogHost>
 
-                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="clientDialog">
+                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="clientWinDialog">
                             <Border x:Name="clientWindow" Visibility="Hidden" Grid.ColumnSpan="2" CornerRadius="10" >
                                 <Border.Background>
                                     <SolidColorBrush Color="{DynamicResource BackColor}"/>
@@ -168,14 +168,14 @@
                         </materialDesign:DialogHost>
                     </Grid>
                 </TabItem>
-                <TabItem Header="מארח" Width="180" Height="30" FontSize="16" Foreground="White" >
+                <TabItem Header="מארח" Width="180" Height="30" FontSize="16" Foreground="White" Visibility="Visible" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="HostDialog" >
-                            <Border x:Name="HostLogin" Grid.ColumnSpan="2" CornerRadius="10" >
+                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="HostLoginDialog" >
+                            <Border x:Name="HostLogin" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10"  >
                                 <Border.Background>
                                     <SolidColorBrush Color="{DynamicResource BackColor}"/>
                                 </Border.Background>
@@ -192,7 +192,7 @@
                                             <TextBlock x:Name="HostErorrInput" Margin="35,0,5,5" Visibility="Collapsed" Text="שם משתמש או סיסמה אינם נכונים" FontSize="11" Foreground="#FFF74646"/>
                                             <StackPanel Orientation="Horizontal" Margin="0">
                                                 <materialDesign:PackIcon Kind="Account" VerticalAlignment="Bottom" Margin="3"  Width="20" Height="20"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
-                                                <TextBox x:Name="HostUserMail" materialDesign:HintAssist.Hint="שם משתמש" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Width="210" PreviewKeyUp="UserMail_PreviewKeyUp" />
+                                                <TextBox x:Name="HostUserMail" materialDesign:HintAssist.Hint="שם משתמש" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Width="210" PreviewKeyUp="Host_UserMail_PreviewKeyUp"  />
                                             </StackPanel>
                                             <TextBlock x:Name="HostErorrMail"  Visibility="Collapsed" Margin="35,0,0,0" Text="יש להזין מייל חוקי" FontSize="11" Foreground="#FFF74646"/>
                                             <StackPanel Orientation="Horizontal" Margin="0,15,0,10">
@@ -208,10 +208,23 @@
                             </Border>
                         </materialDesign:DialogHost>
 
-                        
+                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="HostWinDialog">
+                            <Border x:Name="HostWindow" Visibility="Hidden" Grid.ColumnSpan="2" CornerRadius="10" >
+                                <Border.Background>
+                                    <SolidColorBrush Color="{DynamicResource BackColor}"/>
+                                </Border.Background>
+                                <Grid x:Name="HostInfo">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <DataGrid x:Name="UnitsList" Margin="0 8 0 0" ItemsSource="{Binding hostingUnits}" ItemTemplate="{StaticResource ListHostingUnitsUI}" CanUserSortColumns="True" CanUserAddRows="False" />
+                                </Grid>
+                            </Border>
+                        </materialDesign:DialogHost>
                     </Grid>
                 </TabItem>
             </TabControl>
         </Grid>
     </Grid>
-</Window>
+</Window>   

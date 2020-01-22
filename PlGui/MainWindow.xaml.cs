@@ -26,8 +26,8 @@ namespace PlGui
     {
         static IBl bl = BlFactory.GetBL();
         public ClientBO client;
-        public HostBO host;
         public ObservableCollection<GuestRequestBO> requests;
+
 
         public MainWindow()
         {
@@ -167,7 +167,7 @@ namespace PlGui
             GuestRequestBO request = (GuestRequestBO)ListRequest.SelectedItem;
             DialogRequestUserControl requestUserControl = new DialogRequestUserControl(request);
 
-            MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControl, "clientDialog");
+            MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControl, "clientWinDialog");
         }
 
         private void MailCheck(object sender, KeyEventArgs e)
@@ -198,11 +198,11 @@ namespace PlGui
         private void SingUp_click(object sender, RoutedEventArgs e)
         {
             UserControlSingUp addPerson = new UserControlSingUp();
-            addPerson.OpenClientWin += AddPerson_OpenClientWin1;
+            addPerson.OpenClientWin += AddPerson_OpenClientWin;
             MaterialDesignThemes.Wpf.DialogHost.Show(addPerson, "SingUpFourm");
         }
 
-        private void AddPerson_OpenClientWin1(string obj)
+        private void AddPerson_OpenClientWin(string obj)
         {
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
             client = bl.GetClient(obj);
@@ -211,6 +211,37 @@ namespace PlGui
             ListRequest.DataContext = requests;
             clientLogin.Visibility = Visibility.Collapsed;
             clientWindow.Visibility = Visibility.Visible;
+        }
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///                                        Host Functions
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        HostBO host;
+        ObservableCollection<HostingUnitBO> hostingUnits;
+
+        private void Host_LogIn_But(object sender, RoutedEventArgs e)
+        {
+            PersonBO temp = null;
+            try
+            {
+                temp = bl.GetPersonByMail(HostUserMail.Text);
+                if (HostPassword.Password == temp.Password)
+                {
+                    host = bl.GetHost(temp.Id);
+                    HostInfo.DataContext = host;
+                    hostingUnits = new ObservableCollection<HostingUnitBO>(host.UnitsHost); // making the list request of the guest
+                    ListRequest.DataContext = requests;
+                    HostLogin.Visibility = Visibility.Collapsed;
+                    HostWindow.Visibility = Visibility.Visible;
+                }
+                HostErorrInput.Visibility = Visibility.Visible;
+            }
+            catch (MissingMemberException ex)
+            {
+                HostErorrInput.Visibility = Visibility.Visible;
+            }
         }
 
         private void AddHoset_Click(string obj)
@@ -231,11 +262,10 @@ namespace PlGui
 
         }
 
-        private void HostSingUp_click(object sender, RoutedEventArgs e)
+
+        private void Host_UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            UserControlSingUp addPerson = new UserControlSingUp();
-            addPerson.OpenClientWin += AddHoset_Click;
-            MaterialDesignThemes.Wpf.DialogHost.Show(addPerson, "HostDialog");
+
         }
     }
 }

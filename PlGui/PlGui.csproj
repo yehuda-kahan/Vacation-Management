@@ -66,12 +66,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="UsercontrolBankInfo.xaml.cs">
-      <DependentUpon>UsercontrolBankInfo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="HostWindowUserControl.xaml.cs">
-      <DependentUpon>HostWindowUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControlSingUp.xaml.cs">
       <DependentUpon>UserControlSingUp.xaml</DependentUpon>
     </Compile>
@@ -79,15 +73,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UsercontrolBankInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="DialogRequestUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="HostWindowUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

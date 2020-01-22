@@ -12,17 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BO;
+using BlApi;
 
 namespace PlGui
 {
     /// <summary>
-    /// Interaction logic for HostWindowUserControl.xaml
+    /// Interaction logic for ClientWindowUserControl.xaml
     /// </summary>
-    public partial class HostWindowUserControl : UserControl
+    public partial class ClientWindowUserControl : UserControl
     {
-        public HostWindowUserControl()
+        ClientBO Client;
+        public ObservableCollection<GuestRequestBO> requests;
+        public ClientWindowUserControl(ClientBO clientBO)
         {
             InitializeComponent();
+            Client = clientBO;
         }
     }
 }
