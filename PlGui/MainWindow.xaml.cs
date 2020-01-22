@@ -93,7 +93,17 @@ namespace PlGui
             }
         }
 
+        private void MailCheck(object sender, KeyEventArgs e)
+        {
+            if (UserMail.Text == "")
+                ErorrMailUd.Visibility = Visibility.Collapsed;
+            if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
+                ErorrMailUd.Visibility = Visibility.Visible;
+            if (bl.IsValidMail(UserMail.Text))
+                ErorrMailUd.Visibility = Visibility.Collapsed;
+        }
 
+        #region client
 
         private void LogIn_But(object sender, RoutedEventArgs e)
         {
@@ -170,15 +180,7 @@ namespace PlGui
             MaterialDesignThemes.Wpf.DialogHost.Show(requestUserControl, "clientWinDialog");
         }
 
-        private void MailCheck(object sender, KeyEventArgs e)
-        {
-            if (UserMail.Text == "")
-                ErorrMailUd.Visibility = Visibility.Collapsed;
-            if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
-                ErorrMailUd.Visibility = Visibility.Visible;
-            if (bl.IsValidMail(UserMail.Text))
-                ErorrMailUd.Visibility = Visibility.Collapsed;
-        }
+       
 
         private void createRequest(object sender, RoutedEventArgs e)
         {
@@ -213,10 +215,14 @@ namespace PlGui
             clientWindow.Visibility = Visibility.Visible;
         }
 
+        #endregion client
 
+       
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         ///                                        Host Functions
         /////////////////////////////////////////////////////////////////////////////////////////////////////
+        #region Host
+
 
         HostBO host;
         ObservableCollection<HostingUnitBO> hostingUnits;
@@ -244,6 +250,12 @@ namespace PlGui
             }
         }
 
+        private void HostSingUp_click(object sender, RoutedEventArgs e)
+        {
+            UserControlSingUp addPerson = new UserControlSingUp();
+            addPerson.OpenClientWin += AddHoset_Click;
+            MaterialDesignThemes.Wpf.DialogHost.Show(addPerson, "HostLoginDialog");
+        }
         private void AddHoset_Click(string obj)
         {
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
@@ -252,13 +264,13 @@ namespace PlGui
             host.BankDetales = new BankBranchBO();
             UserControlBankInfo AddBankDeitels = new UserControlBankInfo(host);
             AddBankDeitels.OpenHostWin += AddBankDeitels_OpenHostWin;
-            MaterialDesignThemes.Wpf.DialogHost.Show(AddBankDeitels, "HostDialog");
+            MaterialDesignThemes.Wpf.DialogHost.Show(AddBankDeitels, "HostLoginDialog");
         }
 
         private void AddBankDeitels_OpenHostWin(string obj)
         {
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
-            host = bl.GetHost(obj);
+            // host = bl.GetHost(obj);
 
         }
 
@@ -267,5 +279,6 @@ namespace PlGui
         {
 
         }
+        #endregion Host
     }
 }
