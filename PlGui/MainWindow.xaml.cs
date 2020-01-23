@@ -224,9 +224,8 @@ namespace PlGui
 
 
         HostBO host;
-        ObservableCollection<HostingUnitBO> hostingUnits;
         ObservableCollection<OrderBO> hostOrders;
-       
+
 
         private void Host_LogIn_But(object sender, RoutedEventArgs e)
         {
@@ -292,11 +291,26 @@ namespace PlGui
         {
 
         }
-        #endregion Host
 
         private void OrderList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show(OrderList.SelectedItem.ToString());
         }
+
+        private void myUnitsBut_Click(object sender, RoutedEventArgs e)
+        {
+            MyHostingUnitsUserControl myUnits = new MyHostingUnitsUserControl(host.UnitsHost);
+            MaterialDesignThemes.Wpf.DialogHost.Show(myUnits, "HostWinDialog");
+        }
+
+        private void guestRequstBut_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        #endregion Host
+
+
     }
 }
