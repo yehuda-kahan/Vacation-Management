@@ -35,5 +35,11 @@ namespace PlGui
         {
 
         }
+
+        private void UnitDetals_Click(object sender, RoutedEventArgs e)
+        {                     
+            UnitUserCuntrol UnitControl = new UnitUserCuntrol((HostingUnitBO)unitsList.SelectedItem);
+            MaterialDesignThemes.Wpf.DialogHost.Show(UnitControl, "HostingUnitsDialog");
+        }
     }
 }

@@ -73,7 +73,7 @@ namespace DS
                     Key=1112,
                     Owner="204284376",
                     HostingUnitName = "The apartment",
-                    Diary =new bool[12,31],
+                    Diary =new bool[12,31],                                        
                     Status = Status.ACTIVE,
                     Area = AreaLocation.JERUSALEM
                 }
