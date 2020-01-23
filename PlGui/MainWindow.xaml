@@ -161,11 +161,8 @@
                                             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="4" Margin="10">
                                                 <materialDesign:PackIcon Kind="IdCard" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
                                                 <TextBox x:Name="ID" IsEnabled="False" Text="{Binding Path=PersonalInfo.Id}" materialDesign:HintAssist.Hint="מספר מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="120" MaxLength="10"/>
-                                                <ComboBox x:Name="IDType" IsEnabled="False" Text="{Binding Path=PersonalInfo.Type}" Margin="8,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  materialDesign:HintAssist.Hint="סוג"    Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" MinWidth="70" >
-                                                    <ComboBoxItem>תעודת זהות</ComboBoxItem>
-                                                    <ComboBoxItem>דרכון</ComboBoxItem>
-                                                    <ComboBoxItem>רשיון נהיגה</ComboBoxItem>
-                                                </ComboBox>
+                                                <TextBox x:Name="IdType" IsEnabled="False" Text="{Binding Path=PersonalInfo.IdType}" materialDesign:HintAssist.Hint="סוג מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="160" MaxLength="10"/>
+
                                             </StackPanel>
                                             <Button x:Name="ChangeInfoBut" IsEnabled="True" IsDefault="True" Content="עריכה" Grid.Column="1"  Grid.Row="5"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="ChangeInfoBut_click"/>
                                         </Grid>
@@ -243,8 +240,7 @@
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="2*"/>
                                         </Grid.RowDefinitions>
                                         <TextBlock  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="0"  Text="פרטים אישיים" FontSize="15" Foreground="WhiteSmoke" />
                                         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Margin="10" >
@@ -263,14 +259,14 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="4" Margin="10">
                                             <materialDesign:PackIcon Kind="IdCard" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
-                                            <TextBox x:Name="HostID" IsEnabled="False" Text="{Binding Path=PersonalInfo.Id}" materialDesign:HintAssist.Hint="מספר מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="120" MaxLength="10"/>
-                                            <ComboBox x:Name="HostIDType" IsEnabled="False" Text="{Binding Path=PersonalInfo.Type}" Margin="8,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  materialDesign:HintAssist.Hint="סוג"    Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" MinWidth="70" >
-                                                <ComboBoxItem>תעודת זהות</ComboBoxItem>
-                                                <ComboBoxItem>דרכון</ComboBoxItem>
-                                                <ComboBoxItem>רשיון נהיגה</ComboBoxItem>
-                                            </ComboBox>
+                                            <TextBox x:Name="HostID" IsEnabled="False" Text="{Binding Path=PersonalInfo.Id}" materialDesign:HintAssist.Hint="מספר מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="80" MaxLength="10"/>
+                                            <TextBox x:Name="HostIdType" IsEnabled="False" Text="{Binding Path=PersonalInfo.IdType}" materialDesign:HintAssist.Hint="סוג מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="160" MaxLength="10"/>
                                         </StackPanel>
                                         <Button x:Name="HostChangeInfoBut" IsEnabled="True" IsDefault="True" Content="עריכה" Grid.Column="1"  Grid.Row="5"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="ChangeInfoBut_click"/>
+                                        <StackPanel Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Button x:Name="myUnits" Content="היחידות שלי" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="5"  Width="120" ToolTip="צפייה ועריכת/הוספת היחידות שלי" Click="myUnitsBut_Click" />
+                                            <Button x:Name="guestRequstBut" Content="בקשת לקוחות" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="5" Width="120" ToolTip="לצפייה בבקשות הלקוחות ויצירת הזמנות" Click="guestRequstBut_Click" />
+                                        </StackPanel>
                                     </Grid>
                                     <Grid Grid.Column="1">
                                         <Grid.RowDefinitions>
@@ -293,9 +289,6 @@
                                         </StackPanel>
 
                                     </Grid>
-
-
-
                                 </Grid>
                             </Border>
                         </materialDesign:DialogHost>
