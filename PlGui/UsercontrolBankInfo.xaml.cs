@@ -29,7 +29,7 @@ namespace PlGui
         {
             InitializeComponent();
             Host = host;
-            UserControlGrid.DataContext = host;
+            UserControlGrid.DataContext = Host;
         }
 
         private void CreatBut(object sender, RoutedEventArgs e)

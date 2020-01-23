@@ -18,7 +18,6 @@
         AllowsTransparency="True" MouseDown="Window_MouseDown" Loaded="Window_Loaded"   >
     <Window.Resources>
 
-        <CollectionViewSource x:Key="personBOViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:PersonBO}, CreateList=True}"/>
     </Window.Resources>
     <!--Loaded="Window_Loaded"-->
     <Grid>
@@ -27,7 +26,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="18*"/>
         </Grid.RowDefinitions>
-
         <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="16"/>
         <Button Grid.Row="1" Style="{StaticResource MaterialDesignIconButton}" ToolTip="Logout" 
                 Height="25" Width="25" HorizontalAlignment="Right"  Margin="0,0,25,0">
@@ -120,38 +118,57 @@
                             </Border>
                         </materialDesign:DialogHost>
 
-                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="clientWinDialog">
-                            <Border x:Name="clientWindow" Visibility="Hidden" Grid.ColumnSpan="2" CornerRadius="10" >
+                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="clientWinDialog" Margin="-3,-1,3,1">
+                            <Border x:Name="clientWindow" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10" >
                                 <Border.Background>
                                     <SolidColorBrush Color="{DynamicResource BackColor}"/>
                                 </Border.Background>
                                 <materialDesign:Card   materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="{x:Null}">
-                                    <Grid x:Name="ClientInfo" >
+                                    <Grid x:Name="ClientInfo"  >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <StackPanel Grid.Column="0" x:Name="clientInfo" Margin="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <StackPanel Orientation="Horizontal"  Margin="0,0,0,10" HorizontalAlignment="Stretch">
-                                                <materialDesign:PackIcon Kind="Account" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
-                                                <TextBox x:Name="FirstName" Text="{Binding Path= PersonalInfo.FirstName}" IsEnabled="False" materialDesign:HintAssist.Hint="שם פרטי" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="130" />
-                                                <TextBox x:Name="LastName" Text="{Binding Path= PersonalInfo.LastName}" IsEnabled="False" materialDesign:HintAssist.Hint="שם משפחה" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Width="Auto" HorizontalAlignment="Center" MinWidth="130" />
+                                        <Grid Grid.Column="0" MaxHeight="430" MaxWidth="250">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="0"  Text="פרטים אישיים" FontSize="15" Foreground="WhiteSmoke" />
+                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Margin="10" >
+                                                <materialDesign:PackIcon Kind="Account" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                                <TextBox x:Name="FirstName" IsEnabled="False" Text="{Binding Path= PersonalInfo.FirstName}" materialDesign:HintAssist.Hint="שם פרטי" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"   MinWidth="90" />
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal"  Margin="0,0,0,0" HorizontalAlignment="Stretch" MinWidth="300">
-                                                <materialDesign:PackIcon Kind="Email" VerticalAlignment="Bottom" Margin="3,3,3,0"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
-                                                <TextBox x:Name="Email" Text="{Binding Path= PersonalInfo.Email}" PreviewKeyUp="MailCheck" IsEnabled="False" materialDesign:HintAssist.Hint="Mail" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" MinWidth="263"  Width="Auto"   />
+                                            <TextBox x:Name="LastName" IsEnabled="False" Text="{Binding Path= PersonalInfo.LastName}"  Margin="0,10,10,10"  Grid.Column="1" Grid.Row="1" materialDesign:HintAssist.Hint="שם משפחה"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="105" Width="100" />
+                                            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="2" Margin="10" IsEnabled="False" >
+                                                <materialDesign:PackIcon Kind="AlternateEmail" VerticalAlignment="Bottom"  Margin="0,0,3,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                                <TextBox x:Name="Email" IsEnabled="False" Text="{Binding Path= PersonalInfo.Email}" materialDesign:HintAssist.Hint="כתובת  אימייל" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"   PreviewKeyUp="UserMail_PreviewKeyUp" MinWidth="220" />
                                             </StackPanel>
-                                            <TextBlock x:Name="ErorrMailUd"  Visibility="Collapsed" Margin="35,0,0,0" Text="יש להזין מייל חוקי" FontSize="11" Foreground="#FFF74646"/>
-                                            <StackPanel Orientation="Horizontal"  Margin="0,10" HorizontalAlignment="Stretch">
-                                                <materialDesign:PackIcon Kind="Phone" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
-                                                <TextBox x:Name="Phone" Text="{Binding Path=PersonalInfo.PhoneNomber}" IsEnabled="False" materialDesign:HintAssist.Hint="טלפון" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="263" />
+                                            <TextBlock x:Name="UpdErorrMail"  Grid.ColumnSpan="2" Grid.Row="3" Visibility="Collapsed" Margin="35,0,0,0" Text="יש להזין מייל חוקי" FontSize="11" Foreground="#FFF74646"/>
+                                            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="3" Margin="10" >
+                                                <materialDesign:PackIcon Kind="phone" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                                <TextBox x:Name="Phone" IsEnabled="False" Text="{Binding Path=PersonalInfo.PhoneNomber}" materialDesign:HintAssist.Hint="טלפון" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"   PreviewKeyUp="UserMail_PreviewKeyUp" MinWidth="220"  />
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal"  Margin="0,0,0,10" HorizontalAlignment="Stretch">
-                                                <materialDesign:PackIcon Kind="IdentificationCard" VerticalAlignment="Bottom" Margin="3"  Width="25" Height="25"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
-                                                <TextBox x:Name="ID" Text="{Binding Path=PersonalInfo.Id}" IsEnabled="False" materialDesign:HintAssist.Hint="מספר מזהה" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878"  Width="Auto"   MinWidth="263" />
+                                            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="4" Margin="10">
+                                                <materialDesign:PackIcon Kind="IdCard" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                                <TextBox x:Name="ID" IsEnabled="False" Text="{Binding Path=PersonalInfo.Id}" materialDesign:HintAssist.Hint="מספר מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="120" MaxLength="10"/>
+                                                <ComboBox x:Name="IDType" IsEnabled="False" Text="{Binding Path=PersonalInfo.Type}" Margin="8,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  materialDesign:HintAssist.Hint="סוג"    Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" MinWidth="70" >
+                                                    <ComboBoxItem>תעודת זהות</ComboBoxItem>
+                                                    <ComboBoxItem>דרכון</ComboBoxItem>
+                                                    <ComboBoxItem>רשיון נהיגה</ComboBoxItem>
+                                                </ComboBox>
                                             </StackPanel>
-                                            <Button x:Name="ChangeInfoBut" IsDefault="True" HorizontalAlignment="Right" Margin="20" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="עריכה" Width="100" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Click="ChangeInfoBut_click" />
-                                        </StackPanel>
+                                            <Button x:Name="ChangeInfoBut" IsEnabled="True" IsDefault="True" Content="עריכה" Grid.Column="1"  Grid.Row="5"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="ChangeInfoBut_click"/>
+                                        </Grid>
                                         <Grid Grid.Column="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="1*"/>
@@ -214,61 +231,71 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="4*"/>
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
-                                        <DataGrid x:Name="UnitsList"  Margin="0 8 0 0" ItemsSource="{Binding}" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" materialDesign:DataGridAssist.CellPadding="13 8 8 8" materialDesign:DataGridAssist.ColumnHeaderPadding="8" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
-                                            <DataGrid.Columns>
-                                                <!--<DataGridCheckBoxColumn Binding="{Binding IsSelected}" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}" EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
-                                                <DataGridCheckBoxColumn.Header>
-                                                    -->
-                                                <!--padding to allow hit test to pass thru for sorting -->
-                                                <!--
-                                                    <Border Background="Transparent" Padding="6 0 6 0" HorizontalAlignment="Center">
-                                                        <CheckBox HorizontalAlignment="Center" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext}" IsChecked="{Binding IsAllItems3Selected}" />
-                                                    </Border>
-                                                </DataGridCheckBoxColumn.Header>
-                                            </DataGridCheckBoxColumn>-->
-                                                <DataGridTextColumn Binding="{Binding Key}" Header="מספר יחידה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                                <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
-                                                <materialDesign:DataGridTextColumn Binding="{Binding HostingUnitName}" Header="שם היחידה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                                                <!-- set a max length to get an indicator in the editor -->
-                                                <!--<materialDesign:DataGridTextColumn Binding="{Binding Description}" Header="Description" MaxLength="255" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />-->
-                                                <materialDesign:DataGridTextColumn Binding="{Binding Numeric}" Header="Number with long header" Width="120" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                                                    <DataGridTextColumn.HeaderStyle>
-                                                        <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                                                            <Setter Property="HorizontalAlignment" Value="Right" />
-                                                            <Setter Property="ContentTemplate">
-                                                                <Setter.Value>
-                                                                    <DataTemplate>
-                                                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Right" />
-                                                                    </DataTemplate>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </Style>
-                                                    </DataGridTextColumn.HeaderStyle>
-                                                    <DataGridTextColumn.ElementStyle>
-                                                        <Style TargetType="{x:Type TextBlock}">
-                                                            <Setter Property="HorizontalAlignment" Value="Right" />
-                                                        </Style>
-                                                    </DataGridTextColumn.ElementStyle>
-                                                </materialDesign:DataGridTextColumn>
-                                                <!-- use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo -->
-                                                <materialDesign:DataGridComboBoxColumn Header="Food" IsEditable="True" SelectedValueBinding="{Binding Food}" ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Foods}">
-                                                    <!--Setting the editing element style allows access to all of the combo box's properties
-                        <materialDesign:MaterialDataGridComboBoxColumn.EditingElementStyle>
-                            <Style TargetType="ComboBox" BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type ComboBox}, ResourceId=MaterialDataGridComboBoxColumnEditingStyle}}" >
-                                <Setter Property="IsEditable" Value="True" />
-                            </Style>
-                        </materialDesign:MaterialDataGridComboBoxColumn.EditingElementStyle>
-                        -->
-                                                </materialDesign:DataGridComboBoxColumn>
-                                            </DataGrid.Columns>
-                                        </DataGrid>
-                                    </StackPanel>
-                                   
+                                    <Grid Grid.Column="0" MaxHeight="480" MaxWidth="250">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="0"  Text="פרטים אישיים" FontSize="15" Foreground="WhiteSmoke" />
+                                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Margin="10" >
+                                            <materialDesign:PackIcon Kind="Account" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                            <TextBox x:Name="HostFirstName" IsEnabled="False" Text="{Binding Path= PersonalInfo.FirstName}" materialDesign:HintAssist.Hint="שם פרטי" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"   MinWidth="90" />
+                                        </StackPanel>
+                                        <TextBox x:Name="HostLastName" IsEnabled="False" Text="{Binding Path= PersonalInfo.LastName}"  Margin="0,10,10,10"  Grid.Column="1" Grid.Row="1" materialDesign:HintAssist.Hint="שם משפחה"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="105" Width="100" />
+                                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="2" Margin="10" IsEnabled="False" >
+                                            <materialDesign:PackIcon Kind="AlternateEmail" VerticalAlignment="Bottom"  Margin="0,0,3,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                            <TextBox x:Name="HostEmail" IsEnabled="False" Text="{Binding Path= PersonalInfo.Email}" materialDesign:HintAssist.Hint="כתובת  אימייל" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"   PreviewKeyUp="UserMail_PreviewKeyUp" MinWidth="220" />
+                                        </StackPanel>
+                                        <TextBlock x:Name="HostUpdErorrMail"  Grid.ColumnSpan="2" Grid.Row="3" Visibility="Collapsed" Margin="35,0,0,0" Text="יש להזין מייל חוקי" FontSize="11" Foreground="#FFF74646"/>
+                                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="3" Margin="10" >
+                                            <materialDesign:PackIcon Kind="phone" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                            <TextBox x:Name="HostPhone" IsEnabled="False" Text="{Binding Path=PersonalInfo.PhoneNomber}" materialDesign:HintAssist.Hint="טלפון" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"   PreviewKeyUp="UserMail_PreviewKeyUp" MinWidth="220"  />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="4" Margin="10">
+                                            <materialDesign:PackIcon Kind="IdCard" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                                            <TextBox x:Name="HostID" IsEnabled="False" Text="{Binding Path=PersonalInfo.Id}" materialDesign:HintAssist.Hint="מספר מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="120" MaxLength="10"/>
+                                            <ComboBox x:Name="HostIDType" IsEnabled="False" Text="{Binding Path=PersonalInfo.Type}" Margin="8,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  materialDesign:HintAssist.Hint="סוג"    Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" MinWidth="70" >
+                                                <ComboBoxItem>תעודת זהות</ComboBoxItem>
+                                                <ComboBoxItem>דרכון</ComboBoxItem>
+                                                <ComboBoxItem>רשיון נהיגה</ComboBoxItem>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <Button x:Name="HostChangeInfoBut" IsEnabled="True" IsDefault="True" Content="עריכה" Grid.Column="1"  Grid.Row="5"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="ChangeInfoBut_click"/>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="3*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Column="1" Grid.Row="0">
+
+                                        </StackPanel>
+                                        <StackPanel  Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+                                            <TextBlock  HorizontalAlignment="Center" Text="ההזמנות שלי" FontSize="16" FontWeight="Bold" />
+                                            <DataGrid x:Name="OrderList" HorizontalGridLinesBrush="Gray" IsReadOnly="True" MouseDoubleClick="OrderList_MouseDoubleClick"  Margin="10"  ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
+                                                <DataGrid.Columns>
+                                                    <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר הזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                                    <materialDesign:DataGridTextColumn Binding="{Binding OrderDate ,StringFormat= dd/MM/yyyy}" Header="תאריך ההזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                                                    <materialDesign:DataGridTextColumn Binding="{Binding HostingUnit.HostingUnitName}" Header="ליחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                                                    <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </StackPanel>
+
+                                    </Grid>
+
+
+
                                 </Grid>
                             </Border>
                         </materialDesign:DialogHost>

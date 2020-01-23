@@ -21,7 +21,7 @@ namespace DS
             {
                 new Person
                 {
-                    Id ="11223344",
+                    Id ="12345678",
                     IdType = IdTypes.PASSPORT,
                     FirstName ="avi",
                     LastName ="ros",
@@ -83,6 +83,7 @@ namespace DS
             {
                 new Order
                 {
+                    HostId = "1",
                     Key =10000001,
                     HostingUnitKey = 1111,
                     GuestRequestKey =20000001,
@@ -93,9 +94,10 @@ namespace DS
                 },
                  new Order
                 {
+                    HostId = "1",
                     Key =10000002,
                     HostingUnitKey = 1112,
-                    GuestRequestKey =2000000,
+                    GuestRequestKey =20000000,
                     OrderDate =new DateTime(2019,12,12),
                     CloseDate =new DateTime(2019,12,12),
                     SentDate =new DateTime(2019,12,12),
@@ -107,7 +109,7 @@ namespace DS
             {
                 new GuestRequest
                 {
-                    Key=1,
+                    Key=20000000,
                     ClientId = "12345678",
                     CreateDate =new DateTime(2020,04,21),
                     EntryDate =new DateTime(2020,05,01),
@@ -124,7 +126,7 @@ namespace DS
                 },
                 new GuestRequest
                 {
-                    Key=20000002,
+                    Key=20000001,
                     ClientId = "12345678",
                     CreateDate =new DateTime(2019,12,12),
                     EntryDate =new DateTime(2020,01,10),

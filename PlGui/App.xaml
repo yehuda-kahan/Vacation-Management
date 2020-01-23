@@ -20,6 +20,8 @@
             <Color x:Key="BackColor">#FF252526</Color>
             <Color x:Key="CloseColor">#FFA02917</Color>
             <Color x:Key="BackColorDialogHost">#FF303030</Color>
+            <Color x:Key="GreenColor">#FF0B6056</Color>
+
 
 
             <LinearGradientBrush x:Key="SelectedTabBackGround">

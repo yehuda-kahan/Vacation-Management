@@ -38,8 +38,8 @@ namespace PlGui
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
+            //if (e.ChangedButton == MouseButton.Left)//TODO
+            //    this.DragMove();
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
@@ -95,12 +95,12 @@ namespace PlGui
 
         private void MailCheck(object sender, KeyEventArgs e)
         {
-            if (UserMail.Text == "")
-                ErorrMailUd.Visibility = Visibility.Collapsed;
-            if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
-                ErorrMailUd.Visibility = Visibility.Visible;
-            if (bl.IsValidMail(UserMail.Text))
-                ErorrMailUd.Visibility = Visibility.Collapsed;
+            //if (UserMail.Text == "")
+            //    ErorrMailUd.Visibility = Visibility.Collapsed;
+            //if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
+            //    ErorrMailUd.Visibility = Visibility.Visible;
+            //if (bl.IsValidMail(UserMail.Text))
+            //    ErorrMailUd.Visibility = Visibility.Collapsed;
         }
 
         #region client
@@ -130,12 +130,12 @@ namespace PlGui
 
         private void UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            //if (UserMail.Text == "")
-            //    ErorrMail.Visibility = Visibility.Collapsed;
-            //if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
-            //    ErorrMail.Visibility = Visibility.Visible;
-            //if (bl.IsValidMail(UserMail.Text))
-            //    ErorrMail.Visibility = Visibility.Hidden;
+            if (UserMail.Text == "")
+                ErorrMail.Visibility = Visibility.Collapsed;
+            if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
+                ErorrMail.Visibility = Visibility.Visible;
+            if (bl.IsValidMail(UserMail.Text))
+                ErorrMail.Visibility = Visibility.Hidden;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -225,6 +225,8 @@ namespace PlGui
 
         HostBO host;
         ObservableCollection<HostingUnitBO> hostingUnits;
+        ObservableCollection<OrderBO> hostOrders;
+       
 
         private void Host_LogIn_But(object sender, RoutedEventArgs e)
         {
@@ -238,8 +240,8 @@ namespace PlGui
                     {
                         host = bl.GetHost(temp.Id);
                         HostInfo.DataContext = host;
-                        hostingUnits = new ObservableCollection<HostingUnitBO>(host.UnitsHost); // making the list request of the guest
-                        UnitsList.DataContext = hostingUnits;
+                        hostOrders = new ObservableCollection<OrderBO>(host.OrdersHost); // making the list request of the guest
+                        OrderList.DataContext = hostOrders;
                         HostLogin.Visibility = Visibility.Collapsed;
                         HostWindow.Visibility = Visibility.Visible;
                     }
@@ -279,8 +281,8 @@ namespace PlGui
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
             host = bl.GetHost(obj);
             HostInfo.DataContext = host;
-            hostingUnits = new ObservableCollection<HostingUnitBO>(host.UnitsHost); // making the list request of the guest
-            UnitsList.DataContext = hostingUnits;
+            hostOrders = new ObservableCollection<OrderBO>(host.OrdersHost); // making the list request of the guest
+            OrderList.DataContext = hostOrders;
             HostLogin.Visibility = Visibility.Collapsed;
             HostWindow.Visibility = Visibility.Visible;
         }
@@ -291,5 +293,10 @@ namespace PlGui
 
         }
         #endregion Host
+
+        private void OrderList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show(OrderList.SelectedItem.ToString());
+        }
     }
 }
