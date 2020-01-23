@@ -294,7 +294,9 @@ namespace PlGui
 
         private void OrderList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show(OrderList.SelectedItem.ToString());
+            OrderUserControl1 test = new OrderUserControl1((OrderBO)OrderList.SelectedItem);
+            MaterialDesignThemes.Wpf.DialogHost.Show(test, "HostWinDialog");
+
         }
 
         private void myUnitsBut_Click(object sender, RoutedEventArgs e)
@@ -309,8 +311,28 @@ namespace PlGui
         }
 
 
+
         #endregion Host
 
-
+        private void HostChangeInfoBut_Click(object sender, RoutedEventArgs e)
+        {
+            if ((string)HostChangeInfoBut.Content == "עריכה")
+            {
+                HostChangeInfoBut.Content = "שמירה";
+                HostFirstName.IsEnabled = true;
+                HostLastName.IsEnabled = true;
+                HostEmail.IsEnabled = true;
+                HostPhone.IsEnabled = true;
+            }
+            else if ((string)HostChangeInfoBut.Content == "שמירה")
+            {
+                bl.UpdPerson(client.PersonalInfo);
+                HostChangeInfoBut.Content = "עריכה";
+                HostFirstName.IsEnabled = false;
+                HostLastName.IsEnabled = false;
+                HostEmail.IsEnabled = false;
+                HostPhone.IsEnabled = false;
+            }
+        }
     }
 }

@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="PlGui.OrderUserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PlGui"
+             mc:Ignorable="d" >
+
+    <Grid FlowDirection="RightToLeft" >
+        <Border>
+            <materialDesign:Card  BorderThickness="0.5"  Padding="15"   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White">
+                <materialDesign:Card.Background>
+                    <SolidColorBrush Color="{DynamicResource BackColorDialogHost}"/>
+                </materialDesign:Card.Background>
+                <Grid Margin="5" x:Name="UserControlGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10" >
+                        <TextBlock Text="ההזמנה מס :  " FontSize="15" Foreground="WhiteSmoke" />
+                        <TextBlock x:Name="OrderNum" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="0"   Text="{Binding Path= Key}" FontSize="15" Foreground="WhiteSmoke" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2" Margin="0,10,0,0" >
+                        <TextBlock Text="עבור יחידה : " FontSize="15" Foreground="WhiteSmoke"  VerticalAlignment="Bottom"/>
+                        <TextBlock x:Name="UnitName" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="0"   Text="{Binding Path= HostingUnit.HostingUnitName}" FontSize="15" Foreground="WhiteSmoke" />
+                    </StackPanel>
+                    <DatePicker x:Name="EntryDate"  IsEnabled="False" Margin="5" Grid.Column="0" Grid.Row="3" SelectedDate="{Binding Path= GuestRequest.EntryDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="מתאריך" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" materialDesign:ThemeAssist.Theme="Dark" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White"  MinWidth="70"/>
+                    <DatePicker x:Name="LeaveDate"  IsEnabled="False" Margin="5" Grid.Column="1" Grid.Row="3" SelectedDate="{Binding Path= GuestRequest.LeaveDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="עד תאריך" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   materialDesign:ThemeAssist.Theme="Dark" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" MinWidth="70"/>
+                    <DatePicker x:Name="CreatDate"   Margin="5" Grid.Column="0" Grid.Row="1" SelectedDate="{Binding Path= HostingUnit.EntryDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="נוצר ב" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" materialDesign:ThemeAssist.Theme="Dark" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White"  MinWidth="70"/>
+                    <DatePicker x:Name="CloseDate"  Margin="5" Grid.Column="1" Grid.Row="1" SelectedDate="{Binding Path= HostingUnit.LeaveDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="נסגר ב" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   materialDesign:ThemeAssist.Theme="Dark" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" MinWidth="70"/>
+                    <ComboBox x:Name="Status"  Margin="5" Grid.Column="0" Grid.Row="4"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="{Binding Path=Status}"  materialDesign:HintAssist.Hint="סטטוס"    Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
+                        <ComboBoxItem>נשלח מייל</ComboBoxItem>
+                        <ComboBoxItem>נסגר</ComboBoxItem>
+                        <ComboBoxItem>בוטל</ComboBoxItem>
+                    </ComboBox>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Margin="0,15,0,0" >
+                        <TextBlock Text="עמלה : " FontSize="15" Foreground="WhiteSmoke" />
+                        <TextBlock x:Name="fee" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="0"   Text="{Binding Path= Fee}" FontSize="15" Foreground="WhiteSmoke" />
+                    </StackPanel>
+                    
+                    <TextBlock Text="פרטי המזמין :"  Grid.ColumnSpan="2" Grid.Row="5" HorizontalAlignment="Center" FontSize="15" Foreground="WhiteSmoke" Margin="0,15,0,5" />
+                    <TextBox x:Name="ClientFirstName" IsEnabled="False"  Grid.Column="0" Grid.Row="6" Text="{Binding Path=ClientFirstName}" materialDesign:HintAssist.Hint="שם פרטי" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  Width="80"  />
+                    <TextBox x:Name="ClientLastName" IsEnabled="False" Grid.Column="1" Grid.Row="6" Text="{Binding Path=ClientLastName}" materialDesign:HintAssist.Hint="שם משפחה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  Width="80"  />
+                    <Button x:Name="CreateBut" Content="עדכן" Grid.Column="1"  Grid.Row="7"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="Upd_Click"/>
+                    <Button x:Name="CloseBut"  Content="סגור"  Grid.Column="0" Grid.Row="7" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0">
+                        <Button.Foreground>
+                            <SolidColorBrush Color="{DynamicResource CloseColor}"/>
+                        </Button.Foreground>
+                    </Button>
+
+
+                </Grid>
+            </materialDesign:Card>
+        </Border>
+
+    </Grid>
+</UserControl>
