@@ -95,12 +95,12 @@ namespace PlGui
 
         private void MailCheck(object sender, KeyEventArgs e)
         {
-            //if (UserMail.Text == "")
-            //    ErorrMailUd.Visibility = Visibility.Collapsed;
-            //if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
-            //    ErorrMailUd.Visibility = Visibility.Visible;
-            //if (bl.IsValidMail(UserMail.Text))
-            //    ErorrMailUd.Visibility = Visibility.Collapsed;
+            if (UserMail.Text == "")
+                ErorrMail.Visibility = Visibility.Collapsed;
+            if (!bl.IsValidMail(UserMail.Text) && UserMail.Text != "")
+                ErorrMail.Visibility = Visibility.Visible;
+            if (bl.IsValidMail(UserMail.Text))
+                ErorrMail.Visibility = Visibility.Collapsed;
         }
 
         #region client

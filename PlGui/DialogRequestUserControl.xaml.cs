@@ -141,8 +141,8 @@ namespace PlGui
         {
             if (EntryDate.SelectedDate.HasValue)
             {
-                LeaveDate.DisplayDateStart = EntryDate.SelectedDate.Value.AddDays(1);
-                LeaveDate.DataContext = LeaveDate;
+                //LeaveDate.DisplayDateStart = EntryDate.SelectedDate.Value.AddDays(1);
+                //LeaveDate.DataContext = LeaveDate;
             }
         }
     }
