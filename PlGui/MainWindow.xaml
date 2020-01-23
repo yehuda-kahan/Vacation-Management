@@ -215,10 +215,10 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="4*"/>
                                     </Grid.RowDefinitions>
-                                    <StackPanel Grid.Row="0" Grid.Column="1">
+                                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
                                         <DataGrid x:Name="UnitsList"  Margin="0 8 0 0" ItemsSource="{Binding}" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" materialDesign:DataGridAssist.CellPadding="13 8 8 8" materialDesign:DataGridAssist.ColumnHeaderPadding="8" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
                                             <DataGrid.Columns>
                                                 <!--<DataGridCheckBoxColumn Binding="{Binding IsSelected}" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}" EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
