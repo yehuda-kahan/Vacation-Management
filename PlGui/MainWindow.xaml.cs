@@ -302,6 +302,7 @@ namespace PlGui
         private void Test_temp()
         {
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
+            OrderList.DataContext = null;
             OrderList.DataContext = hostOrders;
         }
 

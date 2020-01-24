@@ -88,7 +88,7 @@ namespace DS
                     HostingUnitKey = 1111,
                     GuestRequestKey =20000001,
                     OrderDate =new DateTime(2019,12,31),
-                    CloseDate =new DateTime(2019,12,31),
+                    CloseDate =default,
                     SentDate =new DateTime(2019,12,31),
                     Status= OrderStatus.MAIL_SENT
                 },

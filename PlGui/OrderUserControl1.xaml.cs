@@ -24,6 +24,7 @@ namespace PlGui
     {
         OrderBO order;
         public event Action temp;
+        static IBl bl = BlFactory.GetBL();
 
         public OrderUserControl1(OrderBO givenOrder)
         {
@@ -31,17 +32,28 @@ namespace PlGui
             order = givenOrder;
             UserControlGrid.DataContext = order;
             comStatus.SelectedIndex = (int)order.Status;
+            if (order.CloseDate.Year == 0001)
+                CloseDate.Visibility = Visibility.Hidden;
+            if (comStatus.SelectedIndex == 2)
+                comStatus.IsEnabled = false;
         }
 
         private void Upd_Click(object sender, RoutedEventArgs e)
         {
+            if (comStatus.SelectedIndex == 2)
+            {
+                CloseDate.Visibility = Visibility.Visible;
+                CloseDate.SelectedDate = DateTime.Now;
+                comStatus.IsEnabled = false;
+            }
             temp();
+            bl.UpdStatusOrder(order.Key, order.Status);
         }
 
         private void comStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             order.Status = (OrderStatusBO)comStatus.SelectedIndex;
-           
+
         }
     }
 }
