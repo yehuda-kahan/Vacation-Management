@@ -296,7 +296,13 @@ namespace PlGui
         {
             OrderUserControl1 test = new OrderUserControl1((OrderBO)OrderList.SelectedItem);
             MaterialDesignThemes.Wpf.DialogHost.Show(test, "HostWinDialog");
+            test.temp += Test_temp;
+        }
 
+        private void Test_temp()
+        {
+            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
+            OrderList.DataContext = hostOrders;
         }
 
         private void myUnitsBut_Click(object sender, RoutedEventArgs e)
@@ -326,7 +332,7 @@ namespace PlGui
             }
             else if ((string)HostChangeInfoBut.Content == "שמירה")
             {
-                bl.UpdPerson(client.PersonalInfo);
+                bl.UpdPerson(host.PersonalInfo);
                 HostChangeInfoBut.Content = "עריכה";
                 HostFirstName.IsEnabled = false;
                 HostLastName.IsEnabled = false;

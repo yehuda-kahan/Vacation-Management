@@ -40,9 +40,12 @@
                     <DatePicker x:Name="LeaveDate"  IsEnabled="False" Margin="5" Grid.Column="1" Grid.Row="3" SelectedDate="{Binding Path= GuestRequest.LeaveDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="עד תאריך" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   materialDesign:ThemeAssist.Theme="Dark" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" MinWidth="70"/>
                     <DatePicker x:Name="CreatDate"   Margin="5" Grid.Column="0" Grid.Row="1" SelectedDate="{Binding Path= HostingUnit.EntryDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="נוצר ב" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" materialDesign:ThemeAssist.Theme="Dark" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White"  MinWidth="70"/>
                     <DatePicker x:Name="CloseDate"  Margin="5" Grid.Column="1" Grid.Row="1" SelectedDate="{Binding Path= HostingUnit.LeaveDate, Mode=TwoWay}" materialDesign:HintAssist.Hint="נסגר ב" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   materialDesign:ThemeAssist.Theme="Dark" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" MinWidth="70"/>
-                    <ComboBox x:Name="Status"  Margin="5" Grid.Column="0" Grid.Row="4"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="{Binding Path=Status}"  materialDesign:HintAssist.Hint="סטטוס"    Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
+                    <ComboBox x:Name="comStatus"  Margin="5" Grid.Column="0" Grid.Row="4"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  materialDesign:HintAssist.Hint="סטטוס"    Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" SelectionChanged="comStatus_SelectionChanged" >
+                        <ComboBoxItem>בתהליך</ComboBoxItem>
                         <ComboBoxItem>נשלח מייל</ComboBoxItem>
-                        <ComboBoxItem>נסגר</ComboBoxItem>
+                        <ComboBoxItem>אושר</ComboBoxItem>
+                        <ComboBoxItem>נסגר מחוסר מענה</ComboBoxItem>
+                        <ComboBoxItem>בוטל היחידה אינה פנויה</ComboBoxItem>
                         <ComboBoxItem>בוטל</ComboBoxItem>
                     </ComboBox>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Margin="0,15,0,0" >

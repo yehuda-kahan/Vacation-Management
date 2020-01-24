@@ -218,7 +218,7 @@
                             </Border>
                         </materialDesign:DialogHost>
 
-                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="HostWinDialog">
+                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="HostWinDialog" Foreground="White">
                             <Border x:Name="HostWindow" Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10" >
                                 <Border.Background>
                                     <SolidColorBrush Color="{DynamicResource BackColor}"/>
@@ -283,7 +283,7 @@
                                                     <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר הזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                                     <materialDesign:DataGridTextColumn Binding="{Binding OrderDate ,StringFormat= dd/MM/yyyy}" Header="תאריך ההזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                                                     <materialDesign:DataGridTextColumn Binding="{Binding HostingUnit.HostingUnitName}" Header="ליחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
-                                                    <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                                                    <materialDesign:DataGridTextColumn Binding="{Binding Status ,Mode=TwoWay}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
                                                 </DataGrid.Columns>
                                             </DataGrid>
                                         </StackPanel>

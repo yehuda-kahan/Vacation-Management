@@ -14,12 +14,17 @@
                         <SolidColorBrush Color="{DynamicResource BackColorDialogHost}"/>
                     </materialDesign:Card.Background>
                     <Grid>
-
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="3*"/>
                         </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                            
+                        </StackPanel>
                         <Viewbox x:Name="viewCalender" Grid.Row="1"/>
                     </Grid>
 

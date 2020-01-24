@@ -22,15 +22,26 @@ namespace PlGui
     /// </summary>
     public partial class OrderUserControl1 : UserControl
     {
-        public OrderUserControl1(OrderBO order)
+        OrderBO order;
+        public event Action temp;
+
+        public OrderUserControl1(OrderBO givenOrder)
         {
             InitializeComponent();
+            order = givenOrder;
             UserControlGrid.DataContext = order;
+            comStatus.SelectedIndex = (int)order.Status;
         }
 
         private void Upd_Click(object sender, RoutedEventArgs e)
         {
+            temp();
+        }
 
+        private void comStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            order.Status = (OrderStatusBO)comStatus.SelectedIndex;
+           
         }
     }
 }
