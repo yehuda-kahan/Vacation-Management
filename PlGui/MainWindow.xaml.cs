@@ -296,15 +296,16 @@ namespace PlGui
         {
             OrderUserControl1 test = new OrderUserControl1((OrderBO)OrderList.SelectedItem);
             MaterialDesignThemes.Wpf.DialogHost.Show(test, "HostWinDialog");
-            test.temp += Test_temp;
+            test.UpdListOrder += Test_UpdListOrder;
         }
 
-        private void Test_temp()
+        private void Test_UpdListOrder()
         {
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
-            OrderList.DataContext = null;
+            hostOrders = new ObservableCollection<OrderBO>(bl.GetOdrsOfHost(host.PersonalInfo.Id));
             OrderList.DataContext = hostOrders;
         }
+
 
         private void myUnitsBut_Click(object sender, RoutedEventArgs e)
         {

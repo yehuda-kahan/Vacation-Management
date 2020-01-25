@@ -23,7 +23,7 @@ namespace PlGui
     public partial class OrderUserControl1 : UserControl
     {
         OrderBO order;
-        public event Action temp;
+        public event Action UpdListOrder;
         static IBl bl = BlFactory.GetBL();
 
         public OrderUserControl1(OrderBO givenOrder)
@@ -36,6 +36,8 @@ namespace PlGui
                 CloseDate.Visibility = Visibility.Hidden;
             if (comStatus.SelectedIndex == 2)
                 comStatus.IsEnabled = false;
+            if (order.Status == OrderStatusBO.APPROVED)
+                CreateBut.IsEnabled = false;
         }
 
         private void Upd_Click(object sender, RoutedEventArgs e)
@@ -46,8 +48,8 @@ namespace PlGui
                 CloseDate.SelectedDate = DateTime.Now;
                 comStatus.IsEnabled = false;
             }
-            temp();
             bl.UpdStatusOrder(order.Key, order.Status);
+            UpdListOrder();
         }
 
         private void comStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -27,18 +27,20 @@ namespace PlGui
         public UnitUserCuntrol(HostingUnitBO unit)
         {
             InitializeComponent();
+            viewCalender.SelectionMode = CalendarSelectionMode.SingleRange;
             myUnit = unit;
-            Calendar myCalender = Initilize_Calender_Detalse();
-            viewCalender.Child = myCalender;
-
+            GridCalender.DataContext = myUnit;
+            myUnit.Diary[0, 10] = true;
+            myUnit.Diary[0, 11] = true;
+            Initilize_Calender_Detalse();
         }
-        Calendar Initilize_Calender_Detalse()
+
+
+        void Initilize_Calender_Detalse()
         {
             DateTime startDate = default;
             DateTime endDate;
-
             CalendarDateRange dateRange;
-            Calendar calendar = new Calendar();
             bool StartFlag = false;
 
             for (int i = 0; i < 12; ++i)
@@ -54,15 +56,38 @@ namespace PlGui
                     // for the last resevation day
                     if (StartFlag == true && myUnit.Diary[i, j] == false)
                     {
-                        endDate = new DateTime(DateTime.Now.Year, i + 1, j + 1);
+                        endDate = new DateTime(DateTime.Now.Year, i + 1, j + 1).AddDays(-1);
                         dateRange = new CalendarDateRange(startDate, endDate);
-                        calendar.BlackoutDates.Add(dateRange);
+                        viewCalender.BlackoutDates.Add(dateRange);
                         StartFlag = false;
                     }
                 }
             }
-            return calendar;
+
         }
 
+        private void MarkDays_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (viewCalender.SelectedDates.Count > 0)
+            {
+                List<DateTime> temp = viewCalender.SelectedDates.ToList();
+                temp.Sort();
+                viewCalender.SelectedDates.Clear();
+                viewCalender.BlackoutDates.Add(new CalendarDateRange(temp.First(), temp.Last()));
+            }
+
+
+        }
+
+        private void viewCalender_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Mouse.Capture(null);
+        }
+
+        private void Upd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

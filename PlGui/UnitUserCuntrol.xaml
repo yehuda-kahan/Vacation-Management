@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PlGui"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" >
+
     <Grid>
         <Grid x:Name="GridCalender" FlowDirection="RightToLeft" >
             <Border>
@@ -15,17 +15,39 @@
                     </materialDesign:Card.Background>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+
+
                         </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                            
+                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10" >
+                            <TextBlock Text="יחידה מס :  " FontSize="15" Foreground="WhiteSmoke" />
+                            <TextBlock x:Name="UnitNum" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="0"   Text="{Binding Path= Key}" FontSize="15" Foreground="WhiteSmoke" />
                         </StackPanel>
-                        <Viewbox x:Name="viewCalender" Grid.Row="1"/>
+                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1" Margin="10" >
+                            <TextBlock Text="שם היחידה : "   FontSize="15" Foreground="WhiteSmoke" VerticalAlignment="Center"/>
+                            <TextBox x:Name="UnitName" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" Text="{Binding Path=HostingUnitName}" materialDesign:TransitionAssist.DisableTransitions="True" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" MinWidth="40" />
+                        </StackPanel>
+                        <Calendar  x:Name="viewCalender"  Grid.Row="2" materialDesign:ThemeAssist.Theme="Dark" SelectedDatesChanged="viewCalender_SelectedDatesChanged"/>
+                        <Button x:Name="MarkDays" Content="סמן ימים" Grid.ColumnSpan="2" Grid.Row="3" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="100" Height="40" ToolTip="סמן ימים שברצונך לתפוס ביומן ליחידה זו" Click="MarkDays_Click" />
+
+                        <StackPanel Orientation="Horizontal"  Grid.Row="4" HorizontalAlignment="Center">
+                            <Button x:Name="CloseBut"  Content="סגור"  Grid.Column="0" Grid.Row="7" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0">
+                                <Button.Foreground>
+                                    <SolidColorBrush Color="{DynamicResource CloseColor}"/>
+                                </Button.Foreground>
+                            </Button>
+                            <Button x:Name="CreateBut" Content="עדכן" Grid.Column="0"  Grid.Row="7"  Style="{StaticResource MaterialDesignFlatButton}" Margin="90 8 8 0" Click="Upd_Click"/>
+
+                        </StackPanel>
                     </Grid>
 
                 </materialDesign:Card>
