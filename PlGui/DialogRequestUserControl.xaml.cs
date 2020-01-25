@@ -65,14 +65,20 @@ namespace PlGui
                 if (Convert.ToInt32(adults.Text) >= 99)
                     return;
                 else
+                {
                     adults.Text = Convert.ToString((Convert.ToInt32(adults.Text) + 1));
+                    request.Adults = Convert.ToUInt16(adults.Text);
+                }
             }
             else if (((Button)sender).Name == "PlusChBut")
             {
                 if (Convert.ToInt32(children.Text) >= 99)
                     return;
                 else
+                {
                     children.Text = Convert.ToString((Convert.ToInt32(children.Text) + 1));
+                    request.Children = Convert.ToUInt16(children.Text);
+                }
             }
         }
 
@@ -80,17 +86,23 @@ namespace PlGui
         {
             if (((Button)sender).Name == "MinAdBut")
             {
-                if (Convert.ToInt32(children.Text) <= 0)
+                if (Convert.ToInt32(adults.Text) <= 0)
                     return;
                 else
-                    children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
+                {
+                   adults.Text = Convert.ToString((Convert.ToInt32(adults.Text) - 1));
+                   request.Adults = Convert.ToUInt16(adults.Text);
+                }
             }
             else if (((Button)sender).Name == "MinChBut")
             {
                 if (Convert.ToInt32(children.Text) <= 0)
                     return;
                 else
+                {
                     children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
+                    request.Children = Convert.ToUInt16(children);
+                }
             }
         }
 
@@ -132,8 +144,9 @@ namespace PlGui
                 ChangeAd.IsEnabled = false;
                 ChangeCh.IsEnabled = false;
                 try { bl.UpdRequest(request); }
-                catch (MissingMemberException ex) { }
-                catch (FormatException ex) { }//TODO mess box
+                catch (MissingMemberException ex) { MessageBox.Show("here 1"); }
+                catch (FormatException ex) { MessageBox.Show("here 2"); }//TODO mess box
+                MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
             }
         }
 
