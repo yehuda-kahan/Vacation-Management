@@ -46,6 +46,7 @@ namespace PlGui
                 ErorrMail.Visibility = Visibility.Collapsed;
         }
 
+        //TODO check if all fields are not empty
         private void CreateBut_Click(object sender, RoutedEventArgs e)
         {
             person.Id = Id.Text;
