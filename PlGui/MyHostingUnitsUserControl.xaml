@@ -6,45 +6,49 @@
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:PlGui"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="450">
+             d:DesignHeight="450" d:DesignWidth="450" MaxHeight="450" MaxWidth="450">
     <materialDesign:DialogHost  Identifier="HostingUnitsDialog" CloseOnClickAway="True">
-        <Grid  FlowDirection="RightToLeft">
-            <Border >
-                <materialDesign:Card  BorderThickness="0.5"  Padding="15" Foreground="White" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
-                    <materialDesign:Card.Background>
-                        <SolidColorBrush Color="{DynamicResource BackColor}"/>
-                    </materialDesign:Card.Background>
-                    <Grid x:Name="GridHostingUnits" Margin="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="5*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0">
-                            <DataGrid x:Name="unitsList"  HorizontalGridLinesBrush="Gray" IsReadOnly="True"  Margin="10"  ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030" Foreground="White" SelectionChanged="unitsList_SelectionChanged">
-                                <DataGrid.Columns>
-                                    <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר היחידה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                    <materialDesign:DataGridTextColumn Binding="{Binding HostingUnitName}" Header="שם היחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                                    <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                                    <DataGridTemplateColumn Header="פרטים">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button x:Name="UnitDetals" Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}" ToolTip="לצפייה בפרטי היחידה" Click="UnitDetals_Click">
-                                                    <materialDesign:PackIcon Kind="Eye" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
-                                                </Button>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </StackPanel>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                            <Button x:Name="CloseBut"  Content="סגור" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Foreground="#FFA02917" Margin="0,0,30,0"/>
-                            <Button x:Name="AddUnit" Content="הוסף יחידת אירוח" Style="{StaticResource MaterialDesignRaisedDarkButton}"  Margin="30,0,0,0" Click="AddUnit_Click" />
+    <Grid  FlowDirection="RightToLeft">
+        <Border >
+            <materialDesign:Card  BorderThickness="0.5"  Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+                <materialDesign:Card.Background>
+                    <SolidColorBrush Color="{DynamicResource BackColorDialogHost}"/>
+                </materialDesign:Card.Background>
+                <Grid x:Name="GridHostingUnits" Margin="0">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                           
+                                <DataGrid x:Name="unitsList" IsReadOnly="True"  VerticalScrollBarVisibility="Auto" ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="True" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030" Foreground="White">
+                                    <DataGrid.Columns>
+                                        <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר היחידה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" Foreground="White" />
+                                        <materialDesign:DataGridTextColumn Binding="{Binding HostingUnitName}" Header="שם היחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
+                                        <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
+                                        <DataGridTemplateColumn Header="פרטים">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button x:Name="UnitDetals" Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}" ToolTip="לצפייה בפרטי היחידה" Click="UnitDetals_Click">
+                                                        <materialDesign:PackIcon Kind="Eye" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
+                                                    </Button>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            
 
                         </StackPanel>
-                    </Grid>
-                </materialDesign:Card>
-            </Border>
-        </Grid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <Button x:Name="CloseBut"  Content="סגור" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Foreground="#FFA02917" Margin="0,0,30,0"/>
+                        <Button x:Name="AddUnit" Content="הוסף יחידת אירוח" Style="{StaticResource MaterialDesignRaisedDarkButton}"  Margin="30,0,0,0" Click="AddUnit_Click" />
+
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+        </Border>
+    </Grid>
     </materialDesign:DialogHost>
 </UserControl>

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PlGui"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="400">
+             d:DesignHeight="300" d:DesignWidth="400">
     <Grid  FlowDirection="RightToLeft">
         <Border >
             <materialDesign:Card  BorderThickness="0.5"  Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
@@ -17,7 +17,27 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    <TextBlock Text="אנא הכנס את פרטי היחידה" Grid.Row="0" FontSize="20" Foreground="WhiteSmoke" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="1" Margin="10" >
+                        <TextBlock Text="שם היחידה : "   FontSize="15" Foreground="WhiteSmoke" VerticalAlignment="Center"/>
+                        <TextBox x:Name="UnitName" HorizontalAlignment="Center" VerticalAlignment="Center" materialDesign:TransitionAssist.DisableTransitions="True" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" MinWidth="85" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2" Margin="10" >
+                        <TextBlock Text="איזור היחידה : "   FontSize="15" Foreground="WhiteSmoke" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="comArea"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="WhiteSmoke" MinWidth="85">
+                            <ComboBoxItem>הכל</ComboBoxItem>
+                            <ComboBoxItem>צפון</ComboBoxItem>
+                            <ComboBoxItem>דרום</ComboBoxItem>
+                            <ComboBoxItem>מרכז</ComboBoxItem>
+                            <ComboBoxItem>ירושלים</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <Button x:Name="CloseBut"  Content="סגור" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Foreground="#FFA02917" Margin="0,0,30,0"/>
+                        <Button x:Name="AddUnit" Content="הוסף" Style="{StaticResource MaterialDesignRaisedDarkButton}"  Margin="30,0,0,0" Click="AddUnit_Click" />
+                    </StackPanel>
                 </Grid>
             </materialDesign:Card>
         </Border>
