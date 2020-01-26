@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
         <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="16"/>
         <Button Grid.Row="1" Style="{StaticResource MaterialDesignIconButton}" ToolTip="Logout" 
-                Height="25" Width="25" HorizontalAlignment="Right"  Margin="0,0,25,0">
+                Height="25" Width="25" HorizontalAlignment="Right"  Margin="0,0,25,0" Click="LogOut_Click">
             <materialDesign:PackIcon Kind="LogoutVariant" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                                      Width="23" Height="23" 
                                      Foreground="#FF9382B2"

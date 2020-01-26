@@ -84,13 +84,8 @@ namespace PlGui
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TabControl tabControl = sender as TabControl;
-            if (tabControl.SelectedIndex == 0)
-            {
-                clientLogin.Visibility = Visibility.Visible;
-                clientWindow.Visibility = Visibility.Collapsed;
-                UserMail.Text = "";
-                Password.Password = "";
-            }
+            LogOut_Click(null, null);
+
         }
 
         private void MailCheck(object sender, KeyEventArgs e)
@@ -289,7 +284,12 @@ namespace PlGui
 
         private void Host_UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-
+            if (HostUserMail.Text == "")
+                HostErorrMail.Visibility = Visibility.Collapsed;
+            if (!bl.IsValidMail(HostUserMail.Text) && HostUserMail.Text != "")
+                HostErorrMail.Visibility = Visibility.Visible;
+            if (bl.IsValidMail(HostUserMail.Text))
+                HostErorrMail.Visibility = Visibility.Collapsed;
         }
 
         private void OrderList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -341,6 +341,22 @@ namespace PlGui
                 HostEmail.IsEnabled = false;
                 HostPhone.IsEnabled = false;
             }
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            HostLogin.Visibility = Visibility.Visible;
+            HostWindow.Visibility = Visibility.Collapsed;
+            clientLogin.Visibility = Visibility.Visible;
+            clientWindow.Visibility = Visibility.Collapsed;
+            UserMail.Text = "";
+            Password.Password = "";
+            HostUserMail.Text = "";
+            HostPassword.Password = "";
+            ErorrMail.Visibility = Visibility.Collapsed;
+            ErorrInput.Visibility = Visibility.Collapsed;
+            HostErorrInput.Visibility = Visibility.Collapsed;
+            HostErorrMail.Visibility = Visibility.Collapsed;
         }
     }
 }
