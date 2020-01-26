@@ -42,5 +42,10 @@ namespace PlGui
             AddUnitUserControl unitUserControl = new AddUnitUserControl();
             MaterialDesignThemes.Wpf.DialogHost.Show(unitUserControl, "HostingUnitsDialog");
         }
+
+        private void unitsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
