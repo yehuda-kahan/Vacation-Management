@@ -284,7 +284,12 @@ namespace PlGui
 
         private void Host_UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-
+            if (HostUserMail.Text == "")
+                HostErorrMail.Visibility = Visibility.Collapsed;
+            if (!bl.IsValidMail(HostUserMail.Text) && HostUserMail.Text != "")
+                HostErorrMail.Visibility = Visibility.Visible;
+            if (bl.IsValidMail(HostUserMail.Text))
+                HostErorrMail.Visibility = Visibility.Collapsed;
         }
 
         private void OrderList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
