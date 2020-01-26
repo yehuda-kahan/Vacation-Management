@@ -30,16 +30,17 @@ namespace PlGui
             hostingUnits = new ObservableCollection<HostingUnitBO>(hostings);
             unitsList.DataContext = hostingUnits;
         }
-
-        private void unitsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
+        
         private void UnitDetals_Click(object sender, RoutedEventArgs e)
-        {                     
+        {
             UnitUserCuntrol UnitControl = new UnitUserCuntrol((HostingUnitBO)unitsList.SelectedItem);
             MaterialDesignThemes.Wpf.DialogHost.Show(UnitControl, "HostingUnitsDialog");
+        }
+
+        private void AddUnit_Click(object sender, RoutedEventArgs e)
+        {
+            AddUnitUserControl unitUserControl = new AddUnitUserControl();
+            MaterialDesignThemes.Wpf.DialogHost.Show(unitUserControl, "HostingUnitsDialog");
         }
     }
 }

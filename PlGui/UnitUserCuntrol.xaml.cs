@@ -23,6 +23,7 @@ namespace PlGui
     public partial class UnitUserCuntrol : UserControl
     {
         HostingUnitBO myUnit;
+        static IBl bl = BlFactory.GetBL();
 
         public UnitUserCuntrol(HostingUnitBO unit)
         {
@@ -30,8 +31,9 @@ namespace PlGui
             viewCalender.SelectionMode = CalendarSelectionMode.SingleRange;
             myUnit = unit;
             GridCalender.DataContext = myUnit;
-            myUnit.Diary[0, 10] = true;
-            myUnit.Diary[0, 11] = true;
+            comArea.SelectedIndex = (int)myUnit.Area;
+            //myUnit.Diary[0, 10] = true;
+            //myUnit.Diary[0, 11] = true;
             Initilize_Calender_Detalse();
         }
 
@@ -87,7 +89,17 @@ namespace PlGui
 
         private void Upd_Click(object sender, RoutedEventArgs e)
         {
-
+            if ((string)UpdBut.Content == "עריכה")
+            {
+                UpdBut.Content = "שמירה";
+                UnitName.IsEnabled = true;
+            }
+            else if ((string)UpdBut.Content == "שמירה")
+            {
+                bl.UpdUnit(myUnit);  // no need to catch exception
+                UpdBut.Content = "עריכה";
+                UnitName.IsEnabled = false;
+            }
         }
     }
 }

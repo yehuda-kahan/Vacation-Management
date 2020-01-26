@@ -66,6 +66,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddUnitUserControl.xaml.cs">
+      <DependentUpon>AddUnitUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyHostingUnitsUserControl.xaml.cs">
       <DependentUpon>MyHostingUnitsUserControl.xaml</DependentUpon>
     </Compile>
@@ -82,6 +85,10 @@
       <DependentUpon>UserControlSingUp.xaml</DependentUpon>
     </Compile>
     <Page Include="AddRequestDialogUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddUnitUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
