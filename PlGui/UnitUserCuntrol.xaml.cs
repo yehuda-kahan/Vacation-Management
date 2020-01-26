@@ -24,7 +24,7 @@ namespace PlGui
     {
         HostingUnitBO myUnit;
         static IBl bl = BlFactory.GetBL();
-       
+
         public UnitUserCuntrol(HostingUnitBO unit)
         {
             InitializeComponent();
@@ -32,8 +32,7 @@ namespace PlGui
             myUnit = unit;
             GridCalender.DataContext = myUnit;
             comArea.SelectedIndex = (int)myUnit.Area;
-            //myUnit.Diary[0, 10] = true;
-            //myUnit.Diary[0, 11] = true;
+            viewCalender.DisplayDateStart = DateTime.Now;
             Initilize_Calender_Detalse();
         }
 
@@ -77,6 +76,11 @@ namespace PlGui
                 temp.Sort();
                 viewCalender.SelectedDates.Clear();
                 viewCalender.BlackoutDates.Add(new CalendarDateRange(temp.First(), temp.Last()));
+                DateTime run = temp.First();
+                for (; run <= temp.Last(); run = run.AddDays(1))
+                    myUnit.SetDates(run);
+                bl.UpdUnit(myUnit);
+
             }
 
 

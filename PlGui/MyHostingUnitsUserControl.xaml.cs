@@ -26,14 +26,14 @@ namespace PlGui
         static IBl bl = BlFactory.GetBL();
         ObservableCollection<HostingUnitBO> hostingUnits;
         string hostId;
-        public MyHostingUnitsUserControl(IEnumerable<HostingUnitBO> hostings ,string Id)
+        public MyHostingUnitsUserControl(IEnumerable<HostingUnitBO> hostings, string Id)
         {
             InitializeComponent();
             hostingUnits = new ObservableCollection<HostingUnitBO>(hostings);
             unitsList.DataContext = hostingUnits;
             hostId = Id;
         }
-        
+
         private void UnitDetals_Click(object sender, RoutedEventArgs e)
         {
             UnitUserCuntrol UnitControl = new UnitUserCuntrol((HostingUnitBO)unitsList.SelectedItem);
@@ -51,6 +51,7 @@ namespace PlGui
         {
             hostingUnits = new ObservableCollection<HostingUnitBO>(bl.GetHostUnits(hostId));
             unitsList.DataContext = hostingUnits;
+            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
         }
     }
 }

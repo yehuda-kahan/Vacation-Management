@@ -84,7 +84,8 @@ namespace PlGui
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TabControl tabControl = sender as TabControl;
-            LogOut_Click(null, null);
+            if (tabControl.SelectedIndex == 0)
+                LogOut_Click(null, null);
 
         }
 

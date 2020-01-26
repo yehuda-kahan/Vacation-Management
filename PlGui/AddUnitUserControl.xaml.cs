@@ -49,9 +49,7 @@ namespace PlGui
             myUnit.Owner = hostId;
             myUnit.Diary = new bool[12, 31];
             myUnit.Key = bl.AddUnit(myUnit);
-            
             AddUnitEv();
-
         }
     }
 }
