@@ -24,7 +24,7 @@ namespace PlGui
     {
         HostingUnitBO myUnit;
         static IBl bl = BlFactory.GetBL();
-
+       
         public UnitUserCuntrol(HostingUnitBO unit)
         {
             InitializeComponent();

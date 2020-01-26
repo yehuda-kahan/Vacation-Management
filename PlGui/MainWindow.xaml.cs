@@ -309,7 +309,7 @@ namespace PlGui
 
         private void myUnitsBut_Click(object sender, RoutedEventArgs e)
         {
-            MyHostingUnitsUserControl myUnits = new MyHostingUnitsUserControl(host.UnitsHost);
+            MyHostingUnitsUserControl myUnits = new MyHostingUnitsUserControl(host.UnitsHost, host.PersonalInfo.Id);
             MaterialDesignThemes.Wpf.DialogHost.Show(myUnits, "HostWinDialog");
         }
 

@@ -23,12 +23,15 @@ namespace PlGui
     /// </summary>
     public partial class MyHostingUnitsUserControl : UserControl
     {
+        static IBl bl = BlFactory.GetBL();
         ObservableCollection<HostingUnitBO> hostingUnits;
-        public MyHostingUnitsUserControl(IEnumerable<HostingUnitBO> hostings)
+        string hostId;
+        public MyHostingUnitsUserControl(IEnumerable<HostingUnitBO> hostings ,string Id)
         {
             InitializeComponent();
             hostingUnits = new ObservableCollection<HostingUnitBO>(hostings);
             unitsList.DataContext = hostingUnits;
+            hostId = Id;
         }
         
         private void UnitDetals_Click(object sender, RoutedEventArgs e)
@@ -39,8 +42,15 @@ namespace PlGui
 
         private void AddUnit_Click(object sender, RoutedEventArgs e)
         {
-            AddUnitUserControl unitUserControl = new AddUnitUserControl();
+            AddUnitUserControl unitUserControl = new AddUnitUserControl(hostId);
+            unitUserControl.AddUnitEv += UnitUserControl_AddUnitEv;
             MaterialDesignThemes.Wpf.DialogHost.Show(unitUserControl, "HostingUnitsDialog");
+        }
+
+        private void UnitUserControl_AddUnitEv()
+        {
+            hostingUnits = new ObservableCollection<HostingUnitBO>(bl.GetHostUnits(hostId));
+            unitsList.DataContext = hostingUnits;
         }
     }
 }
