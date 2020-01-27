@@ -9,7 +9,7 @@
     <materialDesign:DialogHost  Identifier="HostingUnitsDialog">
         <Grid  FlowDirection="RightToLeft">
             <Border >
-                <materialDesign:Card  BorderThickness="0.5"  Padding="15"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+            <materialDesign:Card  Padding="5"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
                     <materialDesign:Card.Background>
                         <SolidColorBrush Color="{DynamicResource BackColorDialogHost}"/>
                     </materialDesign:Card.Background>
@@ -21,7 +21,7 @@
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0">
                             <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True" MaxHeight="200">
-                                <DataGrid x:Name="unitsList" IsReadOnly="True"   ItemsSource="{Binding}"  CanUserSortColumns="False" CanUserAddRows="False" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030" Foreground="White">
+                                <DataGrid x:Name="unitsList" IsReadOnly="True"   ItemsSource="{Binding}"  CanUserSortColumns="False" CanUserAddRows="False" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" Background="#FF303030" Foreground="White">
                                     <DataGrid.Columns>
                                         <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר היחידה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" Foreground="White" />
                                         <materialDesign:DataGridTextColumn Binding="{Binding HostingUnitName}" Header="שם היחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
