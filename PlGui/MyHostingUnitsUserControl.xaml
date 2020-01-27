@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:PlGui"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="450" MaxHeight="450" MaxWidth="450">
+             mc:Ignorable="d">
     <materialDesign:DialogHost  Identifier="HostingUnitsDialog">
         <Grid  FlowDirection="RightToLeft">
             <Border >
