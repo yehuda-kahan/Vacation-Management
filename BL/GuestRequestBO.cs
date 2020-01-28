@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class GuestRequestBO
+    public class GuestRequestBO : IComparable<GuestRequestBO>
     {
         public uint Key { get; set; }
         public string ClientId { get; set; }
@@ -23,6 +23,19 @@ namespace BO
         public ThreeOptionsBO Jacuzzi { get; set; }
         public ThreeOptionsBO Garden { get; set; }
         public ThreeOptionsBO ChildrensAttractions { get; set; }
+
+       
+
+        public int CompareTo(GuestRequestBO other)
+        {
+            if (this.Key == other.Key)
+                return 0;
+            else if (this.Key > other.Key)
+                return 1;
+            else if (this.Key < other.Key)
+                return -1;
+            return -1;
+        }
 
         public override string ToString()
         {

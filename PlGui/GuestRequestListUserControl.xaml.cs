@@ -32,6 +32,7 @@ namespace PlGui
             InitializeComponent();
             myHost = host;
             GetRequestsAccAera();
+           // clearRequestsWithOdr();
             requestList.DataContext = guestRequests;
         }
 
@@ -48,10 +49,27 @@ namespace PlGui
                     {
                         foreach (var request in area)
                             guestRequests.Add(request);
+                        break;
                     }
                 }
             }
             guestRequests = new ObservableCollection<GuestRequestBO>(guestRequests.Distinct());
+            MessageBox.Show(Convert.ToString(guestRequests.Count()));
+        }
+
+        void clearRequestsWithOdr()
+        {
+            foreach(OrderBO order in myHost.OrdersHost)
+            {
+                if (guestRequests.Any())
+                {
+                    foreach (GuestRequestBO request in guestRequests)
+                    {
+                        if (order.GuestRequest.Key == request.Key)
+                            guestRequests.Remove(request);
+                    }
+                }
+            }                
         }
 
         private void requestList_MouseDoubleClick(object sender, MouseButtonEventArgs e)

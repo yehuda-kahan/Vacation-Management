@@ -66,7 +66,7 @@ namespace DS
                     HostingUnitName = "The villa",
                     Diary =new bool[12,31],
                     Status = Status.ACTIVE,
-                    Area = AreaLocation.CENTER
+                    Area = AreaLocation.JERUSALEM
                 },
                 new HostingUnit
                 {
@@ -114,7 +114,7 @@ namespace DS
                     CreateDate =new DateTime(2020,04,21),
                     EntryDate =new DateTime(2020,02,03),
                     LeaveDate =new DateTime(2020,02,08),
-                    Area = AreaLocation.ALL,
+                    Area = AreaLocation.JERUSALEM,
                     Type = UnitType.ZIMMER,
                     Adults =2,
                     Children=2,
@@ -131,7 +131,7 @@ namespace DS
                     CreateDate =new DateTime(2019,12,12),
                     EntryDate =new DateTime(2020,01,10),
                     LeaveDate =new DateTime(2020,01,15),
-                    Area = AreaLocation.ALL,
+                    Area = AreaLocation.JERUSALEM,
                     Type = UnitType.ZIMMER,
                     Adults =2,
                     Children=2,
