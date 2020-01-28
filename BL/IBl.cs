@@ -74,7 +74,7 @@ namespace BlApi
         /// <param name="status"></param>
         void UpdStatusRequest(uint key, RequestStatusBO status);
 
-      
+
         #endregion
 
         #region Client
@@ -97,6 +97,13 @@ namespace BlApi
 
         #region Bank Branch
         BankBranchBO GetBranch(uint bankNum, uint branchNum);
+
+        void downloadBankXml();
+
+        Dictionary<int, string> getBanknameList();
+
+        Dictionary<int, string> GetBranchesListForBank(int BankNum);
+
         #endregion
 
         #region Order 

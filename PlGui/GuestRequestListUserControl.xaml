@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PlGui"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
     <Grid  FlowDirection="RightToLeft">
         <Border>
             <materialDesign:Card  Padding="5"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
@@ -23,7 +23,7 @@
                                 <DataGridTemplateColumn Header="פרטים">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button x:Name="UnitDetals" Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}" ToolTip="לצפייה בפרטי היחידה" Click="UnitDetals_Click">
+                                            <Button x:Name="UnitDetals" Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}" ToolTip="לצפייה בפרטי היחידה"><!--Click="UnitDetals_Click">-->
                                                 <materialDesign:PackIcon Kind="Eye" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
                                             </Button>
                                         </DataTemplate>

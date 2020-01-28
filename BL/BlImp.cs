@@ -174,6 +174,21 @@ namespace BL
             return target;
         }
 
+        public void downloadBankXml()
+        {
+            dal.CreateXMLBankFiles();
+        }
+
+        public Dictionary<int, string> getBanknameList()
+        {
+            return dal.BuildDictionaryBankName();
+        }
+
+        public Dictionary<int, string> GetBranchesListForBank(int BankNum)
+        {
+           return dal.buildDictioneryBanches(BankNum);
+        }
+
         public BankBranchBO GetBranch(uint bankNum, uint branchNum)
         {
             return ConverntBankBranchDOToBO(dal.GetBranch(bankNum, branchNum));
