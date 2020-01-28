@@ -362,6 +362,13 @@ namespace BL
                    select GuestRequesConvertDOToBO(item);
         }
 
+        public IEnumerable<GuestRequestBO> GetGuestRequests()
+        {
+            IEnumerable<GuestRequest> sourceRequest = dal.GetGuestRequests();
+            return from item in sourceRequest
+                   select GuestRequesConvertDOToBO(item);
+        }
+
         #endregion
 
         #region Order functions

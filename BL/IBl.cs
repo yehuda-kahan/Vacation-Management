@@ -74,7 +74,7 @@ namespace BlApi
         /// <param name="status"></param>
         void UpdStatusRequest(uint key, RequestStatusBO status);
 
-
+      
         #endregion
 
         #region Client
@@ -241,6 +241,8 @@ namespace BlApi
         IEnumerable<IGrouping<int, HostBO>> GetHostsByNumOfUnits();
 
         IEnumerable<IGrouping<AreaLocationBO, HostingUnitBO>> GetHostingUnitsByArea();
+
+        IEnumerable<GuestRequestBO> GetGuestRequests();
 
         #endregion
     }
