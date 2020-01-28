@@ -32,6 +32,7 @@ namespace PlGui
             InitializeComponent();
             myHost = host;
             GetRequestsAccAera();
+            requestList.DataContext = guestRequests;
         }
 
         void GetRequestsAccAera()
@@ -51,6 +52,11 @@ namespace PlGui
                 }
             }
             guestRequests = new ObservableCollection<GuestRequestBO>(guestRequests.Distinct());
+        }
+
+        private void requestList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

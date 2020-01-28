@@ -317,6 +317,7 @@ namespace PlGui
 
         private void guestRequstBut_Click(object sender, RoutedEventArgs e)
         {
+            host = bl.GetHost(host.PersonalInfo.Id);
             GuestRequestListUserControl listRequestControl = new GuestRequestListUserControl(host);
             MaterialDesignThemes.Wpf.DialogHost.Show(listRequestControl, "HostWinDialog");
         }
