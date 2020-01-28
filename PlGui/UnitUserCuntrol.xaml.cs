@@ -24,7 +24,7 @@ namespace PlGui
     {
         HostingUnitBO myUnit;
         static IBl bl = BlFactory.GetBL();
-        public event Action<HostingUnitBO> UpdUnit;
+        public event Action UpdUnit;
 
         public UnitUserCuntrol(HostingUnitBO unit)
         {
@@ -38,15 +38,16 @@ namespace PlGui
             comArea.SelectedIndex = (int)myUnit.Area;
             viewCalender.DisplayDateStart = DateTime.Now;
             Initilize_Calender_Detalse();
+            delBtn();
         }
 
         void delBtn()
         {
             if (myUnit.Status == StatusBO.INACTIVE)
             {
-                icon.Visibility = Visibility.Collapsed;
                 Act_Inact_Unit_Btn.Background = Brushes.DarkGreen;
-                Act_Inact_Unit_Btn.Content = "הפעל";
+                icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Plus;
+                Act_Inact_Unit_Btn.ToolTip = "הפעל יחידה זו";
             }
         }
 
@@ -95,10 +96,7 @@ namespace PlGui
                 for (; run <= temp.Last(); run = run.AddDays(1))
                     myUnit.SetDates(run);
                 bl.UpdUnit(myUnit);
-
             }
-
-
         }
 
         private void viewCalender_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -141,12 +139,14 @@ namespace PlGui
                 }
                 myUnit.Status = StatusBO.INACTIVE;
                 bl.UpdUnit(myUnit);
+                
             }
             else if (myUnit.Status == StatusBO.INACTIVE)
             {
                 myUnit.Status = StatusBO.ACTIVE;
                 bl.UpdUnit(myUnit);
             }
+            UpdUnit();
         }
     }
 }
