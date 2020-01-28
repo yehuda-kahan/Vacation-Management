@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using BO;
 using BlApi;
 using System.Data.Linq;
+using System.ComponentModel;
 
 namespace PlGui
 {
@@ -24,6 +25,8 @@ namespace PlGui
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        BackgroundWorker downloadBankXml = new BackgroundWorker();
         static IBl bl = BlFactory.GetBL();
         public ClientBO client;
         public ObservableCollection<GuestRequestBO> requests;
@@ -32,8 +35,19 @@ namespace PlGui
         public MainWindow()
         {
             InitializeComponent();
+            downloadBankXml.DoWork += DownloadBankXml_DoWork;
+            downloadBankXml.RunWorkerCompleted += DownloadBankXml_RunWorkerCompleted;
 
+        }
 
+        private void DownloadBankXml_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            
+        }
+
+        private void DownloadBankXml_DoWork(object sender, DoWorkEventArgs e)
+        {
+            bl.downloadBankXml();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -86,8 +100,6 @@ namespace PlGui
             TabControl tabControl = sender as TabControl;
             if (TabControl_Login.SelectedIndex == 0)
                 LogOut_Click(null, null);
-            
-
         }
 
         private void MailCheck(object sender, KeyEventArgs e)
@@ -137,6 +149,7 @@ namespace PlGui
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            downloadBankXml.RunWorkerAsync();
         }
 
         private void ChangeInfoBut_click(object sender, RoutedEventArgs e)

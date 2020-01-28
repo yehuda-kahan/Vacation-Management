@@ -9,6 +9,14 @@ namespace DalApi
 {
     public interface IDal
     {
+        #region BankXml
+        void CreateXMLBankFiles();
+
+        Dictionary<int, string> BuildDictionaryBankName();
+
+        Dictionary<int, string> buildDictioneryBanches(int BankNum);
+        #endregion
+
         #region Person
 
         bool ChaeckPersonMail(string mail);

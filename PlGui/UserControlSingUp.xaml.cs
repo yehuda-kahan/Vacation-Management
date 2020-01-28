@@ -26,7 +26,7 @@ namespace PlGui
         static IBl bl = BlFactory.GetBL();
         PersonBO person = new PersonBO();
         internal event Action<string> OpenClientWin;
-       
+
 
         public UserControlSingUp()
         {

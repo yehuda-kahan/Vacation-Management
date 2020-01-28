@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using DalApi;
 using DO;
 using DS;
@@ -18,6 +20,55 @@ namespace Dal
         static DalObject() { }
         DalObject() { }
         public static DalObject Instance { get { return instance; } }
+
+        public Dictionary<int, string> BankNumberDictionary { get; private set; }
+        public Dictionary<int, string> BankAddressDictionary { get; private set; }
+        #endregion
+
+        #region BankXml
+        const string xmlLocalPath = @"Banks.xml";
+        public void CreateXMLBankFiles()
+        {
+
+            using (System.Net.WebClient wc = new WebClient())
+            {
+                try
+                {
+                    string xmlServerPath = @"http://www.jct.ac.il/~coshri/atm.xml";
+                    wc.DownloadFile(xmlServerPath, xmlLocalPath);
+                }
+                catch (Exception)
+                {
+                    string xmlServerPath = @"http://www.jct.ac.il/~coshri/atm.xml";
+                    wc.DownloadFile(xmlServerPath, xmlLocalPath);
+                }
+            }
+        }
+
+        public Dictionary<int, string> BuildDictionaryBankName()
+        {
+            XElement xml = XElement.Load(xmlLocalPath);
+
+            return (from Bank in xml.Elements()
+                    select new { Bankcode = int.Parse(Bank.Element("קוד_בנק").Value), Bnakname = Bank.Element("שם_בנק").Value }
+                                    into temp
+                    group temp by temp.Bankcode).ToDictionary(x => x.Key, x => x.ElementAt(0).Bnakname);
+        }
+
+        public Dictionary<int, string> buildDictioneryBanches(int BankNum)
+        {
+            XElement xml = XElement.Load(xmlLocalPath);
+            return (from Bank in xml.Elements()
+                    where (int.Parse(Bank.Element("קוד_בנק").Value) == BankNum)
+                    select new
+                    {
+                        BranchCode = int.Parse(Bank.Element("קוד_סניף").Value),
+                        address = Bank.Element("כתובת_ה-ATM").Value,
+                        City = Bank.Element("ישוב").Value
+                    }
+                                     into temp
+                    group temp by temp.BranchCode).ToDictionary(x => x.Key, x => x.ElementAt(0).address + "@" + x.ElementAt(0).City);
+        }
         #endregion
 
         #region Person Function functions
@@ -314,10 +365,28 @@ namespace Dal
         #region
         public BankBranch GetBranch(uint bankNum, uint branchNum)
         {
-            return DataSource.bankBranches.FirstOrDefault
-                (x => x.BankNumber == bankNum && x.BranchNumber == branchNum).Clone();//TODO throw
-        }
+            BankBranch temp = new BankBranch();
+            XElement xml = XElement.Load(xmlLocalPath);
 
-        #endregion
+            IEnumerable<XElement> address = from Bank in xml.Elements()
+                                            where (int.Parse(Bank.Element("קוד_בנק").Value) == bankNum && (int.Parse(Bank.Element("קוד_סניף").Value) == branchNum))
+                                            select Bank;
+
+            foreach (XElement item in address)
+            {
+                temp.BranchCity = item.Element("ישוב").Value;
+                temp.BranchAddress = item.Element("כתובת_ה-ATM").Value;
+                temp.BankName = item.Element("שם_בנק").Value;
+                temp.BankNumber = bankNum;
+                temp.BranchNumber = branchNum;
+                break;
+            }
+            return temp.Clone();
+        }
     }
+
+
+
+    #endregion
 }
+
