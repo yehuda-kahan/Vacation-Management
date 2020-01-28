@@ -366,7 +366,9 @@ namespace Dal
         public BankBranch GetBranch(uint bankNum, uint branchNum)
         {
             BankBranch temp = new BankBranch();
-            XElement xml = XElement.Load(xmlLocalPath);
+            XElement xml;
+            try { xml = XElement.Load(xmlLocalPath); }
+            catch (Exception ex) { return null; }
 
             IEnumerable<XElement> address = from Bank in xml.Elements()
                                             where (int.Parse(Bank.Element("קוד_בנק").Value) == bankNum && (int.Parse(Bank.Element("קוד_סניף").Value) == branchNum))

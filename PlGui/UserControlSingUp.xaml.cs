@@ -43,7 +43,10 @@ namespace PlGui
                 CreateBut.IsEnabled = false;
             }
             else if (bl.IsValidMail(Email.Text))
+            {
                 ErorrMail.Visibility = Visibility.Collapsed;
+                CreateBut.IsEnabled = true;
+            }
         }
 
         //TODO check if all fields are not empty

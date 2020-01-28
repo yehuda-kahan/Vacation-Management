@@ -24,44 +24,59 @@ namespace PlGui
     {
         HostingUnitBO myUnit;
         static IBl bl = BlFactory.GetBL();
+        public event Action<HostingUnitBO> UpdUnit;
 
         public UnitUserCuntrol(HostingUnitBO unit)
         {
             InitializeComponent();
             viewCalender.SelectionMode = CalendarSelectionMode.SingleRange;
             myUnit = unit;
+            myUnit.Diary[1, 1] = true;
+            myUnit.Diary[1, 2] = true;
+            myUnit.Diary[1, 3] = true;
             GridCalender.DataContext = myUnit;
             comArea.SelectedIndex = (int)myUnit.Area;
             viewCalender.DisplayDateStart = DateTime.Now;
             Initilize_Calender_Detalse();
         }
 
+        void delBtn()
+        {
+            if (myUnit.Status == StatusBO.INACTIVE)
+            {
+                icon.Visibility = Visibility.Collapsed;
+                Act_Inact_Unit_Btn.Background = Brushes.DarkGreen;
+                Act_Inact_Unit_Btn.Content = "הפעל";
+            }
+        }
 
         void Initilize_Calender_Detalse()
         {
-            DateTime startDate = default;
-            DateTime endDate;
-            CalendarDateRange dateRange;
-            bool StartFlag = false;
+            //DateTime startDate = default;
+            //DateTime endDate;
+            //CalendarDateRange dateRange;
+            //bool StartFlag = false;
 
             for (int i = 0; i < 12; ++i)
             {
                 for (int j = 0; j < 31; ++j)
                 {
-                    // for the first resevation day
-                    if (StartFlag == false && myUnit.Diary[i, j] == true)
-                    {
-                        startDate = new DateTime(DateTime.Now.Year, i + 1, j + 1);
-                        StartFlag = true;
-                    }
-                    // for the last resevation day
-                    if (StartFlag == true && myUnit.Diary[i, j] == false)
-                    {
-                        endDate = new DateTime(DateTime.Now.Year, i + 1, j + 1).AddDays(-1);
-                        dateRange = new CalendarDateRange(startDate, endDate);
-                        viewCalender.BlackoutDates.Add(dateRange);
-                        StartFlag = false;
-                    }
+                    if (myUnit.Diary[i, j] == true)
+                        viewCalender.BlackoutDates.Add(new CalendarDateRange(new DateTime(DateTime.Now.Year, i + 1, j + 1)));
+                    //// for the first resevation day
+                    //if (StartFlag == false && myUnit.Diary[i, j] == true)
+                    //{
+                    //    startDate = new DateTime(DateTime.Now.Year, i + 1, j + 1);
+                    //    StartFlag = true;
+                    //}
+                    //// for the last resevation day
+                    //if (StartFlag == true && myUnit.Diary[i, j] == false)
+                    //{
+                    //    endDate = new DateTime(DateTime.Now.Year, i + 1, j + 1).AddDays(-1);
+                    //    dateRange = new CalendarDateRange(startDate, endDate);
+                    //    viewCalender.BlackoutDates.Add(dateRange);
+                    //    StartFlag = false;
+                    //}
                 }
             }
 
@@ -103,6 +118,34 @@ namespace PlGui
                 bl.UpdUnit(myUnit);  // no need to catch exception
                 UpdBut.Content = "עריכה";
                 UnitName.IsEnabled = false;
+            }
+        }
+
+        private void deleteUnit_Click(object sender, RoutedEventArgs e)
+        {
+            if (myUnit.Status == StatusBO.ACTIVE)
+            {
+                var orders = bl.GetOdrsOfHost(myUnit.Owner);
+                if (orders != null)
+                {
+                    foreach (OrderBO item in orders)
+                    {
+                        if (item.HostingUnit.Key == myUnit.Key &&
+                            (item.Status == OrderStatusBO.MAIL_SENT || item.Status == OrderStatusBO.PROCESSING))
+                        {
+                            MessageBox.Show("canot remove this unit because it has an open order");
+                            return;
+                        }
+
+                    }
+                }
+                myUnit.Status = StatusBO.INACTIVE;
+                bl.UpdUnit(myUnit);
+            }
+            else if (myUnit.Status == StatusBO.INACTIVE)
+            {
+                myUnit.Status = StatusBO.ACTIVE;
+                bl.UpdUnit(myUnit);
             }
         }
     }

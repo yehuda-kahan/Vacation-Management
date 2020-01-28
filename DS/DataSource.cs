@@ -99,7 +99,7 @@ namespace DS
                     HostingUnitKey = 1112,
                     GuestRequestKey =20000000,
                     OrderDate =new DateTime(2019,12,12),
-                    CloseDate =new DateTime(2019,12,12),
+                   
                     SentDate =new DateTime(2019,12,12),
                     Status= OrderStatus.PROCESSING
                 }
@@ -112,8 +112,8 @@ namespace DS
                     Key=20000000,
                     ClientId = "12345678",
                     CreateDate =new DateTime(2020,04,21),
-                    EntryDate =new DateTime(2020,05,01),
-                    LeaveDate =new DateTime(2020,07,04),
+                    EntryDate =new DateTime(2020,02,03),
+                    LeaveDate =new DateTime(2020,02,08),
                     Area = AreaLocation.ALL,
                     Type = UnitType.ZIMMER,
                     Adults =2,
