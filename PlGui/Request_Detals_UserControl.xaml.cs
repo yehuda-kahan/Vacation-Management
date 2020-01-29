@@ -58,7 +58,7 @@ namespace PlGui
             var avalableUnits = bl.GetAvalableUnits(myRequest.EntryDate, (uint)(myRequest.LeaveDate - myRequest.EntryDate).Days);
             foreach (HostingUnitBO unit in avalableUnits)
             {
-                if (unit.Owner == myHost.PersonalInfo.Id && myRequest.Area == unit.Area && unit.Status == StatusBO.פעיל)
+                if (unit.Owner == myHost.PersonalInfo.Id && (myRequest.Area == unit.Area|| myRequest.Area== AreaLocationBO.ALL) && unit.Status == StatusBO.פעיל)
                     hostingUnits.Add(unit);
             }
             Create_Order_UserControl create_Order_UserControl = new Create_Order_UserControl(hostingUnits, myRequest);

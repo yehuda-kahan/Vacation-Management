@@ -45,7 +45,7 @@ namespace PlGui
             {
                 foreach (HostingUnitBO unit in myHost.UnitsHost)
                 {
-                    if (request.Area == unit.Area && request.Status == RequestStatusBO.OPEN)
+                    if ((request.Area == unit.Area || request.Area== AreaLocationBO.ALL) && request.Status == RequestStatusBO.OPEN)
                     {
                         guestRequests.Add(request);
                         break;
