@@ -60,11 +60,11 @@ namespace PlGui
             {
                 int count = guestRequests.Count;
                 for (int i = 0; i < count; ++i)
-                {
                     if (order.GuestRequest.Key == guestRequests[i].Key)
-                        guestRequests.RemoveAt(i);
-                    count--;
-                }
+                    {
+                        guestRequests.Remove(guestRequests[i]);
+                        count--;
+                    }
             }
         }
 

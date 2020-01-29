@@ -55,6 +55,7 @@ namespace PlGui
             try { bl.AddOrder(newOrder); }
             catch (DuplicateKeyException ex) { MessageBox.Show(ex.Message); return; }
             AddOrderEvent(newOrder);
+            //Email email = new Email()
         }
     }
 }

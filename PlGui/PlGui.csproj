@@ -72,6 +72,7 @@
     <Compile Include="Create_Order_UserControl.xaml.cs">
       <DependentUpon>Create_Order_UserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Email.cs" />
     <Compile Include="GuestRequestListUserControl.xaml.cs">
       <DependentUpon>GuestRequestListUserControl.xaml</DependentUpon>
     </Compile>
