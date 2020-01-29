@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using BO;
+using BlApi;
+
+namespace PlGui
+{
+    /// <summary>
+    /// Interaction logic for Request_Detals_UserControl.xaml
+    /// </summary>
+    public partial class Request_Detals_UserControl : UserControl
+    {
+        HostBO myHost;
+        PersonBO Person;
+        GuestRequestBO myRequest;
+        public static IBl bl = BlFactory.GetBL();
+        public Request_Detals_UserControl(GuestRequestBO request, HostBO host)
+        {
+            InitializeComponent();
+            myRequest = request;
+            myHost = host;
+            Person = bl.GetPersonById(myRequest.ClientId);
+            FirstName.Text = Person.FirstName;
+            LastName.Text = Person.LastName;
+            GridRequest.DataContext = myRequest;
+            initi_comboxes();
+        }
+
+        void initi_comboxes()
+        {
+            comboJacuzzi.SelectedIndex = (int)myRequest.Jacuzzi;
+            comboGarden.SelectedIndex = (int)myRequest.Garden;
+            comboPool.SelectedIndex = (int)myRequest.Pool;
+            comboUnitType.SelectedIndex = (int)myRequest.Type;
+            comboChildrensAttractions.SelectedIndex = (int)myRequest.ChildrensAttractions;
+            comboArea.SelectedIndex = (int)myRequest.Area;
+        }
+
+        private void CheckAvelabiltyBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+}

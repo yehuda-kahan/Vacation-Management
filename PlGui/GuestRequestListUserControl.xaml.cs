@@ -32,36 +32,51 @@ namespace PlGui
             InitializeComponent();
             myHost = host;
             GetRequestsAccAera();
-            //requestList.DataContext = guestRequests;
+            clearRequestsWithOdr();
+            requestList.DataContext = guestRequests;
         }
 
         void GetRequestsAccAera()
         {
             guestRequests = new ObservableCollection<GuestRequestBO>();
-            var grupRequestByArea = bl.GetRequestByArea();
+            var Requests = bl.GetGuestRequests();
 
-            foreach (HostingUnitBO unit in myHost.UnitsHost)
+            foreach (GuestRequestBO request in Requests)
             {
-                foreach (var area in grupRequestByArea)
+                foreach (HostingUnitBO unit in myHost.UnitsHost)
                 {
-                    if (unit.Area == area.Key)
+                    if (request.Area == unit.Area && request.Status == RequestStatusBO.OPEN)
                     {
-                        foreach (var request in area)
-                            guestRequests.Add(request);
+                        guestRequests.Add(request);
+                        break;
                     }
                 }
             }
-            guestRequests = new ObservableCollection<GuestRequestBO>(guestRequests.Distinct());
+            //guestRequests = new ObservableCollection<GuestRequestBO>(guestRequests.Distinct());
+            MessageBox.Show(Convert.ToString(guestRequests.Count()));
+        }
+
+        void clearRequestsWithOdr()
+        {
+            foreach (OrderBO order in myHost.OrdersHost)
+            {
+                int count = guestRequests.Count;
+                for (int i = 0; i < count; ++i)
+                {
+                    if (order.GuestRequest.Key == guestRequests[i].Key)
+                        guestRequests.RemoveAt(i);
+                    count--;
+                }
+            }
         }
 
         private void requestList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            Request_Detals_UserControl requestControl = new Request_Detals_UserControl((GuestRequestBO)requestList.SelectedItem, myHost);
+            MaterialDesignThemes.Wpf.DialogHost.Show(requestControl, "RequestListDialog");
 
         }
 
-        private void requestList_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
-        {
 
-        }
     }
 }

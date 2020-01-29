@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="PlGui.Request_Detals_UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PlGui"
+             mc:Ignorable="d" 
+            >
+
+    <Grid FlowDirection="RightToLeft" >
+        <Border  CornerRadius="5">
+            <materialDesign:Card  BorderThickness="0.5"  Padding="10"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030" Foreground="White">
+                <Grid Margin="5" x:Name="GridRequest">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                        <StackPanel Grid.ColumnSpan="2" Margin="5" HorizontalAlignment="Center" Grid.Row="0">
+                            <TextBlock Text="פרטי בקשת הלקוח" FontSize="15" FontWeight="Bold" />
+                        </StackPanel>
+                        <StackPanel Grid.ColumnSpan="2" IsEnabled="False" Margin="5" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+                            <TextBox x:Name="FirstName" IsEnabled="False" Text="yehuda" materialDesign:HintAssist.Hint="שם פרטי" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"   MinWidth="90" />
+                            <TextBox x:Name="LastName" IsEnabled="False" Text="kahan" materialDesign:HintAssist.Hint="שם משפחה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"   MinWidth="90" />
+                        </StackPanel>
+                        <DatePicker x:Name="EntryDate" IsEnabled="False"  Margin="5" Grid.Row="2"  Grid.Column="0"  SelectedDate="{Binding Path= EntryDate}" materialDesign:HintAssist.Hint="מתאריך" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" materialDesign:ThemeAssist.Theme="Dark" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White"  />
+                        <DatePicker x:Name="LeaveDate"  IsEnabled="False" Margin="5" Grid.Column="1" Grid.Row="2"   SelectedDate="{Binding Path= LeaveDate}" materialDesign:HintAssist.Hint="עד תאריך" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   materialDesign:ThemeAssist.Theme="Dark" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" />
+                        <StackPanel x:Name="ChangeAd" Orientation="Horizontal" Margin="0,5" Grid.Row="3" Grid.Column="0" IsEnabled="False">
+                            <Button x:Name="PlusAdBut" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"   ToolTip="MaterialDesignFloatingActionMiniLightButton" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}">
+                                <materialDesign:PackIcon Kind="Plus"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
+                            </Button>
+                            <TextBox x:Name="adults"  HorizontalAlignment="Center" Text="{Binding Path= Adults}" IsEnabled="False" materialDesign:HintAssist.Hint="מבוגרים"    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Foreground="White" BorderBrush="{x:Null}" Margin="-5,0,0,0"/>
+                            <Button x:Name="MinAdBut" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Margin="-30,0,0,0">
+                                <materialDesign:PackIcon Kind="Minus" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
+                            </Button>
+                        </StackPanel>
+                        <StackPanel x:Name="ChangeCh" Orientation="Horizontal" Margin="0,5" Grid.Row="3" Grid.Column="1"  IsEnabled="False">
+                            <Button x:Name="PlusChBut" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}">
+                                <materialDesign:PackIcon Kind="Plus" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
+                            </Button>
+                            <TextBox x:Name="children"  HorizontalAlignment="Center" Text="{Binding Path= Children}" IsEnabled="False" materialDesign:HintAssist.Hint="ילדים"    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Foreground="White" MinWidth="45" BorderBrush="{x:Null}" Margin="0"/>
+                            <Button x:Name="MinChBut" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Margin="-10,0,0,0">
+                                <materialDesign:PackIcon Kind="Minus" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
+                            </Button>
+                        </StackPanel>
+
+
+                        <ComboBox x:Name="comboJacuzzi"  IsEnabled="False"  Grid.Row="4" Grid.Column="0" materialDesign:HintAssist.Hint="ג'קוזי"  Margin="5"  Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  >
+                            <ComboBoxItem>כן</ComboBoxItem>
+                            <ComboBoxItem>אולי</ComboBoxItem>
+                            <ComboBoxItem>לא</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox x:Name="comboPool"  IsEnabled="False"  Grid.Row="4" Grid.Column="1" materialDesign:HintAssist.Hint="בריכה"   Margin="5"  Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
+                            <ComboBoxItem>כן</ComboBoxItem>
+                            <ComboBoxItem>אולי</ComboBoxItem>
+                            <ComboBoxItem>לא</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox x:Name="comboGarden" IsEnabled="False"  Grid.Row="5" Grid.Column="0" materialDesign:HintAssist.Hint="גינה"  Margin="5"  Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
+                            <ComboBoxItem>כן</ComboBoxItem>
+                            <ComboBoxItem>אולי</ComboBoxItem>
+                            <ComboBoxItem>לא</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox x:Name="comboChildrensAttractions"  IsEnabled="False"  Grid.Row="5" Grid.Column="1" materialDesign:HintAssist.Hint="אטרקציות לילדים" Margin="5"  Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
+                            <ComboBoxItem>כן</ComboBoxItem>
+                            <ComboBoxItem>אולי</ComboBoxItem>
+                            <ComboBoxItem>לא</ComboBoxItem>
+                        </ComboBox>
+
+
+                        <ComboBox x:Name="comboUnitType" Grid.Row="6" IsEnabled="False" Grid.Column="0" materialDesign:HintAssist.Hint="סוג יחידת אירוח" Margin="5"  Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+                            <ComboBoxItem>צימר</ComboBoxItem>
+                            <ComboBoxItem>מלון</ComboBoxItem>
+                            <ComboBoxItem>קמפינג</ComboBoxItem>
+                            <ComboBoxItem>דירת אירוח</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox x:Name="comboArea" Grid.Row="6" Grid.Column="1" IsEnabled="False" materialDesign:HintAssist.Hint="איזור"  Margin="5"  Style="{StaticResource MaterialDesignFloatingHintComboBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
+                            <ComboBoxItem>הכל</ComboBoxItem>
+                            <ComboBoxItem>צפון</ComboBoxItem>
+                            <ComboBoxItem>דרום</ComboBoxItem>
+                            <ComboBoxItem>מרכז</ComboBoxItem>
+                            <ComboBoxItem>ירושלים</ComboBoxItem>
+                        </ComboBox>
+                   
+                    <Button x:Name="CheckAvelabiltyBtn" Content="בדוק זמינות" Grid.Column="1"  Grid.Row="7" Click="CheckAvelabiltyBtn_Click"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0"/>
+                    <Button x:Name="CloseBut"  Content="סגור"  Grid.Column="0" Grid.Row="7" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0"  >
+                        <Button.Foreground>
+                            <SolidColorBrush Color="{DynamicResource CloseColor}"/>
+                        </Button.Foreground>
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+        </Border>
+    </Grid>
+
+</UserControl>
