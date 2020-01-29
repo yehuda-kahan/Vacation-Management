@@ -20,12 +20,12 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0">
-                            <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True" MaxHeight="200">
-                                <DataGrid x:Name="unitsList" IsReadOnly="True"   ItemsSource="{Binding}"  CanUserSortColumns="False" CanUserAddRows="False" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" Background="#FF303030" Foreground="White">
+                            <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True"  MaxHeight="350">
+                                <DataGrid x:Name="unitsList" IsReadOnly="True"   ItemsSource="{Binding}"  CanUserSortColumns="False" CanUserAddRows="False" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" Background="#FF1E1E1E" Foreground="White" VerticalGridLinesBrush="White"  >
                                     <DataGrid.Columns>
-                                        <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר היחידה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" Foreground="White" />
-                                        <materialDesign:DataGridTextColumn Binding="{Binding HostingUnitName}" Header="שם היחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
-                                        <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
+                                        <materialDesign:DataGridTextColumn Binding="{Binding Key}" materialDesign:Foreground="White"  Header="מספר היחידה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  />
+                                        <materialDesign:DataGridTextColumn Binding="{Binding HostingUnitName}" Header="שם היחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                                        <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                                         <DataGridTemplateColumn Header="פרטים">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>

@@ -27,9 +27,12 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10" >
-                            <TextBlock Text="יחידה מס :  " FontSize="15" Foreground="WhiteSmoke" />
-                            <TextBlock x:Name="UnitNum" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="0"   Text="{Binding Path= Key}" FontSize="15" Foreground="WhiteSmoke" />
+                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10" >
+                            <TextBlock Text="יחידה מס :  " FontSize="15" Foreground="WhiteSmoke" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="UnitNum" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="0"   VerticalAlignment="Center" Text="{Binding Path= Key}" FontSize="15" Foreground="WhiteSmoke" />
+                            <Button x:Name="Act_Inact_Unit_Btn"  HorizontalAlignment="Left"  Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="60" ToolTip="מחק יחידה זו" Height="40" Margin="80,0,0,0" Background="#FFEB0000" BorderBrush="{x:Null}" Click="deleteUnit_Click">
+                                <materialDesign:PackIcon x:Name="icon" Kind="Trash" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
+                            </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1" Margin="10" >
                             <TextBlock Text="שם היחידה : "   FontSize="15" Foreground="WhiteSmoke" VerticalAlignment="Center"/>
@@ -48,9 +51,7 @@
                         <Calendar  x:Name="viewCalender"  Grid.Row="3" materialDesign:ThemeAssist.Theme="Dark" SelectedDatesChanged="viewCalender_SelectedDatesChanged"/>
                         <Button x:Name="MarkDays" Content="סמן ימים" Grid.ColumnSpan="2" Grid.Row="4" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="100" Height="40" ToolTip="סמן ימים שברצונך לתפוס ביומן ליחידה זו" Click="MarkDays_Click" />
 
-                        <Button x:Name="Act_Inact_Unit_Btn"  Grid.ColumnSpan="2" Grid.Row="5" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="60" ToolTip="מחק יחידה זו" Height="40" Margin="7" Background="#FFEB0000" BorderBrush="#FF6DA09A" Click="deleteUnit_Click">
-                            <materialDesign:PackIcon x:Name="icon" Kind="Trash" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
-                           </Button>
+                        
                         <StackPanel Orientation="Horizontal"  Grid.Row="6" HorizontalAlignment="Center">
                             <Button x:Name="CloseBut"  Content="סגור"   Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0">
                                 <Button.Foreground>

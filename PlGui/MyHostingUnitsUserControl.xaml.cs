@@ -32,6 +32,8 @@ namespace PlGui
             hostingUnits = new ObservableCollection<HostingUnitBO>(hostings);
             unitsList.DataContext = hostingUnits;
             hostId = Id;
+            unitsList.
+           
         }
 
         private void UnitDetals_Click(object sender, RoutedEventArgs e)

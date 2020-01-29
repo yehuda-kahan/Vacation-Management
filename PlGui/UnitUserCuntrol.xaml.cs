@@ -31,9 +31,6 @@ namespace PlGui
             InitializeComponent();
             viewCalender.SelectionMode = CalendarSelectionMode.SingleRange;
             myUnit = unit;
-            myUnit.Diary[1, 1] = true;
-            myUnit.Diary[1, 2] = true;
-            myUnit.Diary[1, 3] = true;
             GridCalender.DataContext = myUnit;
             comArea.SelectedIndex = (int)myUnit.Area;
             viewCalender.DisplayDateStart = DateTime.Now;
@@ -46,7 +43,7 @@ namespace PlGui
             if (myUnit.Status == StatusBO.INACTIVE)
             {
                 Act_Inact_Unit_Btn.Background = Brushes.DarkGreen;
-                icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Plus;
+                icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.CheckboxMarkedCircleOutline;
                 Act_Inact_Unit_Btn.ToolTip = "הפעל יחידה זו";
             }
         }
@@ -139,7 +136,7 @@ namespace PlGui
                 }
                 myUnit.Status = StatusBO.INACTIVE;
                 bl.UpdUnit(myUnit);
-                
+
             }
             else if (myUnit.Status == StatusBO.INACTIVE)
             {
