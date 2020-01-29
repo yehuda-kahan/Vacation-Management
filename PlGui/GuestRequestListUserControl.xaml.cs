@@ -26,7 +26,7 @@ namespace PlGui
         static IBl bl = BlFactory.GetBL();
         ObservableCollection<GuestRequestBO> guestRequests;
         HostBO myHost;
-
+        public event Action<OrderBO> AddOrderEvent;
         public GuestRequestListUserControl(HostBO host)
         {
             InitializeComponent();
@@ -71,10 +71,14 @@ namespace PlGui
         private void requestList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Request_Detals_UserControl requestControl = new Request_Detals_UserControl((GuestRequestBO)requestList.SelectedItem, myHost);
+            requestControl.AddOrderEvent += RequestControl_AddOrderEvent;
             MaterialDesignThemes.Wpf.DialogHost.Show(requestControl, "RequestListDialog");
-
         }
 
-
+        private void RequestControl_AddOrderEvent(OrderBO obj)
+        {
+            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
+            AddOrderEvent(obj);
+        }
     }
 }

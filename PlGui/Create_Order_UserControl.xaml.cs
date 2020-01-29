@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Linq;
 
 namespace PlGui
 {
@@ -23,17 +24,37 @@ namespace PlGui
     /// </summary>
     public partial class Create_Order_UserControl : UserControl
     {
+        public static IBl bl = BlFactory.GetBL();
+        OrderBO newOrder;
+        PersonBO Person;
+        GuestRequestBO myRequest;
         ObservableCollection<HostingUnitBO> myHostingUnits;
-        public Create_Order_UserControl(ObservableCollection<HostingUnitBO> hostingUnits)
+        public event Action<OrderBO> AddOrderEvent;
+        public Create_Order_UserControl(ObservableCollection<HostingUnitBO> hostingUnits, GuestRequestBO request)
         {
             InitializeComponent();
             myHostingUnits = hostingUnits;
+            myRequest = request;
+            Person = bl.GetPersonById(myRequest.ClientId);
             GridHostingUnits.DataContext = myHostingUnits;
         }
 
         private void CrtOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            HostingUnitBO unit = (HostingUnitBO)unitsList.SelectedItem;
+            newOrder = new OrderBO
+            {
+                OrderDate = DateTime.Now,
+                ClientFirstName = Person.FirstName,
+                ClientLastName = Person.LastName,
+                GuestRequest = myRequest,
+                HostingUnit = unit,
+                Status = OrderStatusBO.PROCESSING,
+                HostId = unit.Owner,
+            };
+            try { bl.AddOrder(newOrder); }
+            catch (DuplicateKeyException ex) { MessageBox.Show(ex.Message); return; }
+            AddOrderEvent(newOrder);
         }
     }
 }

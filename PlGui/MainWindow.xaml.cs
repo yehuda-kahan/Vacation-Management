@@ -232,11 +232,10 @@ namespace PlGui
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         #region Host
 
-
+        
         HostBO host;
         ObservableCollection<OrderBO> hostOrders;
-
-
+       
         private void Host_LogIn_But(object sender, RoutedEventArgs e)
         {
             PersonBO temp = null;
@@ -332,7 +331,15 @@ namespace PlGui
         {
             host = bl.GetHost(host.PersonalInfo.Id);
             GuestRequestListUserControl listRequestControl = new GuestRequestListUserControl(host);
+            listRequestControl.AddOrderEvent += ListRequestControl_AddOrderEvent;
             MaterialDesignThemes.Wpf.DialogHost.Show(listRequestControl, "HostWinDialog");
+        }
+
+        private void ListRequestControl_AddOrderEvent(OrderBO obj)
+        {
+            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
+            hostOrders = new ObservableCollection<OrderBO>(bl.GetOdrsOfHost(host.PersonalInfo.Id));
+            OrderList.DataContext = hostOrders;
         }
 
         #endregion Host

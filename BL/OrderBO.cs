@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace BO
 {
-    public class OrderBO : DependencyObject
+    public class OrderBO //: DependencyObject
     {
         //public uint Key
         //{

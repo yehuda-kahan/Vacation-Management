@@ -29,6 +29,7 @@ namespace PlGui
         GuestRequestBO myRequest;
         ObservableCollection<HostingUnitBO> hostingUnits;
         public static IBl bl = BlFactory.GetBL();
+        public event Action<OrderBO> AddOrderEvent;
         public Request_Detals_UserControl(GuestRequestBO request, HostBO host)
         {
             InitializeComponent();
@@ -60,9 +61,16 @@ namespace PlGui
                 if (unit.Owner == myHost.PersonalInfo.Id && myRequest.Area == unit.Area && unit.Status == StatusBO.פעיל)
                     hostingUnits.Add(unit);
             }
-            Create_Order_UserControl create_Order_UserControl = new Create_Order_UserControl(hostingUnits);
+            Create_Order_UserControl create_Order_UserControl = new Create_Order_UserControl(hostingUnits, myRequest);
+            create_Order_UserControl.AddOrderEvent += Create_Order_UserControl_AddOrderEvent;
             MaterialDesignThemes.Wpf.DialogHost.Show(create_Order_UserControl, "RequestDetales");
+            
+        }
 
+        private void Create_Order_UserControl_AddOrderEvent(OrderBO obj)
+        {
+            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
+            AddOrderEvent(obj);
         }
     }
 }

@@ -20,7 +20,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0">
                         <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True" MaxHeight="200">
-                            <DataGrid x:Name="unitsList" IsReadOnly="True"   ItemsSource="{Binding}"  CanUserSortColumns="False" CanUserAddRows="False" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" Background="#FF303030" Foreground="White">
+                            <DataGrid x:Name="unitsList" IsReadOnly="True"  materialDesign:ThemeAssist.Theme="Dark" ItemsSource="{Binding}"  CanUserSortColumns="False" CanUserAddRows="False" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" Background="#FF303030" Foreground="White">
                                 <DataGrid.Columns>
                                     <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר היחידה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" Foreground="White" />
                                     <materialDesign:DataGridTextColumn Binding="{Binding HostingUnitName}" Header="שם היחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
@@ -29,7 +29,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button x:Name="CrtOrder" Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}" ToolTip="צור הזמנה" Click="CrtOrder_Click">
-                                                    <materialDesign:PackIcon Kind="Add" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
+                                                    <materialDesign:PackIcon Kind="CreateNewFolderOutline" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
                                                 </Button>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
