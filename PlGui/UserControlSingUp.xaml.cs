@@ -40,11 +40,13 @@ namespace PlGui
             else if (!bl.IsValidMail(Email.Text) && Email.Text != "")
             {
                 ErorrMail.Visibility = Visibility.Visible;
+                Email.BorderBrush = Brushes.Red;
                 CreateBut.IsEnabled = false;
             }
             else if (bl.IsValidMail(Email.Text))
             {
                 ErorrMail.Visibility = Visibility.Collapsed;
+                Email.BorderBrush = Brushes.Gray;
                 CreateBut.IsEnabled = true;
             }
         }
@@ -81,17 +83,20 @@ namespace PlGui
                 if (!bl.IsValidTZ(Id.Text))
                 {
                     ErorrID.Visibility = Visibility.Visible;
+                    Id.BorderBrush = Brushes.Red;
                     CreateBut.IsEnabled = false;
                 }
                 else
                 {
                     ErorrID.Visibility = Visibility.Collapsed;
+                    Id.BorderBrush = Brushes.Gray;
                     CreateBut.IsEnabled = true;
                 }
             }
             else
             {
                 ErorrID.Visibility = Visibility.Collapsed;
+                Id.BorderBrush = Brushes.Gray;
                 CreateBut.IsEnabled = true;
             }
         }
@@ -108,5 +113,51 @@ namespace PlGui
             }
         }
 
+        private void LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (!textBox.Text.All(char.IsLetter) || textBox.Text.Length == 0)
+            {
+                textBox.BorderBrush = Brushes.Red;
+                CreateBut.IsEnabled = false;
+            }
+            else
+            {
+                textBox.BorderBrush = Brushes.Gray;
+                CreateBut.IsEnabled = true;
+            }
+        }
+
+        private void Password_LostFocus(object sender, RoutedEventArgs e)
+        {
+            PasswordBox passBox = sender as PasswordBox;
+            if (passBox.Password.Length == 0)
+            {
+                passBox.BorderBrush = Brushes.Red;
+                CreateBut.IsEnabled = false;
+            }
+            else
+            {
+                passBox.BorderBrush = Brushes.Gray;
+                CreateBut.IsEnabled = true;
+            }
+        }
+
+
+        private void Num_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            if (!textBox.Text.All(char.IsDigit) || textBox.Text.Length < 10)
+            {
+                textBox.BorderBrush = Brushes.Red;
+                CreateBut.IsEnabled = false;
+            }
+            else
+            {
+                textBox.BorderBrush = Brushes.Gray;
+                CreateBut.IsEnabled = true;
+            }
+        }
     }
 }
