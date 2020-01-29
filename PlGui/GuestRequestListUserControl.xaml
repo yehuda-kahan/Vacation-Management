@@ -20,7 +20,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True" MaxHeight="350">
-                            <DataGrid x:Name="requestList" IsReadOnly="True" Grid.Row="0"  ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" Background="#FF303030" Foreground="White" MouseDoubleClick="requestList_MouseDoubleClick">
+                            <DataGrid x:Name="requestList" IsReadOnly="True" Grid.Row="0" materialDesign:ThemeAssist.Theme="Dark" ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" Background="#FF303030" Foreground="White" MouseDoubleClick="requestList_MouseDoubleClick">
                                 <DataGrid.Columns>
                                     <materialDesign:DataGridTextColumn Binding="{Binding CreateDate,StringFormat= dd/MM/yyyy}"   Header="נוצר בתאריך" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" Foreground="White" />
                                     <materialDesign:DataGridTextColumn Binding="{Binding EntryDate,StringFormat= dd/MM/yyyy}" Header="תאריך כניסה רצוי"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>

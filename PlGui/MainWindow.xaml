@@ -16,10 +16,9 @@
      FontFamily="{DynamicResource MaterialDesignFont}"
         Title="MainWindow" MinHeight="400" MinWidth="700" Height="700" Width="1000" MaxHeight="1400" MaxWidth="2000"  WindowStyle="None"  FlowDirection="RightToLeft" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" MouseDown="Window_MouseDown" Loaded="Window_Loaded"   >
-    <Window.Resources>
+    <Window.Resources/>
 
-    </Window.Resources>
-    <!--Loaded="Window_Loaded"-->
+   
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -273,9 +272,7 @@
                                             <RowDefinition Height="1*"/>
                                             <RowDefinition Height="3*"/>
                                         </Grid.RowDefinitions>
-                                        <StackPanel Grid.Column="1" Grid.Row="0">
-
-                                        </StackPanel>
+                                        
                                         <StackPanel  Grid.Column="1" Grid.Row="1" Orientation="Vertical">
                                             <TextBlock  HorizontalAlignment="Center" Text="ההזמנות שלי" FontSize="16" FontWeight="Bold" />
                                             <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True">
