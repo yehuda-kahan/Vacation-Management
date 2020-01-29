@@ -69,6 +69,9 @@
     <Compile Include="AddUnitUserControl.xaml.cs">
       <DependentUpon>AddUnitUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Create_Order_UserControl.xaml.cs">
+      <DependentUpon>Create_Order_UserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GuestRequestListUserControl.xaml.cs">
       <DependentUpon>GuestRequestListUserControl.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddUnitUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Create_Order_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
