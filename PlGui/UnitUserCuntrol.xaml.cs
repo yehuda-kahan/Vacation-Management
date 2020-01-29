@@ -43,7 +43,7 @@ namespace PlGui
 
         void delBtn()
         {
-            if (myUnit.Status == StatusBO.INACTIVE)
+            if (myUnit.Status == StatusBO.לא_פעיל)
             {
                 Act_Inact_Unit_Btn.Background = Brushes.DarkGreen;
                 icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Plus;
@@ -121,7 +121,7 @@ namespace PlGui
 
         private void deleteUnit_Click(object sender, RoutedEventArgs e)
         {
-            if (myUnit.Status == StatusBO.ACTIVE)
+            if (myUnit.Status == StatusBO.פעיל)
             {
                 var orders = bl.GetOdrsOfHost(myUnit.Owner);
                 if (orders != null)
@@ -137,13 +137,13 @@ namespace PlGui
 
                     }
                 }
-                myUnit.Status = StatusBO.INACTIVE;
+                myUnit.Status = StatusBO.לא_פעיל;
                 bl.UpdUnit(myUnit);
                 
             }
-            else if (myUnit.Status == StatusBO.INACTIVE)
+            else if (myUnit.Status == StatusBO.לא_פעיל)
             {
-                myUnit.Status = StatusBO.ACTIVE;
+                myUnit.Status = StatusBO.פעיל;
                 bl.UpdUnit(myUnit);
             }
             UpdUnit();

@@ -13,7 +13,7 @@
                     <materialDesign:Card.Background>
                         <SolidColorBrush Color="{DynamicResource BackColorDialogHost}"/>
                     </materialDesign:Card.Background>
-                    <Grid x:Name="GridHostingUnits" Margin="0">
+                    <Grid x:Name="GridHostingUnits">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>

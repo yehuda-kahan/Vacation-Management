@@ -45,7 +45,7 @@ namespace PlGui
             {
                 foreach (HostingUnitBO unit in myHost.UnitsHost)
                 {
-                    if (request.Area == unit.Area)
+                    if (request.Area == unit.Area && request.Status == RequestStatusBO.OPEN)
                     {
                         guestRequests.Add(request);
                         break;
@@ -72,7 +72,11 @@ namespace PlGui
 
         private void requestList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            Request_Detals_UserControl requestControl = new Request_Detals_UserControl((GuestRequestBO)requestList.SelectedItem, myHost);
+            MaterialDesignThemes.Wpf.DialogHost.Show(requestControl, "RequestListDialog");
 
         }
+
+
     }
 }
