@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BO;
 using BlApi;
+using System.Collections.ObjectModel;
+
 
 namespace PlGui
 {
@@ -25,6 +27,7 @@ namespace PlGui
         HostBO myHost;
         PersonBO Person;
         GuestRequestBO myRequest;
+        ObservableCollection<HostingUnitBO> hostingUnits;
         public static IBl bl = BlFactory.GetBL();
         public Request_Detals_UserControl(GuestRequestBO request, HostBO host)
         {
@@ -50,6 +53,15 @@ namespace PlGui
 
         private void CheckAvelabiltyBtn_Click(object sender, RoutedEventArgs e)
         {
+            hostingUnits = new ObservableCollection<HostingUnitBO>();
+            var avalableUnits = bl.GetAvalableUnits(myRequest.EntryDate, (uint)(myRequest.LeaveDate - myRequest.EntryDate).Days);
+            foreach (HostingUnitBO unit in avalableUnits)
+            {
+                if (unit.Owner == myHost.PersonalInfo.Id && myRequest.Area == unit.Area && unit.Status == StatusBO.פעיל)
+                    hostingUnits.Add(unit);
+            }
+            Create_Order_UserControl create_Order_UserControl = new Create_Order_UserControl(hostingUnits);
+            MaterialDesignThemes.Wpf.DialogHost.Show(create_Order_UserControl, "RequestDetales");
 
         }
     }

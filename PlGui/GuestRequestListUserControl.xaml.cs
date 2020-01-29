@@ -52,8 +52,6 @@ namespace PlGui
                     }
                 }
             }
-            //guestRequests = new ObservableCollection<GuestRequestBO>(guestRequests.Distinct());
-            MessageBox.Show(Convert.ToString(guestRequests.Count()));
         }
 
         void clearRequestsWithOdr()
