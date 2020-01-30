@@ -45,7 +45,7 @@ namespace PlConsole
                 Owner = "11223344",
                 HostingUnitName = "villa",
                 Diary = new bool[12, 31],
-                Status = StatusBO.פעיל,
+                Status = StatusBO.ACTIVE,
                 Area = AreaLocationBO.CENTER
             };
             uint a = new uint();

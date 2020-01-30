@@ -2,7 +2,7 @@
 {
     public enum IdTypesBO { ID, PASSPORT, DRIVING_LICENSE }
 
-    public enum StatusBO { פעיל , לא_פעיל }
+    public enum StatusBO { ACTIVE , NOT_ACTIVE }
 
     public enum UnitTypeBO { ZIMMER, HOTEL, CAMPING, APARTMENT }
 

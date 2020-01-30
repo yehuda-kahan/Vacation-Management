@@ -128,8 +128,8 @@ namespace PlGui
             }
             uint temp = 0;
             try { temp = bl.AddRequest(request); }
-            catch (DuplicateKeyException ex) { MessageBox.Show("here1"); }
-            catch (FormatException ex) { MessageBox.Show("here2"); }//TODO mess box
+            catch (DuplicateKeyException ex) { MessageBox.Show("הבקשה כבר קיימת במערכת"); }
+            catch (FormatException ex) { MessageBox.Show(ex.Message); }//TODO mess box
             UpdList();
         }
 
