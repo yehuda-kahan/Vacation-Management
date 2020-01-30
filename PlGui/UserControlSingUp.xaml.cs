@@ -51,7 +51,6 @@ namespace PlGui
             }
         }
 
-        //TODO check if all fields are not empty
         private void CreateBut_Click(object sender, RoutedEventArgs e)
         {
             person.Id = Id.Text;
@@ -71,8 +70,8 @@ namespace PlGui
                 bl.AddPerson(person);
                 OpenClientWin(person.Id);
             }
-            catch (DuplicateKeyException ex) { MessageBox.Show("here1"); }
-            catch (InvalidOperationException ex) { MessageBox.Show("here2"); }
+            catch (DuplicateKeyException ex) { MessageBox.Show(ex.Message); }
+            catch (InvalidOperationException ex) { MessageBox.Show(ex.Message); }//TODO
 
         }
 

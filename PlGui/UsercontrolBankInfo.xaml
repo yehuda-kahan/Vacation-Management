@@ -23,6 +23,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="Text" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="0"   Text="פרטי חשבון בנק" FontSize="15" Foreground="WhiteSmoke" Margin="10"/>
                     <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Margin="10" >
@@ -40,8 +41,12 @@
                         <TextBox x:Name="BranchCity" IsEnabled="False" Text="{Binding Path= BankDetales.BranchCity,Mode=TwoWay}" Margin="8,0,0,0" materialDesign:HintAssist.Hint="כתובת" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="120" />
                         <TextBox x:Name="BranchAddress" Margin="8,0,0,0" IsEnabled="False" Text="{Binding Path= BankDetales.BranchAddress, Mode=TwoWay}"  materialDesign:HintAssist.Hint="כתובת" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="120" />
                     </StackPanel>
-                    <Button x:Name="CreateBut"  Content="הבא" Grid.Column="1"  Grid.Row="4"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="CreatBut" />
-                    <Button x:Name="CloseBut"  Content="ביטול"  Grid.Column="0" Grid.Row="4" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0">
+                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
+                        <TextBlock Text="אישור גבייה מהחשבון :  " FontSize="15"/>
+                        <CheckBox x:Name="ClearneceCB" />
+                    </StackPanel>
+                    <Button x:Name="CreateBut"  Content="הבא" Grid.Column="1"  Grid.Row="5"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="CreatBut" />
+                    <Button x:Name="CloseBut"  Content="ביטול"  Grid.Column="0" Grid.Row="5" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0">
                         <Button.Foreground>
                             <SolidColorBrush Color="{DynamicResource CloseColor}"/>
                         </Button.Foreground>

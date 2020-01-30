@@ -18,7 +18,7 @@
         AllowsTransparency="True" MouseDown="Window_MouseDown" Loaded="Window_Loaded"   >
     <Window.Resources/>
 
-   
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -160,10 +160,10 @@
                                             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="4" Margin="10">
                                                 <materialDesign:PackIcon Kind="IdCard" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
                                                 <TextBox x:Name="ID" IsEnabled="False" Text="{Binding Path=PersonalInfo.Id}" materialDesign:HintAssist.Hint="מספר מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="120" MaxLength="10"/>
-                                                <TextBox x:Name="IdType" IsEnabled="False" Text="{Binding Path=PersonalInfo.IdType}" materialDesign:HintAssist.Hint="סוג מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="160" MaxLength="10"/>
+                                                <TextBox x:Name="IdType" IsEnabled="False" Text="{Binding Path=PersonalInfo.IdType,Converter={StaticResource EnumToHebrew}}" materialDesign:HintAssist.Hint="סוג מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="160" MaxLength="10"/>
 
                                             </StackPanel>
-                                            <Button x:Name="ChangeInfoBut" IsEnabled="True" IsDefault="True" Content="עריכה" Grid.Column="1"  Grid.Row="5"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="ChangeInfoBut_click"/>
+                                            <Button x:Name="ChangeInfoBut" IsEnabled="True" IsDefault="True" Content="עריכה" ToolTip="עריכת פרטים אישיים" Grid.Column="1"  Grid.Row="5"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="ChangeInfoBut_click"/>
                                         </Grid>
                                         <Grid Grid.Column="1">
                                             <Grid.RowDefinitions>
@@ -171,7 +171,7 @@
                                                 <RowDefinition Height="5*"/>
                                             </Grid.RowDefinitions>
                                             <StackPanel Grid.Row="0" Margin="5">
-                                                <Button x:Name="AddguestRequest"  HorizontalAlignment="Right" Margin="0,20,20,20" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="הוספת בקשת אירוח" ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Click="createRequest" />
+                                                <Button x:Name="AddguestRequest"  HorizontalAlignment="Right" Margin="0,20,20,20" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="הוספת בקשת אירוח" ToolTip="הוספת בקשת אירוח" Click="createRequest" />
                                             </StackPanel>
                                             <ListBox x:Name="ListRequest" Margin="5" MouseDoubleClick="list_click" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="1" ItemsSource="{Binding}" ItemTemplate="{StaticResource ListRequestUI}" MouseDown="ListRequest_MouseDown" Background="#FF1E1E1E"  />
                                         </Grid>
@@ -259,7 +259,7 @@
                                         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="4" Margin="10">
                                             <materialDesign:PackIcon Kind="IdCard" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
                                             <TextBox x:Name="HostID" IsEnabled="False" Text="{Binding Path=PersonalInfo.Id}" materialDesign:HintAssist.Hint="מספר מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="80" MaxLength="10"/>
-                                            <TextBox x:Name="HostIdType" IsEnabled="False" Text="{Binding Path=PersonalInfo.IdType}" materialDesign:HintAssist.Hint="סוג מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="160" MaxLength="10"/>
+                                            <TextBox x:Name="HostIdType" IsEnabled="False" Text="{Binding Path=PersonalInfo.IdType  ,Converter={StaticResource EnumToHebrew}}" materialDesign:HintAssist.Hint="סוג מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="160" MaxLength="10"/>
                                         </StackPanel>
                                         <Button x:Name="HostChangeInfoBut" IsEnabled="True" IsDefault="True" Content="עריכה" Grid.Column="1"  Grid.Row="5"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="HostChangeInfoBut_Click"/>
                                         <StackPanel Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -272,7 +272,7 @@
                                             <RowDefinition Height="1*"/>
                                             <RowDefinition Height="3*"/>
                                         </Grid.RowDefinitions>
-                                        
+
                                         <StackPanel  Grid.Column="1" Grid.Row="1" Orientation="Vertical">
                                             <TextBlock  HorizontalAlignment="Center" Text="ההזמנות שלי" FontSize="16" FontWeight="Bold" />
                                             <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True">
@@ -281,7 +281,7 @@
                                                         <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר הזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                                         <materialDesign:DataGridTextColumn Binding="{Binding OrderDate ,StringFormat= dd/MM/yyyy}" Header="תאריך ההזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                                                         <materialDesign:DataGridTextColumn Binding="{Binding HostingUnit.HostingUnitName}" Header="ליחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
-                                                        <materialDesign:DataGridTextColumn Binding="{Binding Status ,Mode=TwoWay}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding Status ,Mode=TwoWay, Converter={StaticResource EnumToHebrew}}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </ScrollViewer >

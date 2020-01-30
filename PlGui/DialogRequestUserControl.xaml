@@ -86,7 +86,7 @@
                         <ComboBoxItem>מרכז</ComboBoxItem>
                         <ComboBoxItem>ירושלים</ComboBoxItem>
                     </ComboBox>
-                    <TextBox x:Name="Status" Margin="5"  Text="{Binding Path=Status}" HorizontalAlignment="Center" Grid.Column="1"  Grid.Row="6"  materialDesign:HintAssist.Foreground="Gray" VerticalAlignment="Bottom"  materialDesign:HintAssist.Hint="סטטוס"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" SelectionBrush="{x:Null}" CaretBrush="{x:Null}" Background="{x:Null}" BorderBrush="{x:Null}" IsEnabled="False" />
+                    <TextBox x:Name="Status" Margin="5"  Text="{Binding Path=Status , Converter={StaticResource EnumToHebrew}}" HorizontalAlignment="Center" Grid.Column="1"  Grid.Row="6"  materialDesign:HintAssist.Foreground="Gray" VerticalAlignment="Bottom"  materialDesign:HintAssist.Hint="סטטוס"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" SelectionBrush="{x:Null}" CaretBrush="{x:Null}" Background="{x:Null}" BorderBrush="{x:Null}" IsEnabled="False" />
                     <Button x:Name="ChangBut" Content="עריכה" IsEnabled="True" Grid.Column="1"  Grid.Row="7"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="ChangBut_Click"/>
                     <Button x:Name="CloseBut"  Content="סגור" IsEnabled="True" Grid.Column="0" Grid.Row="7" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0"  Foreground="#FFA02917"/>
                 </Grid>

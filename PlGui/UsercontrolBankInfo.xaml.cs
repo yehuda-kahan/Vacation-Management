@@ -48,7 +48,7 @@ namespace PlGui
             Host.BankDetales.BranchAddress = BranchAddress.Text;
             Host.BankDetales.BranchCity = BranchCity.Text;
             bl.AddHost(Host);
-            MessageBox.Show(Host.BankDetales.ToString());
+            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
             OpenHostWin(Host.PersonalInfo.Id);
         }
 

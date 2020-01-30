@@ -25,7 +25,7 @@
                                     <materialDesign:DataGridTextColumn Binding="{Binding CreateDate,StringFormat= dd/MM/yyyy}"   Header="נוצר בתאריך" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" Foreground="White" />
                                     <materialDesign:DataGridTextColumn Binding="{Binding EntryDate,StringFormat= dd/MM/yyyy}" Header="תאריך כניסה רצוי"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
                                     <materialDesign:DataGridTextColumn Binding="{Binding LeaveDate,StringFormat= dd/MM/yyyy}" Header="תאריך יציאה רצוי"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
-                                    <materialDesign:DataGridTextColumn Binding="{Binding Area}" Header="איזור"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
+                                    <materialDesign:DataGridTextColumn Binding="{Binding Area , Converter={StaticResource EnumToHebrew}}" Header="איזור"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </ScrollViewer>
