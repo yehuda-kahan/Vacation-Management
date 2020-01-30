@@ -6,10 +6,31 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-
+using BO;
 
 namespace PlGui
 {
+    public class EnumToHebrew : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            
+            if (value.GetType().Name == "StatusBO")
+            {
+                if(value == StatusBO.ACTIVE)
+
+            }
+
+            
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
     public class DateTimeToStringConvert : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
