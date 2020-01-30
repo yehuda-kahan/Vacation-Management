@@ -71,16 +71,8 @@ namespace PlGui
                     return "דרום";
             }
                 return "";
-
-
-
         }
-
-
-
-        //public enum AreaLocationBO { ALL, NORTH, SOUTH, CENTER, JERUSALEM }
-
-
+        //public enum AreaLocationBO { ALL, NORTH, SOUTH, CENTER, JERUSALEM }        
         //public enum ThreeOptionsBO { YES, MAYBE, NO }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -88,9 +80,7 @@ namespace PlGui
         }
     }
 
-
-
-
+       
     public class DateTimeToStringConvert : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

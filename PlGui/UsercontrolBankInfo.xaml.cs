@@ -44,7 +44,7 @@ namespace PlGui
 
         private void CreatBut(object sender, RoutedEventArgs e)
         {
-            Host.BankDetales.BankNumber = Convert.ToUInt16( BankNum.Text);
+            Host.BankDetales.BankNumber = Convert.ToUInt16(BankNum.Text);
             Host.BankDetales.BranchAddress = BranchAddress.Text;
             Host.BankDetales.BranchCity = BranchCity.Text;
             bl.AddHost(Host);
@@ -67,8 +67,9 @@ namespace PlGui
             string address = BankBranchesDictionary.First(x => x.Key == Convert.ToInt32(BranchNumber.SelectedItem.ToString())).Value;
             BranchCity.Text = address.Substring(address.IndexOf('@') + 1);
             BranchAddress.Text = address.Substring(0, address.LastIndexOf('@'));
-          
+
         }
+
     }
 }
 
