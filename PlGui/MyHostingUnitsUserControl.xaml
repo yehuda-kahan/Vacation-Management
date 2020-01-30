@@ -29,7 +29,7 @@
                             <DataGrid.Columns>
                                 <materialDesign:DataGridTextColumn  Binding="{Binding Key}"  Header="מספר היחידה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  />
                                 <materialDesign:DataGridTextColumn Binding="{Binding HostingUnitName}" Header="שם היחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                                <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" CanUserResize="False" SortDirection="Ascending" />
+                                <materialDesign:DataGridTextColumn Binding="{Binding Status, Converter={StaticResource EnumToHebrew}}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" CanUserResize="False" SortDirection="Ascending" />
                                 <DataGridTemplateColumn Header="פרטים">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>

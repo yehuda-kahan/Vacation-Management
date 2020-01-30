@@ -24,7 +24,7 @@
                                 <DataGrid.Columns>
                                     <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר היחידה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" Foreground="White" />
                                     <materialDesign:DataGridTextColumn Binding="{Binding HostingUnitName}" Header="שם היחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
-                                    <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
+                                    <materialDesign:DataGridTextColumn Binding="{Binding Status ,Converter={StaticResource EnumToHebrew}}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
                                     <DataGridTemplateColumn Header="הזמן">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>

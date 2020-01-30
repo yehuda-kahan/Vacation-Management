@@ -34,12 +34,16 @@ namespace Dal
             {
                 try
                 {
-                    string xmlServerPath = @"http://www.jct.ac.il/~coshri/atm.xml";
-                    wc.DownloadFile(xmlServerPath, xmlLocalPath);
+                    try
+                    {
+                        string xmlServerPath = @"http://www.jct.ac.il/~coshri/atm.xml";
+                        wc.DownloadFile(xmlServerPath, xmlLocalPath);
+                    }
+                    catch (Exception) { }
                 }
                 catch (Exception)
                 {
-                    
+
                 }
             }
         }

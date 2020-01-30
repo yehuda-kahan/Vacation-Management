@@ -35,10 +35,7 @@
             </LinearGradientBrush>
 
 
-            <!--<Style TargetType = "DataGridColumnHeader">
-                    <Setter Property = "Foreground" Value = "White" />
-                <Setter Property = "Background" Value = "{DynamicResource  SelectedTabBackGround}" />
-                </Style>-->
+
 
 
             <Style TargetType="TabItem" >
@@ -63,10 +60,15 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            
-            
+
+
+
+
+
+
 
             <local:StringToUintConvert x:Key="StringToUintConvert"/>
+            <local:EnumToHebrew x:Key="EnumToHebrew"/>
 
             <DataTemplate x:Key="ListRequestUI" DataType="local:GuestRequestBO" >
                 <Border>
@@ -81,8 +83,8 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Column="0" Grid.ColumnSpan="2"  Text="{ Binding Path= Key ,StringFormat=מספר בקשה : {0}}" FontWeight="Bold" />
-                            <TextBlock Grid.Column="0" Grid.Row="1"  Text="{Binding Path= CreateDate, StringFormat=תאריך יצירה :{0: dd/MM/yyyy}}"/>
-                            <TextBlock Grid.Column="1" Grid.Row="1"  Text="{Binding Path= Status ,StringFormat=סטטוס : {0}}" />
+                            <TextBlock Grid.Column="0" Grid.Row="1"  Text="{Binding Path= CreateDate, StringFormat=תאריך יצירה : {0 : dd/MM/yyyy}}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Margin="5,0"  Text="{Binding Path= Status ,StringFormat= סטטוס : {0},Converter={StaticResource EnumToHebrew}}" />
                         </Grid>
                     </materialDesign:Card>
                 </Border>
