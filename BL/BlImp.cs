@@ -495,7 +495,14 @@ namespace BL
         public IEnumerable<OrderBO> GetOdrsOfHost(string id)
         {
             IEnumerable<Order> temp = dal.GetOrders(x => x.HostId == id && x.Status != OrderStatus.CANCELED
-            && x.Status != OrderStatus.UNIT_NOT_AVALABELE);
+            && x.Status != OrderStatus.UNIT_NOT_AVALABELE && x.Status!= OrderStatus.APPROVED);
+            return from item in temp
+                   select ConvertOrderDOToBO(item);
+        }
+
+        public IEnumerable<OrderBO> GetAprrovedOdrsOfHost(string id)
+        {
+            IEnumerable<Order> temp = dal.GetOrders(x => x.HostId == id && x.Status == OrderStatus.APPROVED);
             return from item in temp
                    select ConvertOrderDOToBO(item);
         }
@@ -522,6 +529,7 @@ namespace BL
             target.PersonalInfo = GetPersonById(host.Id);
             target.UnitsHost = GetHostUnits(host.Id);
             target.OrdersHost = GetOdrsOfHost(host.Id);
+            target.AppovedOrdersHost = GetAprrovedOdrsOfHost(host.Id);
             target.Status = (StatusBO)host.Status;
             return target;
         }

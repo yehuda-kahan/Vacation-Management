@@ -218,7 +218,7 @@
                         </materialDesign:DialogHost>
 
                         <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="HostWinDialog" >
-                            <Border x:Name="HostWindow" Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10" >
+                            <Border x:Name="HostWindow" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10" >
                                 <Border.Background>
                                     <SolidColorBrush Color="{DynamicResource BackColor}"/>
                                 </Border.Background>
@@ -261,7 +261,8 @@
                                             <TextBox x:Name="HostID" IsEnabled="False" Text="{Binding Path=PersonalInfo.Id}" materialDesign:HintAssist.Hint="מספר מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="80" MaxLength="10"/>
                                             <TextBox x:Name="HostIdType" IsEnabled="False" Text="{Binding Path=PersonalInfo.IdType  ,Converter={StaticResource EnumToHebrew}}" materialDesign:HintAssist.Hint="סוג מזהה" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"  MinWidth="160" MaxLength="10"/>
                                         </StackPanel>
-                                        <Button x:Name="HostChangeInfoBut" IsEnabled="True" IsDefault="True" Content="עריכה" Grid.Column="1"  Grid.Row="5"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="HostChangeInfoBut_Click"/>
+                                        <Button x:Name="ChagrBankInfo" IsEnabled="True" IsDefault="True" Content="ערוך פרטי בנק" Grid.Column="0"  Grid.Row="5" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFlatButton}" MinWidth="130" Margin="0 8 8 0" Click="HostChangeBankInfoBut_Click"/>
+                                        <Button x:Name="HostChangeInfoBut" IsEnabled="True" IsDefault="True" Content="ערוך פרטים " Grid.Column="1"  Grid.Row="5"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 8 8 0" Click="HostChangeInfoBut_Click"/>
                                         <StackPanel Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Button x:Name="myUnits" Content="היחידות שלי" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="5"  Width="120" ToolTip="צפייה ועריכת/הוספת היחידות שלי" Click="myUnitsBut_Click" />
                                             <Button x:Name="guestRequstBut" Content="בקשת לקוחות" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="5" Width="120" ToolTip="לצפייה בבקשות הלקוחות ויצירת הזמנות" Click="guestRequstBut_Click" />
@@ -269,14 +270,27 @@
                                     </Grid>
                                     <Grid Grid.Column="1">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="3*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <StackPanel  Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+                                        <StackPanel  Grid.Column="1" Margin="5"  Grid.Row="0" Orientation="Vertical">
                                             <TextBlock  HorizontalAlignment="Center" Text="ההזמנות שלי" FontSize="16" FontWeight="Bold" />
                                             <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True">
                                                 <DataGrid x:Name="OrderList" HorizontalGridLinesBrush="Gray" IsReadOnly="True" MouseDoubleClick="OrderList_MouseDoubleClick"  Margin="10"  ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
+                                                    <DataGrid.Columns>
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר הזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding OrderDate ,StringFormat= dd/MM/yyyy}" Header="תאריך ההזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding HostingUnit.HostingUnitName}" Header="ליחידה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding Status ,Mode=TwoWay, Converter={StaticResource EnumToHebrew}}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                            </ScrollViewer >
+                                        </StackPanel>
+                                        <StackPanel  Grid.Column="1" Grid.Row="1" Margin="5" Orientation="Vertical">
+                                            <TextBlock  HorizontalAlignment="Center" Text="הזמנות שאושרו" FontSize="16" FontWeight="Bold" />
+                                            <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True">
+                                                <DataGrid x:Name="AprrovedOrderList" HorizontalGridLinesBrush="Gray" IsReadOnly="True" MouseDoubleClick="AprrovedOrderList_MouseDoubleClick"  Margin="10"  ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
                                                     <DataGrid.Columns>
                                                         <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר הזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                                         <materialDesign:DataGridTextColumn Binding="{Binding OrderDate ,StringFormat= dd/MM/yyyy}" Header="תאריך ההזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />

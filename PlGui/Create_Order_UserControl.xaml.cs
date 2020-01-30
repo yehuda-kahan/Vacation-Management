@@ -41,7 +41,13 @@ namespace PlGui
 
         private void CrtOrder_Click(object sender, RoutedEventArgs e)
         {
+
             HostingUnitBO unit = (HostingUnitBO)unitsList.SelectedItem;
+            if (!bl.GetHost(unit.Owner).CollectingClearance)
+            {
+                MessageBox.Show("אינך יכול לשלוח הזמנה מפני שלא נתת הרשאה לחיוב חשבונך","שגיאה",MessageBoxButton.OK,MessageBoxImage.Error);
+                return;
+            }
             newOrder = new OrderBO
             {
                 OrderDate = DateTime.Now,

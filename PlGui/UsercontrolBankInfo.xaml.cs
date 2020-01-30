@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -47,7 +48,11 @@ namespace PlGui
             Host.BankDetales.BankNumber = Convert.ToUInt16(BankNum.Text);
             Host.BankDetales.BranchAddress = BranchAddress.Text;
             Host.BankDetales.BranchCity = BranchCity.Text;
-            bl.AddHost(Host);
+            try
+            {
+                bl.AddHost(Host);
+            }
+            catch (DuplicateKeyException) { bl.UpdHost(Host); }
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
             OpenHostWin(Host.PersonalInfo.Id);
         }

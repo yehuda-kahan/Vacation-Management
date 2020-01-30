@@ -235,6 +235,7 @@ namespace PlGui
         
         HostBO host;
         ObservableCollection<OrderBO> hostOrders;
+        ObservableCollection<OrderBO> hostAprrovedOrds;
        
         private void Host_LogIn_But(object sender, RoutedEventArgs e)
         {
@@ -249,6 +250,8 @@ namespace PlGui
                         host = bl.GetHost(temp.Id);
                         HostInfo.DataContext = host;
                         hostOrders = new ObservableCollection<OrderBO>(host.OrdersHost); // making the list request of the guest
+                        hostAprrovedOrds = new ObservableCollection<OrderBO>(host.AppovedOrdersHost);
+                        AprrovedOrderList.DataContext = hostAprrovedOrds;
                         OrderList.DataContext = hostOrders;
                         HostLogin.Visibility = Visibility.Collapsed;
                         HostWindow.Visibility = Visibility.Visible;
@@ -312,12 +315,20 @@ namespace PlGui
             MaterialDesignThemes.Wpf.DialogHost.Show(test, "HostWinDialog");
             test.UpdListOrder += Test_UpdListOrder;
         }
+        private void AprrovedOrderList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            OrderUserControl1 test = new OrderUserControl1((OrderBO)AprrovedOrderList.SelectedItem);
+            MaterialDesignThemes.Wpf.DialogHost.Show(test, "HostWinDialog");
+            test.UpdListOrder += Test_UpdListOrder;
+        }
 
         private void Test_UpdListOrder()
         {
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
             hostOrders = new ObservableCollection<OrderBO>(bl.GetOdrsOfHost(host.PersonalInfo.Id));
             OrderList.DataContext = hostOrders;
+            hostAprrovedOrds = new ObservableCollection<OrderBO>(host.AppovedOrdersHost);
+            AprrovedOrderList.DataContext = hostAprrovedOrds;
         }
 
 
@@ -379,6 +390,13 @@ namespace PlGui
             ErorrInput.Visibility = Visibility.Collapsed;
             HostErorrInput.Visibility = Visibility.Collapsed;
             HostErorrMail.Visibility = Visibility.Collapsed;
+        }
+
+        private void HostChangeBankInfoBut_Click(object sender, RoutedEventArgs e)
+        {
+            UserControlBankInfo AddBankDeitels = new UserControlBankInfo(host);
+            AddBankDeitels.OpenHostWin += AddBankDeitels_OpenHostWin;
+            MaterialDesignThemes.Wpf.DialogHost.Show(AddBankDeitels, "HostLoginDialog");
         }
     }
 }

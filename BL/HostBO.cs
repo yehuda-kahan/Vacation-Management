@@ -15,7 +15,8 @@ namespace BO
         public string WebSite { get; set; }
         public bool CollectingClearance { get; set; }
         public IEnumerable<HostingUnitBO> UnitsHost { get; set; }
-        public IEnumerable<OrderBO> OrdersHost { get; set; } //Not includ the canceled Orders
+        public IEnumerable<OrderBO> OrdersHost { get; set; } //Not includ the canceled and aprroved Orders
+        public IEnumerable<OrderBO> AppovedOrdersHost { get; set; } 
         public StatusBO Status { get; set; }
     }
 }

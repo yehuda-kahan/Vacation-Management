@@ -51,7 +51,7 @@ namespace DS
                     BankNumber=10,
                     BranchNumber = 905,
                     BankAccountNumber= 57112658,
-                    CollectingClearance= true,
+                    CollectingClearance= false,
                     Status = Status.ACTIVE,
                     WebSite = "www.google.com"
                 },
