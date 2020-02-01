@@ -63,19 +63,27 @@ namespace PlGui
 
         private void BankName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             BankNum.Text = BankNumberDictionary.First(x => x.Value == BankName.SelectedItem.ToString()).Key.ToString();
             BankBranchesDictionary = bl.GetBranchesListForBank(Convert.ToInt32(BankNum.Text));
-            BranchNumber.ItemsSource = BankBranchesDictionary.Keys;
+            BranchCity.Text = null;
+            BranchAddress.Text = null;
+            List<int> temp = BankBranchesDictionary.Keys.ToList();
+            temp.Sort();
+            BranchNumber.ItemsSource = temp;
+            BranchNumber.SelectedIndex = 0;
         }
-
-
 
 
         private void BranchNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string address = BankBranchesDictionary.First(x => x.Key == Convert.ToInt32(BranchNumber.SelectedItem.ToString())).Value;
-            BranchCity.Text = address.Substring(address.IndexOf('@') + 1);
-            BranchAddress.Text = address.Substring(0, address.LastIndexOf('@'));
+            try
+            {
+                string address = BankBranchesDictionary.First(x => x.Key == Convert.ToInt32(BranchNumber.SelectedItem)).Value.ToString();
+                BranchCity.Text = address.Substring(address.IndexOf('@') + 1);
+                BranchAddress.Text = address.Substring(0, address.LastIndexOf('@'));
+            }
+            catch (Exception) { return; }
 
         }
 

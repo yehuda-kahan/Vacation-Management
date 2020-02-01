@@ -69,7 +69,7 @@ namespace Dal
                         address = Bank.Element("כתובת_ה-ATM").Value,
                         City = Bank.Element("ישוב").Value
                     }
-                                     into temp
+                    into temp
                     group temp by temp.BranchCode).ToDictionary(x => x.Key, x => x.ElementAt(0).address + "@" + x.ElementAt(0).City);
         }
         #endregion

@@ -70,17 +70,15 @@ namespace PlGui
                 if ((AreaLocationBO)value == AreaLocationBO.SOUTH)
                     return "דרום";
             }
-                return "";
+            return "";
         }
-        //public enum AreaLocationBO { ALL, NORTH, SOUTH, CENTER, JERUSALEM }        
-        //public enum ThreeOptionsBO { YES, MAYBE, NO }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
     }
 
-       
+
     public class DateTimeToStringConvert : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -112,7 +110,7 @@ namespace PlGui
             if (value == null)
                 return default;
             string str = (String)value;
-            return uint.Parse(str);
+            return str;
         }
     }
 }
