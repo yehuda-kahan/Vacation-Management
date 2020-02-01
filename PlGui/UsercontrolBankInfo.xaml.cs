@@ -52,7 +52,11 @@ namespace PlGui
             {
                 bl.AddHost(Host);
             }
-            catch (DuplicateKeyException) { bl.UpdHost(Host); }
+            catch (DuplicateKeyException)
+            {
+                try { bl.UpdHost(Host); }
+                catch (TypeAccessException ex) { MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error); }
+            }
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
             OpenHostWin(Host.PersonalInfo.Id);
         }

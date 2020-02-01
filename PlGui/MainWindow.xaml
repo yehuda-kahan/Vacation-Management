@@ -83,6 +83,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
+                        <Viewbox x:Name="ClientImage" Grid.Column="1"/>
                         <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="SingUpFourm" >
                             <Border x:Name="clientLogin" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10" >
                                 <Border.Background>

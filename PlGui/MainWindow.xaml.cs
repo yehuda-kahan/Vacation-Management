@@ -30,14 +30,16 @@ namespace PlGui
         static IBl bl = BlFactory.GetBL();
         public ClientBO client;
         public ObservableCollection<GuestRequestBO> requests;
-
+        Image clientImage;
 
         public MainWindow()
         {
             InitializeComponent();
             downloadBankXml.DoWork += DownloadBankXml_DoWork;
             downloadBankXml.RunWorkerCompleted += DownloadBankXml_RunWorkerCompleted;
-
+            //clientImage = new Image();
+            //clientImage.Source =new BitmapImage(new Uri("לקוח.jpg"));
+            //ClientImage.Child = clientImage;
         }
 
         private void DownloadBankXml_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

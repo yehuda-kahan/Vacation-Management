@@ -10,6 +10,8 @@ using BO;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
 using System.Data.Linq;
+using System.ComponentModel;
+using System.Threading;
 
 namespace BL
 {
@@ -186,7 +188,7 @@ namespace BL
 
         public Dictionary<int, string> GetBranchesListForBank(int BankNum)
         {
-           return dal.buildDictioneryBanches(BankNum);
+            return dal.buildDictioneryBanches(BankNum);
         }
 
         public BankBranchBO GetBranch(uint bankNum, uint branchNum)
@@ -413,20 +415,22 @@ namespace BL
             return order;
         }
 
-        public void AddOrder(OrderBO order)
+        public uint AddOrder(OrderBO order)
         {
+            uint resultKey = 0;
             try
             {
                 dal.GetPersonById(order.GuestRequest.ClientId);
                 try
                 {
                     dal.GetUnit(order.HostingUnit.Key);
-                    try { dal.AddOrder(ConvertOrderBOToDO(order)); }
+                    try { resultKey = dal.AddOrder(ConvertOrderBOToDO(order)); }
                     catch (DuplicateKeyException ex) { throw ex; }
                 }
                 catch (MissingMemberException ex) { throw new MissingMemberException("Canot add this order because ", ex.ToString()); }
             }
             catch (MissingMemberException ex) { throw new MissingMemberException("Canot add this order because ", ex.ToString()); }
+            return resultKey;
         }
 
         public void CancelOrdersOfRequest(uint guestRequestKey, uint OrderKey)
@@ -495,7 +499,7 @@ namespace BL
         public IEnumerable<OrderBO> GetOdrsOfHost(string id)
         {
             IEnumerable<Order> temp = dal.GetOrders(x => x.HostId == id && x.Status != OrderStatus.CANCELED
-            && x.Status != OrderStatus.UNIT_NOT_AVALABELE && x.Status!= OrderStatus.APPROVED);
+            && x.Status != OrderStatus.UNIT_NOT_AVALABELE && x.Status != OrderStatus.APPROVED);
             return from item in temp
                    select ConvertOrderDOToBO(item);
         }
@@ -567,7 +571,7 @@ namespace BL
                            select item;
                 if (temp.Any())
                     throw new TypeAccessException
-                        ("NOT allowed to cancel clearance while there is opened orders in the system");
+                        ("אינך יכול לבטל את ההרשאה לחיוב בזמן שיש הזמנות פתוחות במערכת");
             }
             try { dal.UpdateHost(ConvertHostBOToDO(host)); }
             catch (MissingMemberException ex) { throw ex; }
@@ -699,10 +703,22 @@ namespace BL
                 last = DateTime.Now;
             return (first - last).Days;
         }
-        public void SendMail()
+
+
+        public void SendMail(Email email)
         {
-            Console.WriteLine("Mail send\n");
+            bool flag = true;
+            try { email.SendMail(); }
+            catch (ArgumentNullException ex) { flag = false; }
+            catch (InvalidOperationException ex) { flag = false; }
+            catch (SmtpException ex) { flag = false; }
+            if (!flag)
+            {
+                Thread.Sleep(5000);
+                SendMail(email);
+            }
         }
+
 
         #endregion
 

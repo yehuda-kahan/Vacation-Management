@@ -47,6 +47,7 @@
     <Compile Include="BlFactory.cs" />
     <Compile Include="BlImp.cs" />
     <Compile Include="ClientBO.cs" />
+    <Compile Include="Email.cs" />
     <Compile Include="EnumsBO.cs" />
     <Compile Include="GuestRequestBO.cs" />
     <Compile Include="HostBO.cs" />

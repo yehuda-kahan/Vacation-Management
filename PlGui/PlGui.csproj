@@ -72,7 +72,6 @@
     <Compile Include="Create_Order_UserControl.xaml.cs">
       <DependentUpon>Create_Order_UserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Email.cs" />
     <Compile Include="GuestRequestListUserControl.xaml.cs">
       <DependentUpon>GuestRequestListUserControl.xaml</DependentUpon>
     </Compile>
@@ -202,6 +201,9 @@
   <ItemGroup>
     <Resource Include="Images\PBwc7e.jpg" />
     <Resource Include="Images\thuyen-11.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\לקוח.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.1.0-ci948\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.1.0-ci948\build\MaterialDesignThemes.targets')" />

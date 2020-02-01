@@ -4,13 +4,14 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using BO;
-using BlApi;
 
-namespace PlGui
+namespace BO
 {
-    class Email
+    public class Email
     {
+        PersonBO clientPerson;
+
+
         public string ToEmailAdd { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
@@ -26,11 +27,12 @@ namespace PlGui
         /// <param name="to"></param>
         /// <param name="host"></param>
         /// <param name="unit"></param>
-        public Email(GuestRequestBO request, HostingUnitBO unit)
+        public Email(GuestRequestBO request, HostingUnitBO unit, HostBO host, PersonBO clientPerson)
         {
+            HostName = host.PersonalInfo.FirstName + " " + host.PersonalInfo.LastName;
+            ToEmailAdd = clientPerson.Email;
             FromDate = request.EntryDate;
             ToDate = request.LeaveDate;
-            //HostName = host;
             Unit = unit;
         }
 
@@ -49,15 +51,17 @@ namespace PlGui
       <div style='width: 5; height:200; padding:10px; border-radius: 10px; border:solid 2px #C0C0C0;'>
            <span>Hello !</span><br />
            <span>My name is : </span>          
-           <span>" + this.HostName + @"</span><br />
-           <span>I want to offer you my hosting unit in :</span>
-           <span>" + Unit.Area + @"</span>
-           <span>In Unit: </span>
-           <span>" + this.Unit + @"</span><br />
-           <span>From: </span>
-           <span>" + this.FromDate + @"</span><br />
+           <span>" + HostName + @"</span><br />
+           <span>I want to offer you my hosting unit - 
+           <span>" + Unit.HostingUnitName + @"</span><br />
+           <span>Whose location is in</span>
+           <span>" + Unit.Area + @"</span><br />
+           <span>From : </span>
+           <span>" + FromDate.ToString(format: "dd/MM/yyyy") + @"</span><br />
            <span>To: </span>
-           <span>" + this.ToDate + @"</span><br />
+           <span>" + ToDate.ToString(format: "dd/MM/yyyy") + @"</span><br />
+           <span>as requested.</span><br />
+           <span>If this suggestion is relevant to you, I would be happy to contact me in response to this email</span><br />
            <span>Thank you and have a nice day</span><br />
       </div>
 </body>");
@@ -70,8 +74,10 @@ namespace PlGui
             smtp.Credentials = new System.Net.NetworkCredential("avrumi2018@gmail.com", "Aa5711268!");
             smtp.EnableSsl = true;
 
-            smtp.Send(mail);
+            try { smtp.Send(mail); }
+            catch (ArgumentNullException ex) { throw ex; }
+            catch (InvalidOperationException ex) { throw ex; }
+            catch (SmtpException ex) { throw ex; }
         }
     }
 }
-

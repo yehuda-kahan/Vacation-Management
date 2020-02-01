@@ -119,7 +119,7 @@ namespace BlApi
         /// Exceptions : DuplicateKeyException
         /// </summary>
         /// <param name="order"></param>
-        void AddOrder(OrderBO order);
+        uint AddOrder(OrderBO order);
 
         /// <summary>
         /// Exceptions : InvalidOperationException, MissingMemberException
@@ -217,7 +217,7 @@ namespace BlApi
         #endregion
 
         #region system functions
-        void SendMail();
+        void SendMail(Email email);
 
         /// <summary>
         /// Return the number of the days between a two given dates 

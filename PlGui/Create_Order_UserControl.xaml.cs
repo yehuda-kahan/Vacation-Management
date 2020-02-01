@@ -16,6 +16,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.Linq;
+using System.Net.Mail;
+using System.Threading;
+using System.ComponentModel;
 
 namespace PlGui
 {
@@ -26,42 +29,70 @@ namespace PlGui
     {
         public static IBl bl = BlFactory.GetBL();
         OrderBO newOrder;
-        PersonBO Person;
+        PersonBO clientPerson;
+        HostBO host;
         GuestRequestBO myRequest;
         ObservableCollection<HostingUnitBO> myHostingUnits;
         public event Action<OrderBO> AddOrderEvent;
+        BackgroundWorker worker;
+        uint resultKey = 0;
+
         public Create_Order_UserControl(ObservableCollection<HostingUnitBO> hostingUnits, GuestRequestBO request)
         {
             InitializeComponent();
             myHostingUnits = hostingUnits;
             myRequest = request;
-            Person = bl.GetPersonById(myRequest.ClientId);
+            clientPerson = bl.GetPersonById(myRequest.ClientId);
             GridHostingUnits.DataContext = myHostingUnits;
         }
 
         private void CrtOrder_Click(object sender, RoutedEventArgs e)
         {
+            worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
 
             HostingUnitBO unit = (HostingUnitBO)unitsList.SelectedItem;
-            if (!bl.GetHost(unit.Owner).CollectingClearance)
+            host = bl.GetHost(unit.Owner);
+            if (!host.CollectingClearance)
             {
-                MessageBox.Show("אינך יכול לשלוח הזמנה מפני שלא נתת הרשאה לחיוב חשבונך","שגיאה",MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show("אינך יכול ליצור הזמנה מפני שלא נתת הרשאה לחיוב חשבונך", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+
             newOrder = new OrderBO
             {
                 OrderDate = DateTime.Now,
-                ClientFirstName = Person.FirstName,
-                ClientLastName = Person.LastName,
+                ClientFirstName = clientPerson.FirstName,
+                ClientLastName = clientPerson.LastName,
                 GuestRequest = myRequest,
                 HostingUnit = unit,
                 Status = OrderStatusBO.PROCESSING,
                 HostId = unit.Owner,
             };
-            try { bl.AddOrder(newOrder); }
+            Email email = new Email(myRequest, unit, host, clientPerson);
+            worker.RunWorkerAsync(email);
+
+            try { resultKey = bl.AddOrder(newOrder); }
             catch (DuplicateKeyException ex) { MessageBox.Show(ex.Message); return; }
             AddOrderEvent(newOrder);
-            //Email email = new Email()
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Email email = (Email)e.Argument;
+            bl.SendMail(email);
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+            try { bl.UpdStatusOrder(resultKey, OrderStatusBO.MAIL_SENT); }
+            catch (InvalidOperationException ex) { MessageBox.Show(ex.Message); }
+            catch (MissingMemberException ex) { MessageBox.Show(ex.Message); }
+            AddOrderEvent(newOrder);
         }
     }
 }
+
