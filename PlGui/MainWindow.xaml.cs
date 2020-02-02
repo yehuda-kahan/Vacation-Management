@@ -30,7 +30,6 @@ namespace PlGui
         static IBl bl = BlFactory.GetBL();
         public ClientBO client;
         public ObservableCollection<GuestRequestBO> requests;
-        Image clientImage;
 
         public MainWindow()
         {
@@ -44,7 +43,7 @@ namespace PlGui
 
         private void DownloadBankXml_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            
+
         }
 
         private void DownloadBankXml_DoWork(object sender, DoWorkEventArgs e)
@@ -234,11 +233,11 @@ namespace PlGui
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         #region Host
 
-        
+
         HostBO host;
         ObservableCollection<OrderBO> hostOrders;
         ObservableCollection<OrderBO> hostAprrovedOrds;
-       
+
         private void Host_LogIn_But(object sender, RoutedEventArgs e)
         {
             PersonBO temp = null;
@@ -355,7 +354,7 @@ namespace PlGui
             OrderList.DataContext = hostOrders;
         }
 
-        #endregion Host
+
 
         private void HostChangeInfoBut_Click(object sender, RoutedEventArgs e)
         {
@@ -400,5 +399,43 @@ namespace PlGui
             AddBankDeitels.OpenHostWin += AddBankDeitels_OpenHostWin;
             MaterialDesignThemes.Wpf.DialogHost.Show(AddBankDeitels, "HostLoginDialog");
         }
+        #endregion Host
+
+        #region manager
+
+
+        #endregion manager
+
+        private void Manager_UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (ManagerUserMail.Text == "")
+            {
+                ManagerErorrMail.Visibility = Visibility.Collapsed;
+                ManagerUserMail.BorderBrush = Brushes.Gray;
+                ManagerLogInBut.IsEnabled = true;
+            }
+            if (!bl.IsValidMail(ManagerUserMail.Text) && ManagerUserMail.Text != "")
+            {
+                ManagerErorrMail.Visibility = Visibility.Visible;
+                ManagerUserMail.BorderBrush = Brushes.Red;
+                ManagerLogInBut.IsEnabled = false;
+
+            }
+            if (bl.IsValidMail(ManagerUserMail.Text))
+            {
+                ManagerErorrMail.Visibility = Visibility.Hidden;
+                ManagerUserMail.BorderBrush = Brushes.Gray;
+                ManagerLogInBut.IsEnabled = true;
+            }
+        }
+
+        private void Manager_LogIn_But(object sender, RoutedEventArgs e)
+        {
+            //TODO 
+            ManagerLogin.Visibility = Visibility.Collapsed;
+            ManagerWindow.Visibility = Visibility.Visible;
+        }
+
+
     }
 }

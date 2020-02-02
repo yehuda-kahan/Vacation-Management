@@ -47,9 +47,9 @@ namespace BO
             mail.Priority = MailPriority.High;
             mail.From = new MailAddress("avrumi2018@gmail.com");
             mail.Subject = " הצעת אירוח";
-            mail.Body = (@"<body style='margin: 0px; dir=rtl;'>
-      <div style='width: 5; height:200; padding:10px; border-radius: 10px; border:solid 2px #C0C0C0;'>
-           <span dir=rtl>שלום וברכה !</span><br />
+            mail.Body = (@"<body style='margin: 0px;'>
+      <div style='width:5; height:200; padding:10px; border-radius:10px; direction:rtl; border:solid 2px #C0C0C0;'>
+           <span>שלום וברכה !</span><br />
            <span>שמי : </span>          
            <span>" + HostName + @"</span><br />
            <span>אני רוצה להציע לך את יחידת האירוח שלי - <span>
