@@ -9,10 +9,9 @@ namespace BO
 {
     public class Email
     {
-        PersonBO clientPerson;
-
-
+       
         public string ToEmailAdd { get; set; }
+        public string FromEmailAdd { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public string HostName { get; set; }
@@ -31,6 +30,7 @@ namespace BO
         {
             HostName = host.PersonalInfo.FirstName + " " + host.PersonalInfo.LastName;
             ToEmailAdd = clientPerson.Email;
+            FromEmailAdd = host.PersonalInfo.Email;
             FromDate = request.EntryDate;
             ToDate = request.LeaveDate;
             Unit = unit;
@@ -45,24 +45,24 @@ namespace BO
 
             mail.To.Add(this.ToEmailAdd);
             mail.Priority = MailPriority.High;
-            mail.From = new MailAddress("avrumi2018@gamil.com");
+            mail.From = new MailAddress(FromEmailAdd);
             mail.Subject = " Order confirmation";
             mail.Body = (@"<body style='margin: 0px;'>
       <div style='width: 5; height:200; padding:10px; border-radius: 10px; border:solid 2px #C0C0C0;'>
-           <span>Hello !</span><br />
-           <span>My name is : </span>          
+           <span>שלום וברכה !</span><br />
+           <span>שמי : </span>          
            <span>" + HostName + @"</span><br />
-           <span>I want to offer you my hosting unit - 
+           <span>אני רוצה להציע לך את יחידת האירוח שלי - <span>
            <span>" + Unit.HostingUnitName + @"</span><br />
-           <span>Whose location is in</span>
+           <span>שנמצאת ב -</span>
            <span>" + Unit.Area + @"</span><br />
-           <span>From : </span>
+           <span>מתאריך : </span>
            <span>" + FromDate.ToString(format: "dd/MM/yyyy") + @"</span><br />
-           <span>To: </span>
+           <span>עד תאריך :</span>
            <span>" + ToDate.ToString(format: "dd/MM/yyyy") + @"</span><br />
-           <span>as requested.</span><br />
-           <span>If this suggestion is relevant to you, I would be happy to contact me in response to this email</span><br />
-           <span>Thank you and have a nice day</span><br />
+           <span>כפי בקשתך.</span><br />
+           <span>אם הצעה זו עדיין רלוונטי בשבילך, אשמח שתחזיר לי תשובה במייל המצורף</span><br />
+           <span>תודה רבה ושיהיה לך יום נפלא !</span><br />
       </div>
 </body>");
             mail.IsBodyHtml = true;
@@ -71,7 +71,7 @@ namespace BO
             smtp.Port = 587;
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new System.Net.NetworkCredential("avrumi2018@gmail.com", "Aa5711268!");
+            smtp.Credentials = new System.Net.NetworkCredential();
             smtp.EnableSsl = true;
 
             try { smtp.Send(mail); }
