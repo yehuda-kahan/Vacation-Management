@@ -9,7 +9,7 @@ namespace BO
 {
     public class Email
     {
-       
+
         public string ToEmailAdd { get; set; }
         public string FromEmailAdd { get; set; }
         public DateTime FromDate { get; set; }
@@ -45,11 +45,11 @@ namespace BO
 
             mail.To.Add(this.ToEmailAdd);
             mail.Priority = MailPriority.High;
-            mail.From = new MailAddress(FromEmailAdd);
-            mail.Subject = " Order confirmation";
-            mail.Body = (@"<body style='margin: 0px;'>
+            mail.From = new MailAddress("avrumi2018@gmail.com");
+            mail.Subject = " הצעת אירוח";
+            mail.Body = (@"<body style='margin: 0px; dir=rtl;'>
       <div style='width: 5; height:200; padding:10px; border-radius: 10px; border:solid 2px #C0C0C0;'>
-           <span>שלום וברכה !</span><br />
+           <span dir=rtl>שלום וברכה !</span><br />
            <span>שמי : </span>          
            <span>" + HostName + @"</span><br />
            <span>אני רוצה להציע לך את יחידת האירוח שלי - <span>
@@ -61,7 +61,8 @@ namespace BO
            <span>עד תאריך :</span>
            <span>" + ToDate.ToString(format: "dd/MM/yyyy") + @"</span><br />
            <span>כפי בקשתך.</span><br />
-           <span>אם הצעה זו עדיין רלוונטי בשבילך, אשמח שתחזיר לי תשובה במייל המצורף</span><br />
+           <span>אם הצעה זו עדיין רלוונטי בשבילך, אשמח שתחזיר לי תשובה למייל : </span>
+           <span>" + FromEmailAdd + @"</span><br />
            <span>תודה רבה ושיהיה לך יום נפלא !</span><br />
       </div>
 </body>");
@@ -71,7 +72,7 @@ namespace BO
             smtp.Port = 587;
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new System.Net.NetworkCredential();
+            smtp.Credentials = new System.Net.NetworkCredential("avrumi2018", "Aa5711268!");
             smtp.EnableSsl = true;
 
             try { smtp.Send(mail); }
