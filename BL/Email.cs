@@ -16,6 +16,7 @@ namespace BO
         public DateTime ToDate { get; set; }
         public string HostName { get; set; }
         public HostingUnitBO Unit { get; set; }
+        public GuestRequestBO Request { get; set; }
 
 
 
@@ -28,6 +29,7 @@ namespace BO
         /// <param name="unit"></param>
         public Email(GuestRequestBO request, HostingUnitBO unit, HostBO host, PersonBO clientPerson)
         {
+            Request = request;
             HostName = host.PersonalInfo.FirstName + " " + host.PersonalInfo.LastName;
             ToEmailAdd = clientPerson.Email;
             FromEmailAdd = host.PersonalInfo.Email;
@@ -46,7 +48,7 @@ namespace BO
             mail.To.Add(this.ToEmailAdd);
             mail.Priority = MailPriority.High;
             mail.From = new MailAddress("avrumi2018@gmail.com");
-            mail.Subject = " הצעת אירוח";
+            mail.Subject = " הצעת אירוח עבור בקשה מס: "+Request.Key;
             mail.Body = (@"<body style='margin: 0px;'>
       <div style='width:5; height:200; padding:10px; border-radius:10px; direction:rtl; border:solid 2px #C0C0C0;'>
            <span>שלום וברכה !</span><br />
