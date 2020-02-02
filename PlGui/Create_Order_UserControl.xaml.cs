@@ -44,14 +44,15 @@ namespace PlGui
             myRequest = request;
             clientPerson = bl.GetPersonById(myRequest.ClientId);
             GridHostingUnits.DataContext = myHostingUnits;
-        }
-
-        private void CrtOrder_Click(object sender, RoutedEventArgs e)
-        {
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
 
+        }
+
+        private void CrtOrder_Click(object sender, RoutedEventArgs e)
+        {
+           
             HostingUnitBO unit = (HostingUnitBO)unitsList.SelectedItem;
             host = bl.GetHost(unit.Owner);
             if (!host.CollectingClearance)
