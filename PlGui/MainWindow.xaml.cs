@@ -403,8 +403,8 @@ namespace PlGui
 
         #region manager
 
-
-        #endregion manager
+        ObservableCollection<GuestRequestBO> requestsManag;
+        ObservableCollection<OrderBO> ordersManag;
 
         private void Manager_UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
         {
@@ -432,9 +432,14 @@ namespace PlGui
         private void Manager_LogIn_But(object sender, RoutedEventArgs e)
         {
             //TODO 
+           // requestsManag = new ObservableCollection<GuestRequestBO>(bl.GetGuestRequests());
+            //ordersManag = new ObservableCollection<OrderBO>();
             ManagerLogin.Visibility = Visibility.Collapsed;
             ManagerWindow.Visibility = Visibility.Visible;
         }
+
+
+        #endregion manager
 
 
     }
