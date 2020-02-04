@@ -20,10 +20,12 @@ namespace Dal
         static DalObject() { }
         DalObject() { }
         public static DalObject Instance { get { return instance; } }
+        
+        #endregion
 
         public Dictionary<int, string> BankNumberDictionary { get; private set; }
         public Dictionary<int, string> BankAddressDictionary { get; private set; }
-        #endregion
+        
 
         #region BankXml
         const string xmlLocalPath = @"Banks.xml";

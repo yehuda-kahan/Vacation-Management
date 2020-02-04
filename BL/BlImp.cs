@@ -754,6 +754,13 @@ namespace BL
                    into tempHosts
                    group tempHosts by tempHosts.UnitsHost.Count();
         }
+
+        public IEnumerable<OrderBO> GetAppOrders()
+        {
+            IEnumerable<Order> orders = dal.GetOrders(x=> x.Status == OrderStatus.APPROVED);
+            return from item in orders
+                   select ConvertOrderDOToBO(item);
+        }
         #endregion
 
     }

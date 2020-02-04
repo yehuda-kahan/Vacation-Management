@@ -244,6 +244,8 @@ namespace BlApi
 
         IEnumerable<GuestRequestBO> GetGuestRequests();
 
+        IEnumerable<OrderBO> GetAppOrders();
+
         #endregion
     }
 }

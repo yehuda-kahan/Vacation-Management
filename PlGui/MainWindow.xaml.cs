@@ -432,8 +432,10 @@ namespace PlGui
         private void Manager_LogIn_But(object sender, RoutedEventArgs e)
         {
             //TODO 
-           // requestsManag = new ObservableCollection<GuestRequestBO>(bl.GetGuestRequests());
-            //ordersManag = new ObservableCollection<OrderBO>();
+            requestsManag = new ObservableCollection<GuestRequestBO>(bl.GetGuestRequests());
+            ordersManag = new ObservableCollection<OrderBO>(bl.GetAppOrders());
+            requestListManager.DataContext = requestsManag;
+            AppListOrdManager.DataContext = ordersManag;
             ManagerLogin.Visibility = Visibility.Collapsed;
             ManagerWindow.Visibility = Visibility.Visible;
         }

@@ -311,7 +311,7 @@
                 </TabItem>
                 <TabItem Header="מנהל" Width="180" Height="30" FontSize="16" Foreground="White"  >
                     <Grid>
-                        <Border x:Name="ManagerLogin" Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10"  >
+                        <Border x:Name="ManagerLogin" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10"  >
                             <Border.Background>
                                 <SolidColorBrush Color="{DynamicResource BackColor}"/>
                             </Border.Background>
@@ -340,7 +340,7 @@
                             </Grid>
                         </Border>
                         <!--<materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="ManagerLoginDialog">-->
-                        <Border x:Name="ManagerWindow" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10"  >
+                        <Border x:Name="ManagerWindow" Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10"  >
                             <Border.Background>
                                 <SolidColorBrush Color="{DynamicResource BackColor}"/>
                             </Border.Background>
@@ -361,8 +361,8 @@
                                             <DataGrid x:Name="requestListManager" IsReadOnly="True" Margin="10" materialDesign:ThemeAssist.Theme="Dark" ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" Background="#FF303030" Foreground="White">
                                                 <DataGrid.Columns>
                                                     <materialDesign:DataGridTextColumn Binding="{Binding Key}"   Header="מספר בקשה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" Foreground="White" />
-                                                    <materialDesign:DataGridTextColumn Binding="{Binding CreateDate}" Header="תאריך יצירה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
-                                                    <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
+                                                    <materialDesign:DataGridTextColumn Binding="{Binding CreateDate  ,StringFormat= dd/MM/yyyy}" Header="תאריך יצירה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
+                                                    <materialDesign:DataGridTextColumn Binding="{Binding Status , Converter={StaticResource EnumToHebrew}}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
                                                     <materialDesign:DataGridTextColumn Binding="{Binding Area , Converter={StaticResource EnumToHebrew}}" Header="איזור"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
                                                 </DataGrid.Columns>
                                             </DataGrid>
