@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Dal
 {
-    class PersonXmlHandler
+    public class PersonXmlHandler
     {
+        public void CreatePersonFile()
+        {
 
+        }
     }
 }

@@ -34,8 +34,8 @@ namespace Dal
         {
             try
             {
-                if (!File.Exists(HostingUnitPath))
-                    CreateHostingUnitFile();
+                if (!File.Exists(PersonPath))
+                    CreatePersonFile();
                 else LoadHostingUnitData();
                 if (!File.Exists(GuestRequestPath))
                     CreateGuestRequestFile();
