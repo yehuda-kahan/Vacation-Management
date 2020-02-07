@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Dal
 {
-
     internal class Configuration
     {
         internal static uint GuestRequestserialKey = 10000000;
