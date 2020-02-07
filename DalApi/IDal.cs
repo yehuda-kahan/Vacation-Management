@@ -9,6 +9,10 @@ namespace DalApi
 {
     public interface IDal
     {
+        Dictionary<string, object> getConfig();
+        void setConfig(String parm, Object value);
+        event Action<Dictionary<String, Object>> ConfigHandler;
+
         #region BankXml
         void CreateXMLBankFiles();
 
@@ -164,7 +168,7 @@ namespace DalApi
         #region Bank
 
         BankBranch GetBranch(uint bankNum, uint branchNum);
-      
+
         #endregion
     }
 }
