@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,12 +24,14 @@ namespace Dal
            HostPath = @"../../../../XMLFiles/HostXML.xml",
            OrderdPath = @"../../../../XMLFiles/OrderXML.xml",
            BankBranchPath = @"../../../../XMLFiles/BranchesXML.xml",
+           PersonPath = @"../../../../XMLFiles/PersonPath.xml",
            ConfigurationPath = @"../../../../XMLFiles/ConfigurationXML.xml";
 
         #region singelton
         static readonly DalXml instance = new DalXml();
         static DalXml() { }
-        DalXml() {
+        DalXml()
+        {
             try
             {
                 if (!File.Exists(HostingUnitPath))
