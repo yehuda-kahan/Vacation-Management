@@ -165,10 +165,5 @@ namespace DalApi
         IEnumerable<Host> GetHosts(Func<Host, bool> predicate);
         #endregion
 
-        #region Bank
-
-        BankBranch GetBranch(uint bankNum, uint branchNum);
-
-        #endregion
     }
 }

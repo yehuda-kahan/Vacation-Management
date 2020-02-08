@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Linq;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -13,10 +14,11 @@ namespace Dal
 
     class DalXml : IDal
     {
-
-        static readonly DalXml instance = new DalXml();
         PersonXmlHandler personHandler = new PersonXmlHandler();
         GuestRequestXmlHandler guestRequestHandler = new GuestRequestXmlHandler();
+        HostXmlHandler hostHandler = new HostXmlHandler();
+        UnitsXmlHandler unitsHandler = new UnitsXmlHandler();
+        OrderXmlHandler OrderHandler = new OrderXmlHandler();
 
         public static List<Person> persons;
         public static List<Host> hosts;
@@ -24,15 +26,18 @@ namespace Dal
         public static List<Order> orders;
         public static List<GuestRequest> guestRequests;
         public static List<BankBranch> bankBranches;
-        public string
-           HostingUnitPath = @"../../../../XMLFiles/HostingUnitXML.xml",
+
+        public Dictionary<int, string> BankNumberDictionary { get; private set; }
+        public Dictionary<int, string> BankAddressDictionary { get; private set; }
+
+        public const string
            AdminPath = @"../../../../XMLFiles/AdminXML.xml",
-           HostPath = @"../../../../XMLFiles/HostXML.xml",
-           OrderdPath = @"../../../../XMLFiles/OrderXML.xml",
-           BankBranchPath = @"../../../../XMLFiles/BranchesXML.xml",
+           BankBranchPath = @"../../../../XMLFiles/Banks.xml",
            ConfigurationPath = @"../../../../XMLFiles/ConfigurationXML.xml";
 
         #region singelton
+
+        static readonly DalXml instance = new DalXml();
         static DalXml() { }
         DalXml()
         {
@@ -40,6 +45,16 @@ namespace Dal
             {
                 if (!File.Exists(personHandler.PersonPath))
                     personHandler.CreatePersonFile();
+                if (!File.Exists(guestRequestHandler.GuestRequestPath))
+                    guestRequestHandler.CreateGuestRequestFile();
+                if (!File.Exists(hostHandler.HostPath))
+                    hostHandler.CreateHostFile();
+                if (!File.Exists(unitsHandler.UnitsPath))
+                    unitsHandler.CreateUnitFile();
+                if (!File.Exists(OrderHandler.OrderPath))
+                    OrderHandler.CreateOrderFile();
+                if (!File.Exists(BankBranchPath))
+                    CreateXMLBankFiles();
             }
             catch { }
         }
@@ -84,7 +99,7 @@ namespace Dal
                               let FullName = item.FirstName + " " + item.LastName
                               where FullName == fullName
                               select item.Clone();
-            return persons.Count() > 0 ? persons : throw new MissingMemberException("person", fullName);
+            return personsList.Count() > 0 ? persons : throw new MissingMemberException("person", fullName);
         }
 
         public void UpdatePerson(Person person)
@@ -177,7 +192,261 @@ namespace Dal
         }
         #endregion
 
+        #region Host functions
+        public Host GetHost(string Id)
+        {
+            hostHandler.load();
+            Host host = hosts.FirstOrDefault(x => x.Id == Id);
+            return host == null ? throw new MissingMemberException("Host ID", Id) : host.Clone();
+        }
 
+        public void AddHost(Host host)
+        {
+            hostHandler.load();
+            if (hosts.Any(x => host.Id == x.Id))
+                throw new DuplicateKeyException(host.Id, "" + host.Id + " Host ID number");
+            hosts.Add(host.Clone());
+            hostHandler.Save();
+        }
 
+        public void DelHost(string Id)
+        {
+            hostHandler.load();
+            bool found = false;
+            foreach (Host item in hosts)
+            {
+                if (item.Id == Id)
+                {
+                    found = true;
+                    item.Status = Status.INACTIVE;
+                    break;
+                }
+            }
+            if (!found)
+                throw new MissingMemberException("Host ID", Id);
+            else
+                hostHandler.Save();
+        }
+
+        public void UpdateHost(Host host)
+        {
+            hostHandler.load();
+            int count = hosts.RemoveAll(x => x.Id == host.Id);
+            if (count == 0)
+                throw new MissingMemberException("Host ID", host.Id);
+            hosts.Add(host.Clone());
+            hostHandler.Save();
+        }
+
+        #endregion
+
+        #region Units functions
+        public HostingUnit GetUnit(uint Key)
+        {
+            unitsHandler.load();
+            HostingUnit host = hostingUnits.FirstOrDefault(x => x.Key == Key);
+            return host == null ? throw new MissingMemberException("unit Key", Convert.ToString(Key)) : host.Clone();
+        }
+
+        public uint AddHostingUnit(HostingUnit unit)
+        {
+            unitsHandler.load();
+            if (unit.Key == 0)
+                unit.Key = Configuration.HostingUnitSerialKey++;
+            if (hostingUnits.Any(x => unit.Key == x.Key))
+                throw new DuplicateKeyException(Convert.ToString(unit.Key), "" + Convert.ToString(unit.Key) + " Unit Key");
+            hostingUnits.Add(unit.Clone());
+            unitsHandler.Save();
+            return unit.Key;
+        }
+
+        public void UpdateHostingUnit(HostingUnit unit)
+        {
+            unitsHandler.load();
+            int count = hostingUnits.RemoveAll(x => x.Key == unit.Key);
+            if (count == 0)
+                throw new MissingMemberException("Unit Key", Convert.ToString(unit.Key));
+            hostingUnits.Add(unit.Clone());
+            unitsHandler.Save();
+        }
+
+        public void DelHostingUnit(uint Key)
+        {
+            unitsHandler.load();
+            bool found = false;
+            foreach (HostingUnit item in hostingUnits)
+            {
+                if (item.Key == Key)
+                {
+                    found = true;
+                    item.Status = Status.INACTIVE;
+                    break;
+                }
+            }
+            if (!found)
+                throw new MissingMemberException("hosting Unit Key", Convert.ToString(Key));
+            else
+                unitsHandler.Save();
+        }
+        #endregion
+
+        #region Order functions
+        public Order GetOrder(uint Key)
+        {
+            OrderHandler.load();
+            Order order = orders.FirstOrDefault(x => x.Key == Key);
+            return order == null ? throw new MissingMemberException("Order Key", Convert.ToString(Key)) : order.Clone();
+        }
+
+        public Order GetOrderGuestRequestKey(uint GuestRequestKey)
+        {
+            OrderHandler.load();
+            Order order = orders.FirstOrDefault(x => x.GuestRequestKey == GuestRequestKey);
+            return order == null ? throw new MissingMemberException("No order with guest request Key",
+                Convert.ToString(GuestRequestKey)) : order.Clone();
+        }
+
+        public IEnumerable<Order> GetOrdersHostingUnitKey(uint HostingUnitKey)
+        {
+            OrderHandler.load();
+            var ordersList = from item in orders
+                             where item.HostingUnitKey == HostingUnitKey
+                             select item.Clone();
+            return ordersList.Count() > 0 ? orders : throw new MissingMemberException("orders for this unit Key",
+                Convert.ToString(HostingUnitKey));
+        }
+
+        public uint AddOrder(Order odr)
+        {
+            OrderHandler.load();
+            if (odr.Key == 0)
+                odr.Key = Configuration.OrderSerialKey++;
+            if (orders.Any(x => odr.Key == x.Key))
+                throw new DuplicateKeyException(Convert.ToString(odr.Key), "" + Convert.ToString(odr.Key) + " Order Key");
+            orders.Add(odr.Clone());
+            OrderHandler.Save();
+            return odr.Key;
+        }
+
+        public void UpdOrder(Order odr)
+        {
+            OrderHandler.load();
+            int count = orders.RemoveAll(x => x.Key == odr.Key);
+            if (count == 0)
+                throw new MissingMemberException("Order key", Convert.ToString(odr.Key));
+            orders.Add(odr.Clone());
+            OrderHandler.Save();
+        }
+
+        public void UpdateStatusOrder(uint Key, OrderStatus status)
+        {
+            OrderHandler.load();
+            bool found = false;
+            foreach (Order item in orders)
+            {
+                if (item.Key == Key)
+                {
+                    found = true;
+                    item.Status = status;
+                }
+            }
+            if (!found)
+                throw new MissingMemberException("Order Key", Convert.ToString(Key));
+            else
+                OrderHandler.Save();
+        }
+        #endregion
+
+        #region ListFunctions
+        public IEnumerable<Host> GetHosts(Func<Host, bool> predicate)
+        {
+            hostHandler.load();
+            return from item in hosts
+                   where predicate(item)
+                   select item;
+        }
+
+        public IEnumerable<Order> GetOrders(Func<Order, bool> predicate)
+        {
+            OrderHandler.load();
+            return from item in orders
+                   where predicate(item)
+                   select item.Clone();
+        }
+
+        public IEnumerable<GuestRequest> GetGuestRequests(Func<GuestRequest, bool> predicate)
+        {
+            guestRequestHandler.load();
+            return from item in guestRequests
+                   where predicate(item)
+                   select item.Clone();
+        }
+
+        public IEnumerable<GuestRequest> GetGuestRequests()
+        {
+            guestRequestHandler.load();
+            return from item in guestRequests
+                   select item.Clone();
+        }
+
+        public IEnumerable<BankBranch> GetBranches()
+        {
+            return from item in bankBranches
+                   select item.Clone();
+        }
+
+        public IEnumerable<HostingUnit> GetHostingUnits(Func<HostingUnit, bool> predicate)
+        {
+            unitsHandler.load();
+            return from item in hostingUnits
+                   where predicate(item)
+                   select item.Clone();
+        }
+        #endregion
+
+        #region BankXml
+        public void CreateXMLBankFiles()
+        {
+            WebClient wc = new WebClient();
+            try
+            {
+                string xmlServerPath = @"https://www.boi.org.il/he/BankingSupervision/BanksAndBranchLocations/Lists/BoiBankBranchesDocs/atm.xml";
+                wc.DownloadFile(xmlServerPath, BankBranchPath);
+            }
+            catch (Exception)
+            {
+                string xmlServerPath = @"http://www.jct.ac.il/~coshri/atm.xml";
+                wc.DownloadFile(xmlServerPath, BankBranchPath);
+            }
+            finally
+            {
+                wc.Dispose();
+            }
+        }
+
+        public Dictionary<int, string> BuildDictionaryBankName()
+        {
+            XElement xml = XElement.Load(BankBranchPath);
+            return (from Bank in xml.Elements()
+                    select new { Bankcode = int.Parse(Bank.Element("קוד_בנק").Value), Bnakname = Bank.Element("שם_בנק").Value }
+                        into temp
+                    group temp by temp.Bankcode).ToDictionary(x => x.Key, x => x.ElementAt(0).Bnakname);
+        }
+
+        public Dictionary<int, string> buildDictioneryBanches(int BankNum)
+        {
+            XElement xml = XElement.Load(BankBranchPath);
+            return (from Bank in xml.Elements()
+                    where (int.Parse(Bank.Element("קוד_בנק").Value) == BankNum)
+                    select new
+                    {
+                        BranchCode = int.Parse(Bank.Element("קוד_סניף").Value),
+                        address = Bank.Element("כתובת_ה-ATM").Value,
+                        City = Bank.Element("ישוב").Value
+                    }
+                    into temp
+                    group temp by temp.BranchCode).ToDictionary(x => x.Key, x => x.ElementAt(0).address + "@" + x.ElementAt(0).City);
+        }
+        #endregion
     }
 }

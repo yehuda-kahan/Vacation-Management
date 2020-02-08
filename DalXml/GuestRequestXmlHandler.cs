@@ -16,7 +16,7 @@ namespace Dal
         static private string path = @"../../../../XMLFiles/GuestRequestXML.xml";
         public string GuestRequestPath { get { return path; } }
         XmlSerializer xs = new XmlSerializer(typeof(List<GuestRequest>));
-        public void CreatePersonFile()
+        public void CreateGuestRequestFile()
         {
             FileStream fsout = new FileStream(GuestRequestPath, FileMode.Create);
             fsout.Close();
