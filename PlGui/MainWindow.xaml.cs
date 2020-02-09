@@ -440,9 +440,19 @@ namespace PlGui
             ManagerWindow.Visibility = Visibility.Visible;
         }
 
+        private void requestListManager_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DialogRequestUserControl RequestControl = new DialogRequestUserControl((GuestRequestBO)requestListManager.SelectedItem);
+            MaterialDesignThemes.Wpf.DialogHost.Show(RequestControl, "ManagerDialog");
+        }
+
 
         #endregion manager
 
-
+        private void AppListOrdManager_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            OrderUserControl1 orderControl = new OrderUserControl1((OrderBO)AppListOrdManager.SelectedItem);
+            MaterialDesignThemes.Wpf.DialogHost.Show(orderControl, "ManagerDialog");
+        }
     }
 }
