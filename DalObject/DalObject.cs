@@ -77,6 +77,29 @@ namespace Dal
                     into temp
                     group temp by temp.BranchCode).ToDictionary(x => x.Key, x => x.ElementAt(0).address + "@" + x.ElementAt(0).City);
         }
+
+        public BankBranch GetBranch(uint bankNum, uint branchNum)
+        {
+            BankBranch temp = new BankBranch();
+            XElement xml;
+            try { xml = XElement.Load(xmlLocalPath); }
+            catch (Exception ex) { return null; }
+
+            IEnumerable<XElement> address = from Bank in xml.Elements()
+                                            where (int.Parse(Bank.Element("קוד_בנק").Value) == bankNum && (int.Parse(Bank.Element("קוד_סניף").Value) == branchNum))
+                                            select Bank;
+
+            foreach (XElement item in address)
+            {
+                temp.BranchCity = item.Element("ישוב").Value;
+                temp.BranchAddress = item.Element("כתובת_ה-ATM").Value;
+                temp.BankName = item.Element("שם_בנק").Value;
+                temp.BankNumber = bankNum;
+                temp.BranchNumber = branchNum;
+                break;
+            }
+            return temp.Clone();
+        }
         #endregion
 
         #region Person Function functions
@@ -370,37 +393,13 @@ namespace Dal
         }
         #endregion
 
-        #region
-        public BankBranch GetBranch(uint bankNum, uint branchNum)
-        {
-            BankBranch temp = new BankBranch();
-            XElement xml;
-            try { xml = XElement.Load(xmlLocalPath); }
-            catch (Exception ex) { return null; }
+        
 
-            IEnumerable<XElement> address = from Bank in xml.Elements()
-                                            where (int.Parse(Bank.Element("קוד_בנק").Value) == bankNum && (int.Parse(Bank.Element("קוד_סניף").Value) == branchNum))
-                                            select Bank;
-
-            foreach (XElement item in address)
-            {
-                temp.BranchCity = item.Element("ישוב").Value;
-                temp.BranchAddress = item.Element("כתובת_ה-ATM").Value;
-                temp.BankName = item.Element("שם_בנק").Value;
-                temp.BankNumber = bankNum;
-                temp.BranchNumber = branchNum;
-                break;
-            }
-            return temp.Clone();
-        }
 
         public Dictionary<string, object> getConfig() { return null; }
 
-        public void setConfig(string parm, object value) { }
+        public void SetConfig(string parm, Object value) { }
+
     }
-
-
-
-    #endregion
 }
 

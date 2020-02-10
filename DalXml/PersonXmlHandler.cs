@@ -11,12 +11,13 @@ namespace Dal
 {
     public class PersonXmlHandler
     {
-        static private string path = @"../../../../XMLFiles/PersonPath.xml";
+        static private string path = @"PersonPath.xml";
         public string PersonPath { get { return path; } }
         XmlSerializer xs = new XmlSerializer(typeof(List<Person>));
         public void CreatePersonFile()
         {
             FileStream fsout = new FileStream(PersonPath, FileMode.Create);
+            xs.Serialize(fsout, DalXml.persons);
             fsout.Close();
         }
 
@@ -29,7 +30,7 @@ namespace Dal
 
         public void Save()
         {
-            FileStream fsout = new FileStream(PersonPath, FileMode.Open);
+            FileStream fsout = new FileStream(PersonPath, FileMode.Create);
             xs.Serialize(fsout, DalXml.persons);
             fsout.Close();
         }

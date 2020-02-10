@@ -9,7 +9,7 @@ using DO;
 
 namespace Dal
 {
-    class HostXmlHandler
+    public class HostXmlHandler
     {
         static private string path = @"../../../../XMLFiles/HostXML.xml";
         public string HostPath { get { return path; } }

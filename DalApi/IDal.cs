@@ -161,8 +161,6 @@ namespace DalApi
         /// <returns></returns>
         IEnumerable<GuestRequest> GetGuestRequests(Func<GuestRequest, bool> predicate);
 
-        IEnumerable<BankBranch> GetBranches();
-
         IEnumerable<Host> GetHosts(Func<Host, bool> predicate);
         #endregion
 

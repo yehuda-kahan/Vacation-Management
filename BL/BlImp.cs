@@ -178,7 +178,7 @@ namespace BL
 
         public void downloadBankXml()
         {
-            dal.CreateXMLBankFiles();
+           // dal.CreateXMLBankFiles();
         }
 
         public Dictionary<int, string> getBanknameList()

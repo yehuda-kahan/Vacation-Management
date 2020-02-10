@@ -10,7 +10,7 @@ using DO;
 
 namespace Dal
 {
-    class GuestRequestXmlHandler
+    public class GuestRequestXmlHandler
     {
 
         static private string path = @"../../../../XMLFiles/GuestRequestXML.xml";

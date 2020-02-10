@@ -13,7 +13,7 @@ using DO;
 namespace Dal
 {
 
-    class DalXml : IDal
+    sealed class DalXml : IDal
     {
         PersonXmlHandler personHandler = new PersonXmlHandler();
         GuestRequestXmlHandler guestRequestHandler = new GuestRequestXmlHandler();
@@ -21,11 +21,11 @@ namespace Dal
         UnitsXmlHandler unitsHandler = new UnitsXmlHandler();
         OrderXmlHandler OrderHandler = new OrderXmlHandler();
 
-        public static List<Person> persons;
-        public static List<Host> hosts;
-        public static List<HostingUnit> hostingUnits;
-        public static List<Order> orders;
-        public static List<GuestRequest> guestRequests;
+        public static List<Person> persons=new List<Person>();
+        public static List<Host> hosts= new List<Host>();
+        public static List<HostingUnit> hostingUnits= new List<HostingUnit>();
+        public static List<Order> orders = new List<Order>();
+        public static List<GuestRequest> guestRequests = new List<GuestRequest>();
         public static List<BankBranch> bankBranches;
 
         public Dictionary<int, string> BankNumberDictionary { get; private set; }
@@ -432,7 +432,7 @@ namespace Dal
             catch (Exception)
             {
                 string xmlServerPath = @"http://www.jct.ac.il/~coshri/atm.xml";
-                wc.DownloadFile(xmlServerPath, BankBranchPath);
+                //wc.DownloadFile(xmlServerPath, BankBranchPath);
             }
             finally
             {
@@ -463,9 +463,31 @@ namespace Dal
                     into temp
                     group temp by temp.BranchCode).ToDictionary(x => x.Key, x => x.ElementAt(0).address + "@" + x.ElementAt(0).City);
         }
+
+        public BankBranch GetBranch(uint bankNum, uint branchNum)
+        {
+            BankBranch temp = new BankBranch();
+            try { Load(ref BanksRoot, BankBranchPath);}
+            catch (Exception ex) { return null; }
+
+            IEnumerable<XElement> address = from Bank in BanksRoot.Elements()
+                                            where (int.Parse(Bank.Element("קוד_בנק").Value) == bankNum && (int.Parse(Bank.Element("קוד_סניף").Value) == branchNum))
+                                            select Bank;
+
+            foreach (XElement item in address)
+            {
+                temp.BranchCity = item.Element("ישוב").Value;
+                temp.BranchAddress = item.Element("כתובת_ה-ATM").Value;
+                temp.BankName = item.Element("שם_בנק").Value;
+                temp.BankNumber = bankNum;
+                temp.BranchNumber = branchNum;
+                break;
+            }
+            return temp.Clone();
+        }
         #endregion
 
-
+        #region Config
         public event Action<Dictionary<String, Object>> ConfigHandler;
 
         private void Load(ref XElement t, string a)
@@ -528,5 +550,6 @@ namespace Dal
             }
             throw new KeyNotFoundException("שגיאה! לא קיים מאפיין קונפיגורציה בשם זה במערכת.");
         }
+        #endregion Config
     }
 }

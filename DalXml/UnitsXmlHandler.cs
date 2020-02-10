@@ -9,7 +9,7 @@ using DO;
 
 namespace Dal
 {
-    class UnitsXmlHandler
+    public class UnitsXmlHandler
     {
         static private string path = @"../../../../XMLFiles/HostingUnitXML.xml";
         public string UnitsPath { get { return path; } }

@@ -8,7 +8,7 @@ using DO;
 
 namespace Dal
 {
-    class HostinhUnitXml
+    public class HostinhUnitXml
     {
         public uint Key { get; set; }
         public string Owner { get; set; }   // ID of the Owner Host 
@@ -20,7 +20,7 @@ namespace Dal
         public bool[] DiaryDto
         {
             get { return Diary.Flatten(); }
-            set { Diary = value.Expand(12); } 
+            set { Diary = value.Expand(12); }
         }
         public AreaLocation Area { get; set; }
         public Status Status { get; set; }

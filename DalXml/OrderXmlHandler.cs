@@ -9,7 +9,7 @@ using DO;
 
 namespace Dal
 {
-    class OrderXmlHandler
+    public class OrderXmlHandler
     {
         static private string path = @"../../../../XMLFiles/OrderXML.xml";
         public string OrderPath { get { return path; } }

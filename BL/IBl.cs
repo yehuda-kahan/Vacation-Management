@@ -96,7 +96,6 @@ namespace BlApi
         #endregion
 
         #region Bank Branch
-        BankBranchBO GetBranch(uint bankNum, uint branchNum);
 
         void downloadBankXml();
 
