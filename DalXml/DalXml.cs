@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using DalApi;
@@ -29,9 +30,12 @@ namespace Dal
 
         public Dictionary<int, string> BankNumberDictionary { get; private set; }
         public Dictionary<int, string> BankAddressDictionary { get; private set; }
+        Dictionary<string, object> Config;
+
+        private XElement ConfigRoot;
+        private XElement BanksRoot;
 
         public const string
-           AdminPath = @"../../../../XMLFiles/AdminXML.xml",
            BankBranchPath = @"../../../../XMLFiles/Banks.xml",
            ConfigurationPath = @"../../../../XMLFiles/ConfigurationXML.xml";
 
@@ -155,7 +159,11 @@ namespace Dal
         {
             guestRequestHandler.load();
             if (request.Key == 0)
-                request.Key = Configuration.GuestRequestserialKey++;
+            {
+                Config = getConfig();
+                request.Key = (Convert.ToUInt32(Config["GuestRequestserialKey"]) + 1);
+                SetConfig("GuestRequestserialKey", request.Key);
+            }
             if (guestRequests.Any(x => request.Key == x.Key)) // if there is a problem white the serialNumber
                 throw new DuplicateKeyException(Convert.ToString(request.Key), "" + Convert.ToString(request.Key) + " Guest Request Key");
             guestRequests.Add(request.Clone());
@@ -252,7 +260,11 @@ namespace Dal
         {
             unitsHandler.load();
             if (unit.Key == 0)
-                unit.Key = Configuration.HostingUnitSerialKey++;
+            {
+                Config = getConfig();
+                unit.Key = (Convert.ToUInt32(Config["HostingUnitSerialKey"]) + 1);
+                SetConfig("HostingUnitSerialKey", unit.Key);
+            }
             if (hostingUnits.Any(x => unit.Key == x.Key))
                 throw new DuplicateKeyException(Convert.ToString(unit.Key), "" + Convert.ToString(unit.Key) + " Unit Key");
             hostingUnits.Add(unit.Clone());
@@ -320,7 +332,11 @@ namespace Dal
         {
             OrderHandler.load();
             if (odr.Key == 0)
-                odr.Key = Configuration.OrderSerialKey++;
+            {
+                Config = getConfig();
+                odr.Key = (Convert.ToUInt32(Config["OrderSerialKey"]) + 1);
+                SetConfig("OrderSerialKey", odr.Key);
+            }
             if (orders.Any(x => odr.Key == x.Key))
                 throw new DuplicateKeyException(Convert.ToString(odr.Key), "" + Convert.ToString(odr.Key) + " Order Key");
             orders.Add(odr.Clone());
@@ -426,8 +442,8 @@ namespace Dal
 
         public Dictionary<int, string> BuildDictionaryBankName()
         {
-            XElement xml = XElement.Load(BankBranchPath);
-            return (from Bank in xml.Elements()
+            Load(ref BanksRoot, BankBranchPath);
+            return (from Bank in BanksRoot.Elements()
                     select new { Bankcode = int.Parse(Bank.Element("קוד_בנק").Value), Bnakname = Bank.Element("שם_בנק").Value }
                         into temp
                     group temp by temp.Bankcode).ToDictionary(x => x.Key, x => x.ElementAt(0).Bnakname);
@@ -435,8 +451,8 @@ namespace Dal
 
         public Dictionary<int, string> buildDictioneryBanches(int BankNum)
         {
-            XElement xml = XElement.Load(BankBranchPath);
-            return (from Bank in xml.Elements()
+            Load(ref BanksRoot, BankBranchPath);
+            return (from Bank in BanksRoot.Elements()
                     where (int.Parse(Bank.Element("קוד_בנק").Value) == BankNum)
                     select new
                     {
@@ -448,5 +464,69 @@ namespace Dal
                     group temp by temp.BranchCode).ToDictionary(x => x.Key, x => x.ElementAt(0).address + "@" + x.ElementAt(0).City);
         }
         #endregion
+
+
+        public event Action<Dictionary<String, Object>> ConfigHandler;
+
+        private void Load(ref XElement t, string a)
+        {
+            try
+            {
+                t = XElement.Load(a);
+            }
+            catch
+            {
+                throw new DirectoryNotFoundException(" שגיאה! בעיית טעינת קובץ:" + a);
+            }
+
+        }
+
+        public Dictionary<string, object> getConfig()
+        {
+            try
+            {
+                Load(ref ConfigRoot, ConfigurationPath);
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+            bool v;
+            Dictionary<string, object> keyValues = new Dictionary<string, object>();
+            foreach (var item in ConfigRoot.Elements())
+            {
+                if (Convert.ToBoolean(item.Element("Value").Element("Readable").Value))
+                {
+                    keyValues.Add(item.Element("Key").Value, int.Parse(item.Element("Value").Element("value").Value));
+                }
+            }
+            return keyValues;
+        }
+
+        public void SetConfig(string parm, Object value)
+        {
+            try
+            {
+                Load(ref ConfigRoot, ConfigurationPath);
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw e;
+            }
+            foreach (var item in ConfigRoot.Elements())
+            {
+                if (item.Element("Key").Value == parm)
+                {
+                    if (Convert.ToBoolean(item.Element("Value").Element("Writable").Value))
+                    {
+                        item.Element("Value").Element("value").Value = value.ToString();
+                        ConfigRoot.Save(ConfigurationPath);
+                        return;
+                    }
+                    throw new AccessViolationException("שגיאה! אין הרשאה לשנות מאפיין קונפיגורציה זה.");
+                }
+            }
+            throw new KeyNotFoundException("שגיאה! לא קיים מאפיין קונפיגורציה בשם זה במערכת.");
+        }
     }
 }
