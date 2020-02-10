@@ -16,6 +16,7 @@ namespace DalApi
         #region BankXml
         void CreateXMLBankFiles();
 
+        BankBranch GetBranch(uint bankNum, uint branchNum);
         Dictionary<int, string> BuildDictionaryBankName();
 
         Dictionary<int, string> buildDictioneryBanches(int BankNum);

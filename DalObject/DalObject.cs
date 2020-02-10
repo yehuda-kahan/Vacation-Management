@@ -20,15 +20,18 @@ namespace Dal
         static DalObject() { }
         DalObject() { }
         public static DalObject Instance { get { return instance; } }
-        
+
         #endregion
 
         public Dictionary<int, string> BankNumberDictionary { get; private set; }
         public Dictionary<int, string> BankAddressDictionary { get; private set; }
-        
+
 
         #region BankXml
         const string xmlLocalPath = @"Banks.xml";
+
+        public event Action<Dictionary<string, object>> ConfigHandler;
+
         public void CreateXMLBankFiles()
         {
 
@@ -390,6 +393,10 @@ namespace Dal
             }
             return temp.Clone();
         }
+
+        public Dictionary<string, object> getConfig() { return null; }
+
+        public void setConfig(string parm, object value) { }
     }
 
 

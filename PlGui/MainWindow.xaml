@@ -75,17 +75,46 @@
             <TabControl x:Name="TabControl_Login" HorizontalAlignment="Stretch" Margin="20" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged" Background="{x:Null}" BorderBrush="{x:Null}">
 
                 <TabItem Header="מסך פתיחה" Width="180" Height="30" FontSize="16" Foreground="White">
+                    <Grid Margin="10" Background="#FF464941">
+                        <Image/>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="8">
+                            <TextBlock Text="ברוכים הבאים למערכת ניהול הזמנת חופשות!" FontSize="30" FontWeight="Bold"/>
+                            <TextBlock Text="מערכת זו נועדה לאפשר להזמין חופשות בצורה נוחה ויעילה " FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="" FontSize="18"/>
+                            <TextBlock Text="כרטיסיית 'לקוח':  " FontSize="18" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="חלון זה נועד עבור הלקוח שרוצה לנפוש, כאן הוא יכול להירשם למערכת ולהזין את" FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="כל הנתונים עבור החופשה הרצויה (כגון תאריכי הנופש, מספר הנופשים וכו')" FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="" FontSize="18"/>
+                            <TextBlock Text="כרטיסיית 'מארח': " FontSize="18" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="חלון זה נועד עבור המארח, כאן הוא יכול להירשם למערכת  ולרשום את יחידות" FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="האירוח שלו. ובנוסף, יש לו אפשרות לצפות בכל בקשות האירוח של הלקוחות" FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="אשר רלוונטיות עבורו (לפי מיקום היחידת אירוח וכו'), ולפתוח הזמנה על יד שליחת " FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="מייל אל הלקוח שבחר - ואחרי שיסגרו ביניהם את החופשה - המארח יסגור את" FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="בקשת הלקוח" FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="" FontSize="18"/>
+                            <TextBlock Text="כרטיסיית 'מנהל':" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <TextBlock Text="חלון זה נועד עבור מנהל האתר, כאן הוא יכול לצפות בכל הנתונים  כגון בקשות  " FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text=" הלקוחות, כל ההזמנות שנסגרו ועוד פרטים סטטיסטיים. וכמו כן כאן יש לו אפשרות " FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="לשנות את פרטי הברירת מחדל כגון מחיר העמלה עבור כל הזמנה שנסגרת וכו' " FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="" FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="" FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="תוכנה זו נוצרה על ידי : אברימי רוזנברג ויהודה קאהן " FontSize="18" HorizontalAlignment="Center" />
 
+
+                        </StackPanel>
+
+                    </Grid>
                 </TabItem>
                 <TabItem Header="לקוח" Width="180" Height="30" FontSize="16" Foreground="White">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="478*"/>
+                            <ColumnDefinition Width="137*"/>
+                            <ColumnDefinition Width="341*"/>
                             <ColumnDefinition Width="155*"/>
                             <ColumnDefinition Width="322*"/>
                         </Grid.ColumnDefinitions>
-                        <Viewbox x:Name="ClientImage" Grid.Column="1" Grid.ColumnSpan="2" Margin="0.4,0"/>
-                        <materialDesign:DialogHost Grid.ColumnSpan="3" Identifier="SingUpFourm" Margin="0,0,0.4,0" >
+                        <Viewbox x:Name="ClientImage" Grid.Column="2" Grid.ColumnSpan="2" Margin="0.4,0"/>
+                        <materialDesign:DialogHost Grid.ColumnSpan="4" Identifier="SingUpFourm" Margin="0,0,0.4,0" >
                             <Border x:Name="clientLogin" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10" >
                                 <Border.Background>
                                     <SolidColorBrush Color="{DynamicResource BackColor}"/>
@@ -119,7 +148,7 @@
                             </Border>
                         </materialDesign:DialogHost>
 
-                        <materialDesign:DialogHost Grid.ColumnSpan="3" Identifier="clientWinDialog" Margin="-3,-1,3.4,1">
+                        <materialDesign:DialogHost Grid.ColumnSpan="4" Identifier="clientWinDialog" Margin="-3,-1,3.4,1">
                             <Border x:Name="clientWindow" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10" >
                                 <Border.Background>
                                     <SolidColorBrush Color="{DynamicResource BackColor}"/>
@@ -339,52 +368,52 @@
                                 </materialDesign:Card>
                             </Grid>
                         </Border>
-                        <!--<materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="ManagerDialog">-->
-                        <Border x:Name="ManagerWindow" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10"  >
-                            <Border.Background>
-                                <SolidColorBrush Color="{DynamicResource BackColor}"/>
-                            </Border.Background>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="3*"/>
-                                        <RowDefinition Height="3*"/>
-                                    </Grid.RowDefinitions>
-                                    <StackPanel  Grid.Column="1" Grid.Row="1" Margin="5" Orientation="Vertical">
-                                        <TextBlock  HorizontalAlignment="Center" Text="בקשות הלקוחות" FontSize="16" FontWeight="Bold" />
-                                        <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True" MaxHeight="260">
-                                            <DataGrid x:Name="requestListManager" MouseDoubleClick="requestListManager_MouseDoubleClick" IsReadOnly="True" Margin="10" materialDesign:ThemeAssist.Theme="Dark" ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" Background="#FF303030" Foreground="White">
-                                                <DataGrid.Columns>
-                                                    <materialDesign:DataGridTextColumn Binding="{Binding Key}"   Header="מספר בקשה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" Foreground="White" />
-                                                    <materialDesign:DataGridTextColumn Binding="{Binding CreateDate  ,StringFormat= dd/MM/yyyy}" Header="תאריך יצירה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
-                                                    <materialDesign:DataGridTextColumn Binding="{Binding Status , Converter={StaticResource EnumToHebrew}}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
-                                                    <materialDesign:DataGridTextColumn Binding="{Binding Area , Converter={StaticResource EnumToHebrew}}" Header="איזור"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                    <StackPanel  Grid.Column="1" Grid.Row="2" Margin="5" Orientation="Vertical">
-                                        <TextBlock  HorizontalAlignment="Center" Text="הזמנות שאושרו" FontSize="16" FontWeight="Bold" />
-                                        <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True" MaxHeight="260">
-                                            <DataGrid x:Name="AppListOrdManager" MouseDoubleClick="AppListOrdManager_MouseDoubleClick" HorizontalGridLinesBrush="Gray" IsReadOnly="True" Margin="10"  ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
-                                                <DataGrid.Columns>
-                                                    <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר הזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                                    <materialDesign:DataGridTextColumn Binding="{Binding OrderDate ,StringFormat= dd/MM/yyyy}" Header="תאריך יצירת ההזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                                                    <materialDesign:DataGridTextColumn Binding="{Binding Status, Converter={StaticResource EnumToHebrew}}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
-                                                    <materialDesign:DataGridTextColumn Binding="{Binding Fee }" Header="סכום עמלה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                        </ScrollViewer >
-                                    </StackPanel>
+                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="ManagerDialog">
+                            <Border x:Name="ManagerWindow" Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10"  >
+                                <Border.Background>
+                                    <SolidColorBrush Color="{DynamicResource BackColor}"/>
+                                </Border.Background>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="3*"/>
+                                            <RowDefinition Height="3*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel  Grid.Column="1" Grid.Row="1" Margin="5" Orientation="Vertical">
+                                            <TextBlock  HorizontalAlignment="Center" Text="בקשות הלקוחות" FontSize="16" FontWeight="Bold" />
+                                            <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True" MaxHeight="260">
+                                                <DataGrid x:Name="requestListManager" MouseDoubleClick="requestListManager_MouseDoubleClick" IsReadOnly="True" Margin="10" materialDesign:ThemeAssist.Theme="Dark" ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False"  materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" Background="#FF303030" Foreground="White">
+                                                    <DataGrid.Columns>
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding Key}"   Header="מספר בקשה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" Foreground="White" />
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding CreateDate  ,StringFormat= dd/MM/yyyy}" Header="תאריך יצירה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding Status , Converter={StaticResource EnumToHebrew}}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding Area , Converter={StaticResource EnumToHebrew}}" Header="איזור"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" Foreground="White"/>
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                        <StackPanel  Grid.Column="1" Grid.Row="2" Margin="5" Orientation="Vertical">
+                                            <TextBlock  HorizontalAlignment="Center" Text="הזמנות שאושרו" FontSize="16" FontWeight="Bold" />
+                                            <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True" MaxHeight="260">
+                                                <DataGrid x:Name="AppListOrdManager" MouseDoubleClick="AppListOrdManager_MouseDoubleClick" HorizontalGridLinesBrush="Gray" IsReadOnly="True" Margin="10"  ItemsSource="{Binding}"  CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" materialDesign:DataGridAssist.CellPadding="10 7 7 7" materialDesign:DataGridAssist.ColumnHeaderPadding="8" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" >
+                                                    <DataGrid.Columns>
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding Key}"  Header="מספר הזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding OrderDate ,StringFormat= dd/MM/yyyy}" Header="תאריך יצירת ההזמנה" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding Status, Converter={StaticResource EnumToHebrew}}" Header="סטטוס"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                                                        <materialDesign:DataGridTextColumn Binding="{Binding Fee }" Header="סכום עמלה"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                            </ScrollViewer >
+                                        </StackPanel>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </Border>
-                        <!--</materialDesign:DialogHost>-->
+                            </Border>
+                        </materialDesign:DialogHost>
                     </Grid>
                 </TabItem>
             </TabControl>

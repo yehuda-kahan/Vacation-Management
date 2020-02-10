@@ -38,6 +38,9 @@ namespace Dal
         #region singelton
 
         static readonly DalXml instance = new DalXml();
+
+        public event Action<Dictionary<string, object>> ConfigHandler;
+
         static DalXml() { }
         DalXml()
         {
@@ -155,7 +158,7 @@ namespace Dal
         {
             guestRequestHandler.load();
             if (request.Key == 0)
-                request.Key = Configuration.GuestRequestserialKey++;
+               // request.Key = Configuration.GuestRequestserialKey++; TODO
             if (guestRequests.Any(x => request.Key == x.Key)) // if there is a problem white the serialNumber
                 throw new DuplicateKeyException(Convert.ToString(request.Key), "" + Convert.ToString(request.Key) + " Guest Request Key");
             guestRequests.Add(request.Clone());
@@ -252,7 +255,7 @@ namespace Dal
         {
             unitsHandler.load();
             if (unit.Key == 0)
-                unit.Key = Configuration.HostingUnitSerialKey++;
+             //   unit.Key = Configuration.HostingUnitSerialKey++; TODO
             if (hostingUnits.Any(x => unit.Key == x.Key))
                 throw new DuplicateKeyException(Convert.ToString(unit.Key), "" + Convert.ToString(unit.Key) + " Unit Key");
             hostingUnits.Add(unit.Clone());
@@ -320,7 +323,7 @@ namespace Dal
         {
             OrderHandler.load();
             if (odr.Key == 0)
-                odr.Key = Configuration.OrderSerialKey++;
+             //   odr.Key = Configuration.OrderSerialKey++; TODO
             if (orders.Any(x => odr.Key == x.Key))
                 throw new DuplicateKeyException(Convert.ToString(odr.Key), "" + Convert.ToString(odr.Key) + " Order Key");
             orders.Add(odr.Clone());
@@ -446,6 +449,16 @@ namespace Dal
                     }
                     into temp
                     group temp by temp.BranchCode).ToDictionary(x => x.Key, x => x.ElementAt(0).address + "@" + x.ElementAt(0).City);
+        }
+
+        public Dictionary<string, object> getConfig()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void setConfig(string parm, object value)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
