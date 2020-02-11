@@ -11,8 +11,8 @@ namespace Dal
 {
     public class UnitsXmlHandler
     {
-        static private string path = @"../../../../XMLFiles/HostingUnitXML.xml";
-        public string UnitsPath { get { return path; } }
+        public string UnitsPath = "HostingUnitXML.xml";
+        List<HostinhUnitXml> hostinhUnitXmls;
         XmlSerializer xs = new XmlSerializer(typeof(List<HostinhUnitXml>));
 
         HostinhUnitXml ConverterTioHostingUnitXml(HostingUnit unit)
@@ -38,11 +38,14 @@ namespace Dal
         public void CreateUnitFile()
         {
             FileStream fsout = new FileStream(UnitsPath, FileMode.Create);
+           hostinhUnitXmls = new List<HostinhUnitXml>();
+            xs.Serialize(fsout, hostinhUnitXmls);
             fsout.Close();
         }
 
         public void load()
         {
+            DalXml.hostingUnits = new List<HostingUnit>();
             FileStream fsin = new FileStream(UnitsPath, FileMode.Open);
             List<HostinhUnitXml> temp = (List<HostinhUnitXml>)xs.Deserialize(fsin);
             foreach (HostinhUnitXml item in temp)
@@ -52,8 +55,8 @@ namespace Dal
 
         public void Save()
         {
+            CreateUnitFile();
             FileStream fsout = new FileStream(UnitsPath, FileMode.Open);
-            List<HostinhUnitXml> hostinhUnitXmls = new List<HostinhUnitXml>();
             foreach (HostingUnit item in DalXml.hostingUnits)
                 hostinhUnitXmls.Add(ConverterTioHostingUnitXml(item));
             xs.Serialize(fsout, hostinhUnitXmls);

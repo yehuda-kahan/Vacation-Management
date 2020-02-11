@@ -11,12 +11,13 @@ namespace Dal
 {
     public class HostXmlHandler
     {
-        static private string path = @"../../../../XMLFiles/HostXML.xml";
-        public string HostPath { get { return path; } }
+        public  string HostPath = "HostXML.xml";
+
         XmlSerializer xs = new XmlSerializer(typeof(List<Host>));
         public void CreateHostFile()
         {
             FileStream fsout = new FileStream(HostPath, FileMode.Create);
+            xs.Serialize(fsout, DalXml.hosts);
             fsout.Close();
         }
 

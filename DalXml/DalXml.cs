@@ -4,6 +4,7 @@ using System.Data.Linq;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,8 +37,8 @@ namespace Dal
         private XElement BanksRoot;
 
         public const string
-           BankBranchPath = @"../../../../XMLFiles/Banks.xml",
-           ConfigurationPath = @"../../../../XMLFiles/ConfigurationXML.xml";
+           BankBranchPath = @"Banks.xml",
+           ConfigurationPath = @"Configuration.xml";
 
         #region singelton
 
@@ -45,6 +46,7 @@ namespace Dal
         static DalXml() { }
         DalXml()
         {
+            
             try
             {
                 if (!File.Exists(personHandler.PersonPath))
@@ -432,7 +434,7 @@ namespace Dal
             catch (Exception)
             {
                 string xmlServerPath = @"http://www.jct.ac.il/~coshri/atm.xml";
-                //wc.DownloadFile(xmlServerPath, BankBranchPath);
+                wc.DownloadFile(xmlServerPath, BankBranchPath);
             }
             finally
             {
@@ -519,7 +521,7 @@ namespace Dal
             {
                 if (Convert.ToBoolean(item.Element("Value").Element("Readable").Value))
                 {
-                    keyValues.Add(item.Element("Key").Value, int.Parse(item.Element("Value").Element("value").Value));
+                    keyValues.Add(item.Element("Key").Value, item.Element("Value").Element("value").Value);
                 }
             }
             return keyValues;

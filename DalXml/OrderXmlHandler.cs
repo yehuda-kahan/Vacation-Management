@@ -11,24 +11,27 @@ namespace Dal
 {
     public class OrderXmlHandler
     {
-        static private string path = @"../../../../XMLFiles/OrderXML.xml";
-        public string OrderPath { get { return path; } }
+        public string OrderPath = @"OrderXML.xml";
         XmlSerializer xs = new XmlSerializer(typeof(List<Order>));
         public void CreateOrderFile()
         {
+            
             FileStream fsout = new FileStream(OrderPath, FileMode.Create);
+            xs.Serialize(fsout, new List<Order>());
             fsout.Close();
         }
 
         public void load()
         {
             FileStream fsin = new FileStream(OrderPath, FileMode.Open);
+            DalXml.orders = new List<Order>();
             DalXml.orders = (List<Order>)xs.Deserialize(fsin);
             fsin.Close();
         }
 
         public void Save()
         {
+            CreateOrderFile();
             FileStream fsout = new FileStream(OrderPath, FileMode.Open);
             xs.Serialize(fsout, DalXml.orders);
             fsout.Close();

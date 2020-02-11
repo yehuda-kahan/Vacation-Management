@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using DO;
 
+
 namespace Dal
 {
     public class PersonXmlHandler
     {
-        static private string path = @"PersonPath.xml";
-        public string PersonPath { get { return path; } }
+        public string PersonPath = "PersonPath.xml";
         XmlSerializer xs = new XmlSerializer(typeof(List<Person>));
         public void CreatePersonFile()
         {
@@ -23,6 +24,7 @@ namespace Dal
 
         public void load()
         {
+
             FileStream fsin = new FileStream(PersonPath, FileMode.Open);
             DalXml.persons = (List<Person>)xs.Deserialize(fsin);
             fsin.Close();
@@ -30,9 +32,9 @@ namespace Dal
 
         public void Save()
         {
-            FileStream fsout = new FileStream(PersonPath, FileMode.Create);
-            xs.Serialize(fsout, DalXml.persons);
-            fsout.Close();
+            FileStream fsSave = new FileStream(PersonPath, FileMode.Open);
+            xs.Serialize(fsSave, DalXml.persons);
+            fsSave.Close();
         }
     }
 }

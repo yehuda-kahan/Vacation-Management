@@ -55,7 +55,7 @@ namespace Dal
             T[,] arrExpanded = new T[rows, columns];
             for (int j = 0; j < rows; j++)
                 for (int i = 0; i < columns; i++)
-                    arrExpanded[i, j] = arr[i + j * rows];
+                    arrExpanded[j, i] = arr[i + j * rows];
             return arrExpanded;
         }
     }

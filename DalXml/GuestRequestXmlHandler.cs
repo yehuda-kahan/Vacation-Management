@@ -13,12 +13,12 @@ namespace Dal
     public class GuestRequestXmlHandler
     {
 
-        static private string path = @"../../../../XMLFiles/GuestRequestXML.xml";
-        public string GuestRequestPath { get { return path; } }
+        public  string GuestRequestPath = "GuestRequestXML.xml";
         XmlSerializer xs = new XmlSerializer(typeof(List<GuestRequest>));
         public void CreateGuestRequestFile()
         {
             FileStream fsout = new FileStream(GuestRequestPath, FileMode.Create);
+            xs.Serialize(fsout, DalXml.guestRequests);   
             fsout.Close();
         }
 
