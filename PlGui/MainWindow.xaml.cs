@@ -36,6 +36,7 @@ namespace PlGui
             InitializeComponent();
             downloadBankXml.DoWork += DownloadBankXml_DoWork;
             downloadBankXml.RunWorkerCompleted += DownloadBankXml_RunWorkerCompleted;
+            bl.DelExpierInvatationAndRequests();
         }
 
         private void DownloadBankXml_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -446,7 +447,7 @@ namespace PlGui
                     ManagerLogin.Visibility = Visibility.Collapsed;
                     ManagerWindow.Visibility = Visibility.Visible;
                     TaxTB.Text = bl.GetAllFee().ToString() + " ₪";
-                    upComungTaxTB.Text = bl.GetUpComingFee().ToString() + " ₪";
+                    upComingTaxTB.Text = bl.GetUpComingFee().ToString() + " ₪";
                 }
                 else
                     ManagerErorrInput.Visibility = Visibility.Visible;

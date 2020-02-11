@@ -553,6 +553,12 @@ namespace Dal
             throw new KeyNotFoundException("שגיאה! לא קיים מאפיין קונפיגורציה בשם זה במערכת.");
         }
 
+        public int GetNumDaysToExpire()
+        {
+            Config = getConfig();
+            return Convert.ToInt32(Config["NumDaysToExpire"]);
+        }
+            
         public double GetFeePercent()
         {
             Config = getConfig();

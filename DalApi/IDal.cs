@@ -164,6 +164,8 @@ namespace DalApi
         IEnumerable<Host> GetHosts(Func<Host, bool> predicate);
         #endregion
 
+        int GetNumDaysToExpire();
+
         double GetFeePercent();
 
         string GetAdministratorUser();

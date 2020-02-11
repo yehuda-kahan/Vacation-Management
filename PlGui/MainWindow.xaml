@@ -403,7 +403,7 @@
                                         </StackPanel>
                                         <StackPanel  Margin="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <TextBlock Text="סך העמלות הצפויות : " FontSize="18"/>
-                                            <TextBlock x:Name="upComungTaxTB" FontSize="18"/>
+                                            <TextBlock x:Name="upComingTaxTB" FontSize="18"/>
                                             <TextBlock FontSize="18"/>
                                         </StackPanel>
                                     </StackPanel>

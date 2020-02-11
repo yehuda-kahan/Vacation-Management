@@ -27,7 +27,7 @@ namespace Dal
         public Dictionary<int, string> BankAddressDictionary { get; private set; }
 
         public double GetFeePercent() { return 1; }
-
+        public int GetNumDaysToExpire() { return 1; }
         public string GetAdministratorUser() { return ""; }
         public string GetAdministratorPass() { return ""; }
 

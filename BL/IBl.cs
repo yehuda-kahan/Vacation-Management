@@ -237,6 +237,8 @@ namespace BlApi
         bool IsValidMail(string email);
 
         bool IsValidTZ(string TZ);
+
+        void DelExpierInvatationAndRequests();
         #endregion
 
         #region List function

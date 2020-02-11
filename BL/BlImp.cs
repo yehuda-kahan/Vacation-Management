@@ -371,6 +371,13 @@ namespace BL
                    select GuestRequesConvertDOToBO(item);
         }
 
+        public IEnumerable<GuestRequestBO> GetRequestsCreatedBigerFromNumDays(int numDays)
+        {
+            IEnumerable<GuestRequest> temp = dal.GetGuestRequests(x => (DateTime.Now - x.CreateDate).Days >= numDays);
+            return from item in temp
+                   select GuestRequesConvertDOToBO(item);
+        }
+
         #endregion
 
         #region Order functions
@@ -745,7 +752,31 @@ namespace BL
             }
         }
 
-
+        public void DelExpierInvatationAndRequests()
+        {
+            new Thread(() =>
+            {
+                while (true)
+                {
+                    if (DateTime.Now.Hour == new DateTime(2020,12,04,00,00,00).Hour)
+                    {
+                        IEnumerable<OrderBO> expieredOrd = GetOdrsCreatedBigerFromNumDays(dal.GetNumDaysToExpire());
+                        IEnumerable<GuestRequestBO> expierRequests = GetRequestsCreatedBigerFromNumDays(dal.GetNumDaysToExpire());
+                        
+                        foreach(OrderBO item in expieredOrd)
+                        {
+                            UpdStatusOrder(item.Key, OrderStatusBO.NO_CLIENT_RESPONSE);
+                        }
+                        foreach (GuestRequestBO item in expierRequests)
+                        {
+                            UpdStatusRequest(item.Key, RequestStatusBO.EXPIRED);
+                        }
+                    }
+                    Thread.Sleep(5000);
+                }
+            }
+            ).Start();
+        }
         #endregion
 
         #region Lists function
