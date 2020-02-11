@@ -435,21 +435,22 @@ namespace PlGui
             AppListOrdManager.DataContext = ordersManag;
             ManagerLogin.Visibility = Visibility.Collapsed;
             ManagerWindow.Visibility = Visibility.Visible;
+            TaxTB.Text = bl.GetAllFee().ToString();
         }
 
         private void requestListManager_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DialogRequestUserControl RequestControl = new DialogRequestUserControl((GuestRequestBO)requestListManager.SelectedItem);
+            RequestControl.ChangBut.IsEnabled = false;
             MaterialDesignThemes.Wpf.DialogHost.Show(RequestControl, "ManagerDialog");
         }
-
-
-        #endregion manager
 
         private void AppListOrdManager_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             OrderUserControl1 orderControl = new OrderUserControl1((OrderBO)AppListOrdManager.SelectedItem);
             MaterialDesignThemes.Wpf.DialogHost.Show(orderControl, "ManagerDialog");
         }
+
+        #endregion manager
     }
 }

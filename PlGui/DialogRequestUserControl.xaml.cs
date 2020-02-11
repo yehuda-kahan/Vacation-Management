@@ -37,6 +37,7 @@ namespace PlGui
             comboPool.SelectedIndex = (int)request.Pool;
             comboGarden.SelectedIndex = (int)request.Garden;
             comboChildrensAttractions.SelectedIndex = (int)request.ChildrensAttractions;
+            comboUnitType.SelectedIndex = (int)request.Type;
             if (request.Status == RequestStatusBO.CANCELLED || request.Status == RequestStatusBO.ORDERED)
                 ChangBut.IsEnabled = false;
         }
