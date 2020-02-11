@@ -55,7 +55,6 @@ namespace PlGui
         private void comStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             order.Status = (OrderStatusBO)comStatus.SelectedIndex;
-
         }
     }
 }

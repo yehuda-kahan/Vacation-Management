@@ -325,7 +325,7 @@ namespace PlGui
             MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
             hostOrders = new ObservableCollection<OrderBO>(bl.GetOdrsOfHost(host.PersonalInfo.Id));
             OrderList.DataContext = hostOrders;
-            hostAprrovedOrds = new ObservableCollection<OrderBO>(host.AppovedOrdersHost);
+            hostAprrovedOrds = new ObservableCollection<OrderBO>(bl.GetAprrovedOdrsOfHost(host.PersonalInfo.Id));
             AprrovedOrderList.DataContext = hostAprrovedOrds;
         }
 

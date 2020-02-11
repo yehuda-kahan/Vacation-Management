@@ -208,6 +208,8 @@ namespace BlApi
         void UpdHost(HostBO host);
 
         void DelHost(HostBO host);
+
+        IEnumerable<OrderBO> GetAprrovedOdrsOfHost(string id);
         #endregion
 
         #region Manage
