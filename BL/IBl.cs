@@ -74,7 +74,7 @@ namespace BlApi
         /// <param name="status"></param>
         void UpdStatusRequest(uint key, RequestStatusBO status);
 
-      
+
         #endregion
 
         #region Client
@@ -215,6 +215,12 @@ namespace BlApi
         #region Manage
         double GetHostFee(string id);
         double GetAllFee();
+        double GetUpComingFee();
+        string GetAdminUser();
+        string GetAdminPass();
+
+
+
         #endregion
 
         #region system functions

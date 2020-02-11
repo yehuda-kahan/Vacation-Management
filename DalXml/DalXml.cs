@@ -22,9 +22,9 @@ namespace Dal
         UnitsXmlHandler unitsHandler = new UnitsXmlHandler();
         OrderXmlHandler OrderHandler = new OrderXmlHandler();
 
-        public static List<Person> persons=new List<Person>();
-        public static List<Host> hosts= new List<Host>();
-        public static List<HostingUnit> hostingUnits= new List<HostingUnit>();
+        public static List<Person> persons = new List<Person>();
+        public static List<Host> hosts = new List<Host>();
+        public static List<HostingUnit> hostingUnits = new List<HostingUnit>();
         public static List<Order> orders = new List<Order>();
         public static List<GuestRequest> guestRequests = new List<GuestRequest>();
         public static List<BankBranch> bankBranches;
@@ -46,7 +46,7 @@ namespace Dal
         static DalXml() { }
         DalXml()
         {
-            
+
             try
             {
                 if (!File.Exists(personHandler.PersonPath))
@@ -469,7 +469,7 @@ namespace Dal
         public BankBranch GetBranch(uint bankNum, uint branchNum)
         {
             BankBranch temp = new BankBranch();
-            try { Load(ref BanksRoot, BankBranchPath);}
+            try { Load(ref BanksRoot, BankBranchPath); }
             catch (Exception ex) { return null; }
 
             IEnumerable<XElement> address = from Bank in BanksRoot.Elements()
@@ -551,6 +551,24 @@ namespace Dal
                 }
             }
             throw new KeyNotFoundException("שגיאה! לא קיים מאפיין קונפיגורציה בשם זה במערכת.");
+        }
+
+        public double GetFeePercent()
+        {
+            Config = getConfig();
+            return Convert.ToDouble(Config["OrderFee"]);
+        }
+
+        public string GetAdministratorUser()
+        {
+            Config = getConfig();
+            return Config["AdministratorUserName"].ToString();
+        }
+
+        public string GetAdministratorPass()
+        {
+            Config = getConfig();
+            return Config["AdministratorPass"].ToString();
         }
         #endregion Config
     }

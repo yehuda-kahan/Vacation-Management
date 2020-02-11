@@ -480,7 +480,7 @@ namespace BL
                 CancelOrdersOfRequest(order.GuestRequestKey, OrderKey);
                 CancelUnitOrders(order);
                 dal.UpdateStatusRequest(order.GuestRequestKey, RequestStatus.ORDERED);
-                order.Fee = 10 * numDays;
+                order.Fee = numDays * dal.GetFeePercent();
                 order.CloseDate = DateTime.Now;
                 order.Status = (OrderStatus)status;
                 dal.UpdOrder(order);
@@ -693,6 +693,32 @@ namespace BL
             return sum;
         }
 
+        public double GetUpComingFee()
+        {
+            double sumDays = 0;
+            var orders = dal.GetOrders(x => x.Status != OrderStatus.APPROVED && x.Status
+            != OrderStatus.CANCELED && x.Status != OrderStatus.UNIT_NOT_AVALABELE && x.Status
+            != OrderStatus.NO_CLIENT_RESPONSE);
+
+            foreach (Order item in orders)
+            {
+                OrderBO temp = ConvertOrderDOToBO(item);
+                sumDays += DaysBetweenDates(temp.GuestRequest.EntryDate, temp.GuestRequest.LeaveDate);
+            }
+            return sumDays * dal.GetFeePercent();
+        }
+
+        public string GetAdminUser()
+        {
+            return dal.GetAdministratorUser();
+        }
+
+        public string GetAdminPass()
+        {
+            return dal.GetAdministratorPass();
+        }
+
+
         #endregion
 
         #region system fuctions
@@ -701,7 +727,7 @@ namespace BL
         {
             if (last.Year == 1) // The defult value
                 last = DateTime.Now;
-            return (first - last).Days;
+            return (last - first).Days;
         }
 
 
@@ -757,7 +783,7 @@ namespace BL
 
         public IEnumerable<OrderBO> GetAppOrders()
         {
-            IEnumerable<Order> orders = dal.GetOrders(x=> x.Status == OrderStatus.APPROVED);
+            IEnumerable<Order> orders = dal.GetOrders(x => x.Status == OrderStatus.APPROVED);
             return from item in orders
                    select ConvertOrderDOToBO(item);
         }

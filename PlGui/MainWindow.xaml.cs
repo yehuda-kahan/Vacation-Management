@@ -380,14 +380,20 @@ namespace PlGui
             HostWindow.Visibility = Visibility.Collapsed;
             clientLogin.Visibility = Visibility.Visible;
             clientWindow.Visibility = Visibility.Collapsed;
+            ManagerLogin.Visibility = Visibility.Visible;
+            ManagerWindow.Visibility = Visibility.Collapsed;
             UserMail.Text = "";
             Password.Password = "";
             HostUserMail.Text = "";
             HostPassword.Password = "";
+            ManagerUserMail.Text = "";
+            ManagerPassword.Password = "";
             ErorrMail.Visibility = Visibility.Collapsed;
             ErorrInput.Visibility = Visibility.Collapsed;
             HostErorrInput.Visibility = Visibility.Collapsed;
             HostErorrMail.Visibility = Visibility.Collapsed;
+            ManagerErorrInput.Visibility = Visibility.Collapsed;
+            ManagerErorrMail.Visibility = Visibility.Collapsed;
         }
 
         private void HostChangeBankInfoBut_Click(object sender, RoutedEventArgs e)
@@ -428,14 +434,25 @@ namespace PlGui
 
         private void Manager_LogIn_But(object sender, RoutedEventArgs e)
         {
-            //TODO 
-            requestsManag = new ObservableCollection<GuestRequestBO>(bl.GetGuestRequests());
-            ordersManag = new ObservableCollection<OrderBO>(bl.GetAppOrders());
-            requestListManager.DataContext = requestsManag;
-            AppListOrdManager.DataContext = ordersManag;
-            ManagerLogin.Visibility = Visibility.Collapsed;
-            ManagerWindow.Visibility = Visibility.Visible;
-            TaxTB.Text = bl.GetAllFee().ToString();
+            if (ManagerUserMail.Text == bl.GetAdminUser())
+            {
+                if (ManagerPassword.Password == bl.GetAdminPass())
+                {
+                    ManagerErorrInput.Visibility = Visibility.Collapsed;
+                    requestsManag = new ObservableCollection<GuestRequestBO>(bl.GetGuestRequests());
+                    ordersManag = new ObservableCollection<OrderBO>(bl.GetAppOrders());
+                    requestListManager.DataContext = requestsManag;
+                    AppListOrdManager.DataContext = ordersManag;
+                    ManagerLogin.Visibility = Visibility.Collapsed;
+                    ManagerWindow.Visibility = Visibility.Visible;
+                    TaxTB.Text = bl.GetAllFee().ToString() + " ₪";
+                    upComungTaxTB.Text = bl.GetUpComingFee().ToString() + " ₪";
+                }
+                else
+                    ManagerErorrInput.Visibility = Visibility.Visible;
+            }
+            else
+                ManagerErorrInput.Visibility = Visibility.Visible;
         }
 
         private void requestListManager_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -451,6 +468,14 @@ namespace PlGui
             MaterialDesignThemes.Wpf.DialogHost.Show(orderControl, "ManagerDialog");
         }
 
+        private void SettingBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
         #endregion manager
+
+
+
+
     }
 }

@@ -381,13 +381,13 @@
                                 <Grid Grid.Column="0" Margin="5">
                                     <TabControl  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{x:Null}" BorderBrush="#FF968F95" >
                                         <TabItem Header="לקוחות" Foreground="WhiteSmoke">
-                                           
+
 
                                         </TabItem>
                                         <TabItem Header="מארחים" Foreground="WhiteSmoke">
-                                            
+
                                         </TabItem>
-                                        
+
                                     </TabControl>
                                 </Grid>
                                 <Grid Grid.Column="1">
@@ -396,10 +396,20 @@
                                         <RowDefinition Height="3*"/>
                                         <RowDefinition Height="3*"/>
                                     </Grid.RowDefinitions>
-                                    <StackPanel Grid.Row="0" Margin="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="סך העמלות ששלומו : " FontSize="18"/>
-                                        <TextBlock x:Name="TaxTB" FontSize="18"/>
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <StackPanel  Margin="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock Text="סך העמלות ששלומו : " FontSize="18"/>
+                                            <TextBlock x:Name="TaxTB" FontSize="18"/>
+                                        </StackPanel>
+                                        <StackPanel  Margin="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock Text="סך העמלות הצפויות : " FontSize="18"/>
+                                            <TextBlock x:Name="upComungTaxTB" FontSize="18"/>
+                                            <TextBlock FontSize="18"/>
+                                        </StackPanel>
                                     </StackPanel>
+                                    <Button  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Right" Margin="5" ToolTip="הגדרות מערכת" Click="SettingBtn_Click">
+                                        <materialDesign:PackIcon Kind="Settings" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  />
+                                    </Button>
                                     <StackPanel  Grid.Column="1" Grid.Row="1" Margin="5" Orientation="Vertical">
                                         <TextBlock  HorizontalAlignment="Center" Text="בקשות הלקוחות" FontSize="16" FontWeight="Bold" />
                                         <ScrollViewer  VerticalScrollBarVisibility="Visible" CanContentScroll="True" MaxHeight="180">

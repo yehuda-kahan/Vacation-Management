@@ -26,6 +26,11 @@ namespace Dal
         public Dictionary<int, string> BankNumberDictionary { get; private set; }
         public Dictionary<int, string> BankAddressDictionary { get; private set; }
 
+        public double GetFeePercent() { return 1; }
+
+        public string GetAdministratorUser() { return ""; }
+        public string GetAdministratorPass() { return ""; }
+
 
         #region BankXml
         const string xmlLocalPath = @"Banks.xml";
@@ -393,7 +398,7 @@ namespace Dal
         }
         #endregion
 
-        
+
 
 
         public Dictionary<string, object> getConfig() { return null; }
