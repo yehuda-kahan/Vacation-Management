@@ -43,7 +43,7 @@
                         <TextBox x:Name="Phone" materialDesign:HintAssist.Hint="טלפון" LostFocus="Num_LostFocus"   Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0"   PreviewKeyUp="UserMail_PreviewKeyUp" MinWidth="220"  />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="4" Margin="10" >
-                        <materialDesign:PackIcon Kind="Lastpass" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
+                        <materialDesign:PackIcon x:Name="PassIcon" Kind="Lastpass" VerticalAlignment="Bottom"  Margin="0,0,5,0" Width="24" Height="24"  Foreground="{ Binding ElementName=UserMail,Path=BorderBrush}"/>
                         <PasswordBox x:Name="Password" Grid.Column="0" Margin="3" LostFocus="Password_LostFocus" materialDesign:HintAssist.Hint="סיסמה" materialDesign:HintAssist.Foreground="Gray" materialDesign:TextFieldAssist.UnderlineBrush="Gray"  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  CaretBrush="#FF787878" SelectionBrush="#FF787878"  MinWidth="220" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="5" Margin="10" >

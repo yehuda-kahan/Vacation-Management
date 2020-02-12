@@ -412,7 +412,7 @@ namespace PlGui
         ObservableCollection<OrderBO> ordersManag;
         ObservableCollection<HostBO> hostsManag;
         ObservableCollection<PersonBO> clientsManag;
-        
+        HostBO hostManger;
         private void Manager_UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             if (ManagerUserMail.Text == "")
@@ -484,12 +484,51 @@ namespace PlGui
 
         private void hostsListManager_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            hostManger = (HostBO)hostsListManager.SelectedItem;
+            UserControlSingUp hostDetalse = new UserControlSingUp();
+            hostDetalse.Email.Text = hostManger.PersonalInfo.Email;
+            hostDetalse.Email.IsEnabled = false;
+            hostDetalse.FirstName.Text = hostManger.PersonalInfo.FirstName;
+            hostDetalse.FirstName.IsEnabled = false;
+            hostDetalse.LastName.Text = hostManger.PersonalInfo.LastName;
+            hostDetalse.LastName.IsEnabled = false;
+            hostDetalse.Phone.Text = hostManger.PersonalInfo.PhoneNomber;
+            hostDetalse.Phone.IsEnabled = false;
+            hostDetalse.Password.Visibility = Visibility.Collapsed;
+            hostDetalse.PassIcon.Visibility = Visibility.Collapsed;
+            hostDetalse.Id.Text = hostManger.PersonalInfo.Id;
+            hostDetalse.Id.IsEnabled = false;
+            hostDetalse.IDType.SelectedItem = hostManger.PersonalInfo.IdType;
+            hostDetalse.IDType.IsEnabled = false;
+            hostDetalse.CreateBut.Visibility = Visibility.Collapsed;
+            hostDetalse.CloseBut.Content = "סגור";
+            MaterialDesignThemes.Wpf.DialogHost.Show(hostDetalse, "ManagerDialog");
         }
+       
+        
+
 
         private void clientListManager_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            PersonBO client = (PersonBO)clientListManager.SelectedItem;
+            UserControlSingUp clientDetalse = new UserControlSingUp();
+            clientDetalse.Email.Text = client.Email;
+            clientDetalse.Email.IsEnabled = false;
+            clientDetalse.FirstName.Text = client.FirstName;
+            clientDetalse.FirstName.IsEnabled = false;
+            clientDetalse.LastName.Text = client.LastName;
+            clientDetalse.LastName.IsEnabled = false;
+            clientDetalse.Phone.Text = client.PhoneNomber;
+            clientDetalse.Phone.IsEnabled = false;
+            clientDetalse.Password.Visibility = Visibility.Collapsed;
+            clientDetalse.PassIcon.Visibility = Visibility.Collapsed;
+            clientDetalse.Id.Text = client.Id;
+            clientDetalse.Id.IsEnabled = false;
+            clientDetalse.IDType.SelectedItem = client.IdType;
+            clientDetalse.IDType.IsEnabled = false;
+            clientDetalse.CreateBut.Visibility = Visibility.Collapsed;
+            clientDetalse.CloseBut.Content = "סגור";
+            MaterialDesignThemes.Wpf.DialogHost.Show(clientDetalse, "ManagerDialog");
         }
         #endregion manager
     }
