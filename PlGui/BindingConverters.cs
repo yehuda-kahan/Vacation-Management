@@ -70,6 +70,13 @@ namespace PlGui
                 if ((AreaLocationBO)value == AreaLocationBO.SOUTH)
                     return "דרום";
             }
+            if (value.GetType().Name == "Boolean")
+            {
+                if ((bool)value == false)
+                    return "אין";
+                if ((bool)value == true)
+                    return "יש";
+            }
             return "";
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

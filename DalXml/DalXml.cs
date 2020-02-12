@@ -68,7 +68,7 @@ namespace Dal
 
         #endregion
 
-        #region Person Function functions
+        #region Person functions
 
         public bool ChaeckPersonMail(string mail)
         {
@@ -376,6 +376,13 @@ namespace Dal
         #endregion
 
         #region ListFunctions
+
+        public IEnumerable<Person> GetAllPersons()
+        {
+            personHandler.load();
+            return from item in persons                 
+                   select item;
+        }
         public IEnumerable<Host> GetHosts(Func<Host, bool> predicate)
         {
             hostHandler.load();
@@ -563,7 +570,7 @@ namespace Dal
             Config = getConfig();
             return Convert.ToInt32(Config["NumDaysToExpire"]);
         }
-            
+
         public double GetFeePercent()
         {
             Config = getConfig();

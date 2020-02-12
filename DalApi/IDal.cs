@@ -162,6 +162,8 @@ namespace DalApi
         IEnumerable<GuestRequest> GetGuestRequests(Func<GuestRequest, bool> predicate);
 
         IEnumerable<Host> GetHosts(Func<Host, bool> predicate);
+
+        IEnumerable<Person> GetAllPersons();
         #endregion
 
         #region Manager

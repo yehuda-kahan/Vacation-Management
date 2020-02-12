@@ -410,7 +410,9 @@ namespace PlGui
 
         ObservableCollection<GuestRequestBO> requestsManag;
         ObservableCollection<OrderBO> ordersManag;
-
+        ObservableCollection<HostBO> hostsManag;
+        ObservableCollection<PersonBO> clientsManag;
+        
         private void Manager_UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             if (ManagerUserMail.Text == "")
@@ -443,6 +445,10 @@ namespace PlGui
                     ManagerErorrInput.Visibility = Visibility.Collapsed;
                     requestsManag = new ObservableCollection<GuestRequestBO>(bl.GetGuestRequests());
                     ordersManag = new ObservableCollection<OrderBO>(bl.GetAppOrders());
+                    hostsManag = new ObservableCollection<HostBO>(bl.GetAllHosts());
+                    clientsManag = new ObservableCollection<PersonBO>(bl.GetAllClients());
+                    clientListManager.DataContext = clientsManag;
+                    hostsListManager.DataContext = hostsManag;
                     requestListManager.DataContext = requestsManag;
                     AppListOrdManager.DataContext = ordersManag;
                     ManagerLogin.Visibility = Visibility.Collapsed;
@@ -475,10 +481,16 @@ namespace PlGui
             UpdConfig configControl = new UpdConfig();
             MaterialDesignThemes.Wpf.DialogHost.Show(configControl, "ManagerDialog");
         }
+
+        private void hostsListManager_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void clientListManager_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
         #endregion manager
-
-
-
-
     }
 }

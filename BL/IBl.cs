@@ -254,6 +254,10 @@ namespace BlApi
 
         IEnumerable<OrderBO> GetAppOrders();
 
+        IEnumerable<HostBO> GetAllHosts();
+
+        List<PersonBO> GetAllClients();
+
         #endregion
     }
 }

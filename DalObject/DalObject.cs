@@ -26,11 +26,7 @@ namespace Dal
         public Dictionary<int, string> BankNumberDictionary { get; private set; }
         public Dictionary<int, string> BankAddressDictionary { get; private set; }
 
-        public double GetFeePercent() { return 1; }
-        public int GetNumDaysToExpire() { return 1; }
-        public string GetAdministratorUser() { return ""; }
-        public string GetAdministratorPass() { return ""; }
-        public int GetConfigByName(string conf) { return 1; }
+       
 
 
         #region BankXml
@@ -397,14 +393,20 @@ namespace Dal
                    where predicate(item)
                    select item.Clone();
         }
+
         #endregion
 
 
-
-
+        #region UnUsed Functions
+        public double GetFeePercent() { return 1; }
+        public int GetNumDaysToExpire() { return 1; }
+        public string GetAdministratorUser() { return ""; }
+        public string GetAdministratorPass() { return ""; }
+        public int GetConfigByName(string conf) { return 1; }
+        public IEnumerable<Person> GetAllPersons() { return null; }
         public Dictionary<string, object> getConfig() { return null; }
-
         public void SetConfig(string parm, Object value) { }
+        #endregion
 
     }
 }

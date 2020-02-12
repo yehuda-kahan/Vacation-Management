@@ -833,6 +833,35 @@ namespace BL
             return from item in orders
                    select ConvertOrderDOToBO(item);
         }
+
+        public IEnumerable<HostBO> GetAllHosts()
+        {
+            return from item in dal.GetHosts(x => x != null)
+                   select ConvertHostDOToBO(item);
+        }
+
+        public List<PersonBO> GetAllClients()
+        {
+            bool flag;
+            List<PersonBO> clients = new List<PersonBO>();
+            IEnumerable<HostBO> hosts = GetAllHosts();
+            IEnumerable<Person> persons = dal.GetAllPersons();
+            
+            foreach (Person person in persons)
+            {
+                flag = true;
+                foreach (HostBO host in hosts)
+                {
+                    if (person.Id == host.PersonalInfo.Id)
+                        flag = false;
+                }
+                if (flag) // if he not a host
+                {
+                    clients.Add(PersonConvertDOToBO(person));
+                }
+            }
+            return clients;
+        }
         #endregion
 
     }
