@@ -758,7 +758,7 @@ namespace BL
             {
                 while (true)
                 {
-                    if (DateTime.Now.Hour == new DateTime(2020,12,04,00,00,00).Hour)
+                    if (DateTime.Now.Hour == 0)
                     {
                         IEnumerable<OrderBO> expieredOrd = GetOdrsCreatedBigerFromNumDays(dal.GetNumDaysToExpire());
                         IEnumerable<GuestRequestBO> expierRequests = GetRequestsCreatedBigerFromNumDays(dal.GetNumDaysToExpire());
@@ -772,7 +772,7 @@ namespace BL
                             UpdStatusRequest(item.Key, RequestStatusBO.EXPIRED);
                         }
                     }
-                    Thread.Sleep(5000);
+                    Thread.Sleep(3600000);
                 }
             }
             ).Start();
