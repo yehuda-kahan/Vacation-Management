@@ -368,7 +368,7 @@
                                 </materialDesign:Card>
                             </Grid>
                         </Border>
-                        <!--<materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="ManagerDialog">-->
+                        <materialDesign:DialogHost Grid.ColumnSpan="2" Identifier="ManagerDialog">
                         <Border x:Name="ManagerWindow" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10"  >
                             <Border.Background>
                                 <SolidColorBrush Color="{DynamicResource BackColor}"/>
@@ -439,7 +439,7 @@
                                 </Grid>
                             </Grid>
                         </Border>
-                        <!--</materialDesign:DialogHost>-->
+                        </materialDesign:DialogHost>
                     </Grid>
                 </TabItem>
             </TabControl>

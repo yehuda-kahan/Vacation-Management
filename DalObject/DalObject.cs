@@ -30,6 +30,7 @@ namespace Dal
         public int GetNumDaysToExpire() { return 1; }
         public string GetAdministratorUser() { return ""; }
         public string GetAdministratorPass() { return ""; }
+        public int GetConfigByName(string conf) { return 1; }
 
 
         #region BankXml
