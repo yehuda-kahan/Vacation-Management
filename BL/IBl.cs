@@ -218,10 +218,9 @@ namespace BlApi
         double GetUpComingFee();
         string GetAdminUser();
         string GetAdminPass();
-
-
-
-        #endregion
+        int GetConfigByName(string conf);
+        void SetConfigByName(string ConfName, object Value);
+                #endregion
 
         #region system functions
         void SendMail(Email email);

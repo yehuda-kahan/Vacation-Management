@@ -78,6 +78,7 @@ namespace PlGui
 
         private void Button_Click_ClouseWindow(object sender, RoutedEventArgs e)
         {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
             this.Close();
         }
 
@@ -471,7 +472,8 @@ namespace PlGui
 
         private void SettingBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            UpdConfig configControl = new UpdConfig();
+            MaterialDesignThemes.Wpf.DialogHost.Show(configControl, "ManagerDialog");
         }
         #endregion manager
 

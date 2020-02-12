@@ -700,6 +700,21 @@ namespace BL
             return sum;
         }
 
+        public int GetConfigByName(string conf)
+        {
+            return dal.GetConfigByName(conf);
+        }
+
+        public void SetConfigByName(string ConfName, object Value)
+        {
+            try
+            {
+                dal.SetConfig(ConfName, Value);
+            }
+            catch (AccessViolationException ex) { throw ex; }
+            catch (KeyNotFoundException ex) { throw ex; }
+        }
+
         public double GetUpComingFee()
         {
             double sumDays = 0;
@@ -758,12 +773,12 @@ namespace BL
             {
                 while (true)
                 {
-                    if (DateTime.Now.Hour == 0)
+                    if (DateTime.Now.Hour == 0)//12 oclook am. 
                     {
                         IEnumerable<OrderBO> expieredOrd = GetOdrsCreatedBigerFromNumDays(dal.GetNumDaysToExpire());
                         IEnumerable<GuestRequestBO> expierRequests = GetRequestsCreatedBigerFromNumDays(dal.GetNumDaysToExpire());
-                        
-                        foreach(OrderBO item in expieredOrd)
+
+                        foreach (OrderBO item in expieredOrd)
                         {
                             UpdStatusOrder(item.Key, OrderStatusBO.NO_CLIENT_RESPONSE);
                         }

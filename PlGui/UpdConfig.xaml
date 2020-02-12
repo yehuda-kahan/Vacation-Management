@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="PlGui.UpdConfig"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PlGui"
+             mc:Ignorable="d" >
+    <Grid FlowDirection="RightToLeft" >
+        <Border  CornerRadius="5">
+            <materialDesign:Card  BorderThickness="0.5"  Padding="10"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Background="#FF303030" Foreground="White">
+                <Grid Margin="5">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBox x:Name="Fee" materialDesign:HintAssist.Hint="אחוז עמלה" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Width="210" PreviewKeyUp="Fee_PreviewKeyUp" />
+                            <Button x:Name="FeeBtn"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Right" Margin="5" ToolTip="עידכון אחוז עמלה" Click="FeeBtn_Click">
+                                <materialDesign:PackIcon Kind="ContentSaveEdit" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  />
+                            </Button>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBox x:Name="DaysToExp" materialDesign:HintAssist.Hint="מס' ימים עבור ביטול אוטומטי" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Width="210" PreviewKeyUp="DaysToExp_PreviewKeyUp" />
+                            <Button x:Name="DaysExpBtn" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Right" Margin="5" ToolTip="עידכון מס' ימים לביטול אוטומטי" Click="DaysExpBtn_Click">
+                                <materialDesign:PackIcon Kind="ContentSaveEdit" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  />
+                            </Button>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBox x:Name="AdminPass" materialDesign:HintAssist.Hint="סיסמת מנהל" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Width="210" PreviewKeyUp="AdminPass_PreviewKeyUp" />
+                            <Button x:Name="AdminPassBtn" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Right" Margin="5" ToolTip="עידכון סיסמת מנהל" Click="AdninPassBtn_Click">
+                                <materialDesign:PackIcon Kind="ContentSaveEdit" Height="24" Width="24" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  />
+                            </Button>
+                        </StackPanel>
+                        <Button x:Name="CloseBut"  Content="סגור"  Grid.Column="0" Grid.Row="6" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Style="{StaticResource MaterialDesignFlatButton}"  Margin="0 8 8 0">
+                            <Button.Foreground>
+                                <SolidColorBrush Color="{DynamicResource CloseColor}"/>
+                            </Button.Foreground>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+        </Border>
+    </Grid>
+</UserControl>

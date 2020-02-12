@@ -87,6 +87,9 @@
     <Compile Include="UnitUserCuntrol.xaml.cs">
       <DependentUpon>UnitUserCuntrol.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UpdConfig.xaml.cs">
+      <DependentUpon>UpdConfig.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UsercontrolBankInfo.xaml.cs">
       <DependentUpon>UsercontrolBankInfo.xaml</DependentUpon>
     </Compile>
@@ -145,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UnitUserCuntrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
