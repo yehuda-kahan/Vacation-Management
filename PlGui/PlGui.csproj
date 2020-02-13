@@ -213,6 +213,7 @@
     <Resource Include="Images\לקוח.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Icons\a.png" />
     <Content Include="Images\פתיחה1.jfif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

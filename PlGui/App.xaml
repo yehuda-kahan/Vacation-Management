@@ -61,12 +61,6 @@
                 </Setter>
             </Style>
 
-
-
-
-
-
-
             <local:StringToUintConvert x:Key="StringToUintConvert"/>
             <local:EnumToHebrew x:Key="EnumToHebrew"/>
 

@@ -25,6 +25,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="18*"/>
         </Grid.RowDefinitions>
+        <materialDesign:PackIcon Kind="LocalHotel" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                                     Width="23" Height="27" 
+                                     Foreground="#FF9382B2"
+                                     HorizontalAlignment="Left"  Margin="10,0,0,0" VerticalAlignment="Center"
+                                     />
         <TextBlock Text="מערכת לניהול הזמנות חופשה " Margin="40 10 0 0" FontSize="16"/>
         <Button Grid.Row="1" Style="{StaticResource MaterialDesignIconButton}" ToolTip="Logout" 
                 Height="25" Width="25" HorizontalAlignment="Right"  Margin="0,0,25,0" Click="LogOut_Click">
@@ -108,12 +113,10 @@
                 <TabItem Header="לקוח" Width="180" Height="30" FontSize="16" Foreground="White">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="137*"/>
-                            <ColumnDefinition Width="341*"/>
-                            <ColumnDefinition Width="155*"/>
-                            <ColumnDefinition Width="322*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Viewbox x:Name="ClientImage" Grid.Column="2" Grid.ColumnSpan="2" Margin="0.4,0"/>
+                        
                         <materialDesign:DialogHost Grid.ColumnSpan="4" Identifier="SingUpFourm" Margin="0,0,0.4,0" >
                             <Border x:Name="clientLogin" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10" >
                                 <Border.Background>
@@ -149,7 +152,7 @@
                         </materialDesign:DialogHost>
 
                         <materialDesign:DialogHost Grid.ColumnSpan="4" Identifier="clientWinDialog" Margin="-3,-1,3.4,1">
-                            <Border x:Name="clientWindow" Visibility="Visible" Grid.ColumnSpan="2" CornerRadius="10" >
+                            <Border x:Name="clientWindow" Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10" >
                                 <Border.Background>
                                     <SolidColorBrush Color="{DynamicResource BackColor}"/>
                                 </Border.Background>
