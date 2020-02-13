@@ -92,11 +92,11 @@ namespace PlGui
         {
             if (((Button)sender).Name == "MinAdBut")
             {
-                if (Convert.ToInt32(children.Text) <= 0)
+                if (Convert.ToInt32(adults.Text) <= 0)
                     return;
                 else
                 {
-                    children.Text = Convert.ToString((Convert.ToInt32(children.Text) - 1));
+                    adults.Text = Convert.ToString((Convert.ToInt32(adults.Text) - 1));
                     request.Adults = Convert.ToUInt32(adults.Text);
                 }
             }

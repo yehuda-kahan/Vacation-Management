@@ -30,20 +30,20 @@
                     <DatePicker x:Name="EntryDate"  IsEnabled="False" Margin="5" Grid.Row="1"  Grid.Column="0" SelectedDate="{Binding Path= EntryDate}"  materialDesign:HintAssist.Hint="מתאריך" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" SelectedDateChanged="EntryDate_SelectedDateChanged" />
                     <DatePicker x:Name="LeaveDate" IsEnabled="False" Margin="5" Grid.Column="1" Grid.Row="1"  SelectedDate="{Binding Path= LeaveDate}" materialDesign:HintAssist.Hint="עד תאריך" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Foreground="White" />
                     <StackPanel x:Name="ChangeAd" Orientation="Horizontal" Margin="0,5" Grid.Row="2" Grid.Column="0"  IsEnabled="False" >
-                        <Button x:Name="PlusAdBut" Click="Plus_Click" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"   ToolTip="MaterialDesignFloatingActionMiniLightButton" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}">
+                        <Button x:Name="PlusAdBut" Click="Plus_Click" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"   ToolTip="הוסף" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}">
                             <materialDesign:PackIcon Kind="Plus"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
                         </Button>
                         <TextBox x:Name="adults"  HorizontalAlignment="Center" Text="{Binding Path= Adults}" IsEnabled="False" materialDesign:HintAssist.Hint="מבוגרים"    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Foreground="White" BorderBrush="{x:Null}" Margin="-5,0,0,0"/>
-                        <Button x:Name="MinAdBut" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Click="Min_Click" ToolTip="MaterialDesignFloatingActionMiniLightButton" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Margin="-30,0,0,0">
+                        <Button x:Name="MinAdBut" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Click="Min_Click" ToolTip="הפחת" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Margin="-30,0,0,0">
                             <materialDesign:PackIcon Kind="Minus" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
                         </Button>
                     </StackPanel>
                     <StackPanel x:Name="ChangeCh" Orientation="Horizontal" Margin="0,5" Grid.Row="2" Grid.Column="1"   IsEnabled="False" >
-                        <Button x:Name="PlusChBut" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Click="Plus_Click"  ToolTip="MaterialDesignFloatingActionMiniLightButton" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}">
+                        <Button x:Name="PlusChBut" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Click="Plus_Click"  ToolTip="הוסף" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}">
                             <materialDesign:PackIcon Kind="Plus" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
                         </Button>
                         <TextBox x:Name="children"  HorizontalAlignment="Center" Text="{Binding Path= Children}" IsEnabled="False" materialDesign:HintAssist.Hint="ילדים"    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TextFieldAssist.UnderlineBrush="Gray"  materialDesign:HintAssist.Foreground="Gray" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Padding="0,0,3,0" CaretBrush="#FF787878" SelectionBrush="#FF787878" Foreground="White" MinWidth="45" BorderBrush="{x:Null}" Margin="0"/>
-                        <Button x:Name="MinChBut" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Click="Min_Click" ToolTip="MaterialDesignFloatingActionMiniLightButton" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Margin="-10,0,0,0">
+                        <Button x:Name="MinChBut" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Click="Min_Click" ToolTip="הפחת" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Margin="-10,0,0,0">
                             <materialDesign:PackIcon Kind="Minus" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
                         </Button>
                     </StackPanel>
