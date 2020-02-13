@@ -448,7 +448,7 @@ namespace PlGui
                     hostsManag = new ObservableCollection<HostBO>(bl.GetAllHosts());
                     clientsManag = new ObservableCollection<PersonBO>(bl.GetAllClients());
                     clientListManager.DataContext = clientsManag;
-                    hostsListManager.DataContext = hostsManag;
+                   // hostsListManager.DataContext = hostsManag;
                     requestListManager.DataContext = requestsManag;
                     AppListOrdManager.DataContext = ordersManag;
                     ManagerLogin.Visibility = Visibility.Collapsed;
@@ -504,8 +504,8 @@ namespace PlGui
             hostDetalse.CloseBut.Content = "סגור";
             MaterialDesignThemes.Wpf.DialogHost.Show(hostDetalse, "ManagerDialog");
         }
-       
-        
+
+
 
 
         private void clientListManager_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -530,6 +530,33 @@ namespace PlGui
             clientDetalse.CloseBut.Content = "סגור";
             MaterialDesignThemes.Wpf.DialogHost.Show(clientDetalse, "ManagerDialog");
         }
+
+        private void comboHosts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboHosts.SelectedIndex == 0)
+            {
+                hostsManag = new ObservableCollection<HostBO>(bl.GetAllHosts());
+                hostsListManager.DataContext = hostsManag;
+            }
+            else
+            {
+                var gpoupHosts = bl.GetHostsByNumOfUnits();
+                foreach (var item in gpoupHosts)
+                {
+                    if (item.Key == comboHosts.SelectedIndex - 1)
+                    {
+                        
+                        hostsManag = new ObservableCollection<HostBO>(item.ToList());
+                        hostsListManager.DataContext = hostsManag;
+                        return;
+                    }
+                }
+
+            }
+
+        }
         #endregion manager
+
+
     }
 }
