@@ -533,6 +533,8 @@ namespace PlGui
 
         private void comboHosts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            hostsManag = null;
+            hostsListManager.DataContext = hostsManag;
             if (comboHosts.SelectedIndex == 0)
             {
                 hostsManag = new ObservableCollection<HostBO>(bl.GetAllHosts());
