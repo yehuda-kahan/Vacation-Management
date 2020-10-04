@@ -24,7 +24,8 @@ namespace Dal
         public void load()
         {
             FileStream fsin = new FileStream(HostPath, FileMode.Open);
-            DalXml.hosts = (List<Host>)xs.Deserialize(fsin);
+            List<Host> temoHosts = (List<Host>)xs.Deserialize(fsin);
+            DalXml.hosts = temoHosts;
             fsin.Close();
         }
 
