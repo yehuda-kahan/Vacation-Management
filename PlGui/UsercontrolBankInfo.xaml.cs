@@ -29,14 +29,15 @@ namespace PlGui
         static IBl bl = BlFactory.GetBL();
         internal event Action<string> OpenHostWin;
         HostBO Host;
+        string State;
 
         public Dictionary<int, string> BankNumberDictionary { set; get; }
         public Dictionary<int, string> BankBranchesDictionary { set; get; }
 
-        public UserControlBankInfo(HostBO host)
+        public UserControlBankInfo(HostBO host, string state = "create")
         {
             InitializeComponent();
-
+            State = state;
             BankNumberDictionary = bl.getBanknameList();
             Host = host;
             UserControlGrid.DataContext = Host;
@@ -45,20 +46,25 @@ namespace PlGui
 
         private void CreatBut(object sender, RoutedEventArgs e)
         {
-            Host.BankDetales.BankNumber = Convert.ToUInt16(BankNum.Text);
-            Host.BankDetales.BranchAddress = BranchAddress.Text;
-            Host.BankDetales.BranchCity = BranchCity.Text;
-            try
+            if (State == "create")
             {
-                bl.AddHost(Host);
+                Host.BankDetales.BankNumber = Convert.ToUInt16(BankNum.Text);
+                Host.BankDetales.BranchAddress = BranchAddress.Text;
+                Host.BankDetales.BranchCity = BranchCity.Text;
+                //Host.CollectingClearance = ClearneceCB.IsEnabled;
+                try { bl.AddHost(Host); }
+                catch (DuplicateKeyException ex) { MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error); }
+                MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
+                OpenHostWin(Host.PersonalInfo.Id);
             }
-            catch (DuplicateKeyException)
+            else if (State == "upd")
             {
                 try { bl.UpdHost(Host); }
-                catch (TypeAccessException ex) { MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error); }
-            }
-            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
-            OpenHostWin(Host.PersonalInfo.Id);
+                catch (MissingMemberException ex) { MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error); }
+
+                MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(null, null);
+                OpenHostWin(Host.PersonalInfo.Id);
+            }          
         }
 
         private void BankName_SelectionChanged(object sender, SelectionChangedEventArgs e)

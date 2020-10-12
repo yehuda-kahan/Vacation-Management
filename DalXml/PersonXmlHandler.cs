@@ -13,8 +13,8 @@ namespace Dal
 {
     public class PersonXmlHandler
     {
-        public string PersonPath = "PersonPath.xml";
-        XmlSerializer xs = new XmlSerializer(typeof(List<Person>));
+        public string PersonPath = @"PersonPath.xml";
+        XmlSerializer xs = new XmlSerializer(DalXml.persons.GetType());
         public void CreatePersonFile()
         {
             FileStream fsout = new FileStream(PersonPath, FileMode.Create);
@@ -32,7 +32,7 @@ namespace Dal
 
         public void Save()
         {
-            FileStream fsSave = new FileStream(PersonPath, FileMode.Open);
+            FileStream fsSave = new FileStream(PersonPath, FileMode.Create);
             xs.Serialize(fsSave, DalXml.persons);
             fsSave.Close();
         }

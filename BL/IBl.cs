@@ -205,6 +205,10 @@ namespace BlApi
         /// <param name="host"></param>
         void AddHost(HostBO host);
 
+        /// <summary>
+        /// Exceptions : DuplicatekeyException
+        /// </summary>
+        /// <param name="host"></param>
         void UpdHost(HostBO host);
 
         void DelHost(HostBO host);

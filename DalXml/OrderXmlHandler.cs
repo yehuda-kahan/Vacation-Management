@@ -12,7 +12,7 @@ namespace Dal
     public class OrderXmlHandler
     {
         public string OrderPath = @"OrderXML.xml";
-        XmlSerializer xs = new XmlSerializer(typeof(List<Order>));
+        XmlSerializer xs = new XmlSerializer(DalXml.orders.GetType());
         public void CreateOrderFile()
         {
             
@@ -32,7 +32,7 @@ namespace Dal
         public void Save()
         {
             CreateOrderFile();
-            FileStream fsout = new FileStream(OrderPath, FileMode.Open);
+            FileStream fsout = new FileStream(OrderPath, FileMode.Create);
             xs.Serialize(fsout, DalXml.orders);
             fsout.Close();
         }

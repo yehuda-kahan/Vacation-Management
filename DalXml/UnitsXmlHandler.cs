@@ -11,7 +11,7 @@ namespace Dal
 {
     public class UnitsXmlHandler
     {
-        public string UnitsPath = "HostingUnitXML.xml";
+        public string UnitsPath = @"HostingUnitXML.xml";
         List<HostinhUnitXml> hostinhUnitXmls;
         XmlSerializer xs = new XmlSerializer(typeof(List<HostinhUnitXml>));
 
@@ -56,7 +56,7 @@ namespace Dal
         public void Save()
         {
             CreateUnitFile();
-            FileStream fsout = new FileStream(UnitsPath, FileMode.Open);
+            FileStream fsout = new FileStream(UnitsPath, FileMode.Create);
             foreach (HostingUnit item in DalXml.hostingUnits)
                 hostinhUnitXmls.Add(ConverterTioHostingUnitXml(item));
             xs.Serialize(fsout, hostinhUnitXmls);

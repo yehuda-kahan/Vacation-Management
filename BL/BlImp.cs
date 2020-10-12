@@ -560,7 +560,8 @@ namespace BL
 
         public HostBO GetHost(string id)
         {
-            return ConvertHostDOToBO(dal.GetHost(id));//TODO y catch;
+            try { return ConvertHostDOToBO(dal.GetHost(id)); }
+            catch(MissingMemberException ex) { throw ex; }
         }
 
         public void AddHost(HostBO host)

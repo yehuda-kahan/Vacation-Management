@@ -13,8 +13,8 @@ namespace Dal
     public class GuestRequestXmlHandler
     {
 
-        public  string GuestRequestPath = "GuestRequestXML.xml";
-        XmlSerializer xs = new XmlSerializer(typeof(List<GuestRequest>));
+        public  string GuestRequestPath = @"GuestRequestXML.xml";
+        XmlSerializer xs = new XmlSerializer(DalXml.guestRequests.GetType());
         public void CreateGuestRequestFile()
         {
             FileStream fsout = new FileStream(GuestRequestPath, FileMode.Create);
@@ -31,7 +31,7 @@ namespace Dal
 
         public void Save()
         {
-            FileStream fsout = new FileStream(GuestRequestPath, FileMode.Open);
+            FileStream fsout = new FileStream(GuestRequestPath, FileMode.Create);
             xs.Serialize(fsout, DalXml.guestRequests);
             fsout.Close();
         }

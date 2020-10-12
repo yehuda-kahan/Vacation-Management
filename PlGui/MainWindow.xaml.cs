@@ -240,12 +240,12 @@ namespace PlGui
         private void Host_LogIn_But(object sender, RoutedEventArgs e)
         {
             PersonBO temp = null;
-            try
+            try // If the person dosen't exist
             {
                 temp = bl.GetPersonByMail(HostUserMail.Text);
                 if (HostPassword.Password == temp.Password)
                 {
-                    try
+                    try // If the person exist but he isn't register as host
                     {
                         host = bl.GetHost(temp.Id);
                         HostInfo.DataContext = host;
@@ -258,9 +258,9 @@ namespace PlGui
                     }
                     catch (MissingMemberException ex)
                     {
-                        MessageBox.Show("אינך רשום במערכת כמארח");
+                        MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
                         AddHoset_Click(temp.Id);
-                    }//TODO 
+                    } 
                 }
                 HostErorrInput.Visibility = Visibility.Visible;
             }
@@ -400,9 +400,9 @@ namespace PlGui
 
         private void HostChangeBankInfoBut_Click(object sender, RoutedEventArgs e)
         {
-            UserControlBankInfo AddBankDeitels = new UserControlBankInfo(host);
-            AddBankDeitels.OpenHostWin += AddBankDeitels_OpenHostWin;
-            MaterialDesignThemes.Wpf.DialogHost.Show(AddBankDeitels, "HostLoginDialog");
+            UserControlBankInfo CngBankDeitels = new UserControlBankInfo(host, "upd");
+            CngBankDeitels.OpenHostWin += AddBankDeitels_OpenHostWin;
+            MaterialDesignThemes.Wpf.DialogHost.Show(CngBankDeitels, "HostLoginDialog");
         }
         #endregion Host
 

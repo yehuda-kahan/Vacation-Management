@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using DalApi;
 using DO;
+
 namespace Dal
 {
 
@@ -62,7 +63,7 @@ namespace Dal
                 if (!File.Exists(BankBranchPath))
                     CreateXMLBankFiles();
             }
-            catch { }
+            catch  { }
         }
         public static DalXml Instance { get { return instance; } }
 
@@ -86,7 +87,7 @@ namespace Dal
         {
             personHandler.load();
             Person person = persons.FirstOrDefault(x => mail == x.Email);
-            return person == null ? throw new MissingMemberException("Person ID", mail) : person.Clone();
+            return person == null ? throw new MissingMemberException("Person Mail", mail) : person.Clone();
         }
 
         public void AddPerson(Person person)
