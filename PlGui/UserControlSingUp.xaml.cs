@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using BO;
 using BlApi;
 using System.Data.Linq;
+using System.Text.RegularExpressions;
 
 namespace PlGui
 {
@@ -31,6 +32,8 @@ namespace PlGui
         public UserControlSingUp()
         {
             InitializeComponent();
+            // Chose ID as a default
+            IDType.SelectedIndex = 0; 
         }
 
         private void UserMail_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -53,6 +56,14 @@ namespace PlGui
 
         private void CreateBut_Click(object sender, RoutedEventArgs e)
         {
+            // Make sure all details are filled out
+            if (FirstName.Text == "" || LastName.Text == "" || Email.Text == ""
+                || Phone.Text == "" || Id.Text == "" || Password.Password == "")
+            {
+                MessageBox.Show("נא למלא את כל הפרטים הנדרשים", "ERROR",MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             person.Id = Id.Text;
             person.IdType = (IdTypesBO)IDType.SelectedIndex;
             person.FirstName = FirstName.Text;
@@ -77,6 +88,7 @@ namespace PlGui
 
         private void Id_PreviewKeyUp(object sender, KeyEventArgs e)
         {
+           
             if (Id.Text.Length == 9)
             {
                 if (!bl.IsValidTZ(Id.Text))
@@ -94,9 +106,9 @@ namespace PlGui
             }
             else
             {
-                ErorrID.Visibility = Visibility.Collapsed;
-                Id.BorderBrush = Brushes.Gray;
-                CreateBut.IsEnabled = true;
+                ErorrID.Visibility = Visibility.Visible;
+                Id.BorderBrush = Brushes.Red;
+                CreateBut.IsEnabled = false;
             }
         }
         public bool CheckForMailInSys(string mail)
@@ -112,51 +124,21 @@ namespace PlGui
             }
         }
 
-        private void LostFocus(object sender, RoutedEventArgs e)
+        private void Phone_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            TextBox textBox = sender as TextBox;
-            if (!textBox.Text.All(char.IsLetter) || textBox.Text.Length == 0)
+           
+            var regex = @"^(?<countryCode>[\+][1-9]{1}[0-9]{0,2}\s)?(?<areaCode>0?[1-9]\d{0,4})(?<number>\s[1-9][\d]{5,12})(?<extension>\sx\d{0,4})?$";
+
+            if (Regex.IsMatch(Phone.Text, regex))
             {
-                textBox.BorderBrush = Brushes.Red;
-                CreateBut.IsEnabled = false;
+                Phone.BorderBrush = Brushes.Gray;
+                CreateBut.IsEnabled = true;
             }
             else
             {
-                textBox.BorderBrush = Brushes.Gray;
-                CreateBut.IsEnabled = true;
-            }
-        }
-
-        private void Password_LostFocus(object sender, RoutedEventArgs e)
-        {
-            PasswordBox passBox = sender as PasswordBox;
-            if (passBox.Password.Length == 0)
-            {
-                passBox.BorderBrush = Brushes.Red;
+                Phone.BorderBrush = Brushes.Red;
                 CreateBut.IsEnabled = false;
             }
-            else
-            {
-                passBox.BorderBrush = Brushes.Gray;
-                CreateBut.IsEnabled = true;
-            }
-        }
-
-
-        private void Num_LostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = sender as TextBox;
-
-            if (!textBox.Text.All(char.IsDigit) || textBox.Text.Length < 10)
-            {
-                textBox.BorderBrush = Brushes.Red;
-                CreateBut.IsEnabled = false;
-            }
-            else
-            {
-                textBox.BorderBrush = Brushes.Gray;
-                CreateBut.IsEnabled = true;
-            }
-        }
+        }        
     }
 }

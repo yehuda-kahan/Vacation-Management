@@ -357,7 +357,8 @@ namespace PlGui
 
         private void HostChangeInfoBut_Click(object sender, RoutedEventArgs e)
         {
-            if ((string)HostChangeInfoBut.Content == "עריכה")
+
+            if ((string)HostChangeInfoBut.Content == "ערוך פרטים")
             {
                 HostChangeInfoBut.Content = "שמירה";
                 HostFirstName.IsEnabled = true;
@@ -367,8 +368,13 @@ namespace PlGui
             }
             else if ((string)HostChangeInfoBut.Content == "שמירה")
             {
-                bl.UpdPerson(host.PersonalInfo);
-                HostChangeInfoBut.Content = "עריכה";
+                try { bl.UpdPerson(host.PersonalInfo); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                HostChangeInfoBut.Content = "ערוך פרטים";
                 HostFirstName.IsEnabled = false;
                 HostLastName.IsEnabled = false;
                 HostEmail.IsEnabled = false;
